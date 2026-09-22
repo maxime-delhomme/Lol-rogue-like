@@ -15,6 +15,16 @@
                     "interactions": "",
                     "initialStateCheck": true,
                     "priority": 0
+                },
+                {
+                    "name": "Spells",
+                    "type": "Button",
+                    "id": "45f560fe-f601-49f8-bae6-0edf73e2c66e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -31,12 +41,12 @@
                 },
                 {
                     "name": "",
-                    "id": "4ac06fa3-4cb8-43ec-9253-9de78948475d",
-                    "path": "<Keyboard>/space",
+                    "id": "b9a89c71-1d0e-4b97-b029-490b5117fe5e",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Spells",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

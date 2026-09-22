@@ -5,21 +5,23 @@ using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
-    const string IDLE = "idle";
-    const string WALK = "Walk";
-    
     NewInputActions _input;
     NavMeshAgent _agent;
 
     [SerializeField] LayerMask clickableLayers;
     [SerializeField] private float _speed;
+    [SerializeField] private int _health;
+    [SerializeField] private int _level;
+    [SerializeField] private int _exp;
+    private int expRequired = 10;
+    [SerializeField] private int _gold;
 
     float lookRotationSpeed = 8f;
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        
+
         _input = new NewInputActions();
         AssignInputs();
     }
@@ -27,15 +29,7 @@ public class Character : MonoBehaviour
     void AssignInputs()
     {
         _input.Player.Movement.performed += ctx => ClickToMove();
-    }
-
-    void ClickToMove()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
-        {
-            _agent.destination = hit.point;
-        }
+        _input.Player.Spells.performed += ctx => PrimarySpells();
     }
 
     void OnEnable()
@@ -51,6 +45,33 @@ public class Character : MonoBehaviour
     private void Update()
     {
         FaceTarget();
+        EarnLevel();
+    }
+    void PrimarySpells()
+    {
+        _exp += 10;
+        _gold += 10;
+    }
+
+    void EarnLevel()
+    {
+
+        if (_exp == expRequired)
+        {
+            _level += 1;
+            _exp = 0;
+            expRequired = expRequired * 2;
+            Debug.Log(expRequired);
+        }
+    }
+
+    void ClickToMove()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
+        {
+            _agent.destination = hit.point;
+        }
     }
 
     private void FaceTarget()
