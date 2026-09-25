@@ -7,7 +7,7 @@
             "id": "b34d8e64-f619-4fd7-bc31-032f58550a58",
             "actions": [
                 {
-                    "name": "Movement",
+                    "name": "Move",
                     "type": "Button",
                     "id": "c1065b30-a6a0-45d9-aef5-7191a0ad5522",
                     "expectedControlType": "",
@@ -17,7 +17,7 @@
                     "priority": 0
                 },
                 {
-                    "name": "Spells",
+                    "name": "FirstSpell",
                     "type": "Button",
                     "id": "45f560fe-f601-49f8-bae6-0edf73e2c66e",
                     "expectedControlType": "",
@@ -35,7 +35,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -46,7 +46,78 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Spells",
+                    "action": "FirstSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "81b03f87-8b20-4978-8ecd-cf633bca4d85",
+            "actions": [
+                {
+                    "name": "qte_Q",
+                    "type": "Button",
+                    "id": "722ef8bc-0a54-4cd0-b457-244ef3af3a91",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "qte_S",
+                    "type": "Button",
+                    "id": "a1d0bdf8-313f-4d78-9783-4e5568beee10",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "qte_D",
+                    "type": "Button",
+                    "id": "9c3c30af-7613-466a-b000-27ca79fe5a4a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fde52b08-ef18-491f-9120-eb488cd316ee",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "qte_Q",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c923644-cab5-4982-b1a9-df2161338d06",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "qte_S",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c1a2e04-c510-4321-92fa-bfc7a0cb6111",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "qte_D",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

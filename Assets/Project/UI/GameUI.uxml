@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/stylesheet.uss?fileID=7433441132597879392&amp;guid=c9102a053d2b342409690440b9a9f1ad&amp;type=3#stylesheet"/>
+    <ui:VisualElement name="qte-container" class="qte-container">
+        <ui:Label name="qte-title" text="QTE" class="qte-title"/>
+        <ui:VisualElement class="qte-keys">
+            <ui:Label name="key-q" text="Q" class="qte-key"/>
+            <ui:Label name="key-s" text="S" class="qte-key"/>
+            <ui:Label name="key-d" text="D" class="qte-key"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

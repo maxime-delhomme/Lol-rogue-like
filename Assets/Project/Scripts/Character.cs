@@ -5,16 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
-    NewInputActions _input;
+    [SerializeField] private InputActionAsset InputActions;
+    private InputAction m_moveAction;
     NavMeshAgent _agent;
 
     [SerializeField] LayerMask clickableLayers;
-    [SerializeField] private float _speed;
-    [SerializeField] private int _health;
-    [SerializeField] private int _level;
-    [SerializeField] private int _exp;
-    private int expRequired = 10;
-    [SerializeField] private int _gold;
 
     float lookRotationSpeed = 8f;
 
@@ -22,47 +17,27 @@ public class Character : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
 
-        _input = new NewInputActions();
-        AssignInputs();
+        m_moveAction = InputActions.FindActionMap("Player").FindAction("Move");
     }
 
-    void AssignInputs()
+    private void OnEnable()
     {
-        _input.Player.Movement.performed += ctx => ClickToMove();
-        _input.Player.Spells.performed += ctx => PrimarySpells();
+        InputActions.FindActionMap("Player").Enable();
     }
 
-    void OnEnable()
+    private void OnDisable()
     {
-        _input.Enable();
-    }
-
-    void OnDisable()
-    {
-        _input.Disable();
+        InputActions.FindActionMap("Player").Disable();
     }
 
     private void Update()
     {
-        FaceTarget();
-        EarnLevel();
-    }
-    void PrimarySpells()
-    {
-        _exp += 10;
-        _gold += 10;
-    }
-
-    void EarnLevel()
-    {
-
-        if (_exp == expRequired)
+        if(m_moveAction.WasPressedThisFrame())
         {
-            _level += 1;
-            _exp = 0;
-            expRequired = expRequired * 2;
-            Debug.Log(expRequired);
+            ClickToMove();
         }
+
+        FaceTarget();
     }
 
     void ClickToMove()
@@ -76,8 +51,16 @@ public class Character : MonoBehaviour
 
     private void FaceTarget()
     {
-        Vector3 direction = (_agent.destination - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookRotationSpeed);
+        Vector3 direction = _agent.destination - transform.position;
+        direction.y = 0;
+
+        if (direction.sqrMagnitude > 0.01f)
+        {
+            direction.Normalize();
+
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookRotationSpeed);
+        }
     }
 }
