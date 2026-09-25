@@ -143,7 +143,7 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             ""id"": ""81b03f87-8b20-4978-8ecd-cf633bca4d85"",
             ""actions"": [
                 {
-                    ""name"": ""qte_Q"",
+                    ""name"": ""qte_A"",
                     ""type"": ""Button"",
                     ""id"": ""722ef8bc-0a54-4cd0-b457-244ef3af3a91"",
                     ""expectedControlType"": """",
@@ -153,7 +153,7 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""priority"": 0
                 },
                 {
-                    ""name"": ""qte_S"",
+                    ""name"": ""qte_Z"",
                     ""type"": ""Button"",
                     ""id"": ""a1d0bdf8-313f-4d78-9783-4e5568beee10"",
                     ""expectedControlType"": """",
@@ -163,9 +163,59 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""priority"": 0
                 },
                 {
-                    ""name"": ""qte_D"",
+                    ""name"": ""qte_E"",
                     ""type"": ""Button"",
                     ""id"": ""9c3c30af-7613-466a-b000-27ca79fe5a4a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""qte_R"",
+                    ""type"": ""Button"",
+                    ""id"": ""763afb87-fb46-4a65-b72c-7bcef8e5da91"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""qte_Q"",
+                    ""type"": ""Button"",
+                    ""id"": ""959bed00-8f83-41a0-b979-5a1f2ccde074"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""qte_S"",
+                    ""type"": ""Button"",
+                    ""id"": ""6af9bcc6-fc98-461b-8a30-1b88e9825dbb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""qte_D"",
+                    ""type"": ""Button"",
+                    ""id"": ""d84b3ca1-8b9c-4de5-bc55-0133bde5f6b5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""qte_F"",
+                    ""type"": ""Button"",
+                    ""id"": ""97200f4d-3746-468f-98da-22f0931c7f4d"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -177,6 +227,50 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""fde52b08-ef18-491f-9120-eb488cd316ee"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""qte_A"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c923644-cab5-4982-b1a9-df2161338d06"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""qte_Z"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9c1a2e04-c510-4321-92fa-bfc7a0cb6111"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""qte_E"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbd09d5c-16fa-4ad1-9cb3-25277d5bd5c0"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""qte_R"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f4b31c62-d333-445b-87c0-c0b1d126eca6"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -187,7 +281,7 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2c923644-cab5-4982-b1a9-df2161338d06"",
+                    ""id"": ""47ee9399-5bc0-42cd-8127-4bd84c45d638"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -198,12 +292,23 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9c1a2e04-c510-4321-92fa-bfc7a0cb6111"",
+                    ""id"": ""19287b03-6178-4184-a267-0cf94856e98a"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""qte_D"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b291496-ca12-4840-ba10-45c460cd736e"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""qte_F"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -218,9 +323,14 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         m_Player_FirstSpell = m_Player.FindAction("FirstSpell", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_qte_A = m_UI.FindAction("qte_A", throwIfNotFound: true);
+        m_UI_qte_Z = m_UI.FindAction("qte_Z", throwIfNotFound: true);
+        m_UI_qte_E = m_UI.FindAction("qte_E", throwIfNotFound: true);
+        m_UI_qte_R = m_UI.FindAction("qte_R", throwIfNotFound: true);
         m_UI_qte_Q = m_UI.FindAction("qte_Q", throwIfNotFound: true);
         m_UI_qte_S = m_UI.FindAction("qte_S", throwIfNotFound: true);
         m_UI_qte_D = m_UI.FindAction("qte_D", throwIfNotFound: true);
+        m_UI_qte_F = m_UI.FindAction("qte_F", throwIfNotFound: true);
     }
 
     ~@NewInputActions()
@@ -409,9 +519,14 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
     // UI
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_qte_A;
+    private readonly InputAction m_UI_qte_Z;
+    private readonly InputAction m_UI_qte_E;
+    private readonly InputAction m_UI_qte_R;
     private readonly InputAction m_UI_qte_Q;
     private readonly InputAction m_UI_qte_S;
     private readonly InputAction m_UI_qte_D;
+    private readonly InputAction m_UI_qte_F;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -424,6 +539,22 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public UIActions(@NewInputActions wrapper) { m_Wrapper = wrapper; }
         /// <summary>
+        /// Provides access to the underlying input action "UI/qte_A".
+        /// </summary>
+        public InputAction @qte_A => m_Wrapper.m_UI_qte_A;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/qte_Z".
+        /// </summary>
+        public InputAction @qte_Z => m_Wrapper.m_UI_qte_Z;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/qte_E".
+        /// </summary>
+        public InputAction @qte_E => m_Wrapper.m_UI_qte_E;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/qte_R".
+        /// </summary>
+        public InputAction @qte_R => m_Wrapper.m_UI_qte_R;
+        /// <summary>
         /// Provides access to the underlying input action "UI/qte_Q".
         /// </summary>
         public InputAction @qte_Q => m_Wrapper.m_UI_qte_Q;
@@ -435,6 +566,10 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/qte_D".
         /// </summary>
         public InputAction @qte_D => m_Wrapper.m_UI_qte_D;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/qte_F".
+        /// </summary>
+        public InputAction @qte_F => m_Wrapper.m_UI_qte_F;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -461,6 +596,18 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @qte_A.started += instance.OnQte_A;
+            @qte_A.performed += instance.OnQte_A;
+            @qte_A.canceled += instance.OnQte_A;
+            @qte_Z.started += instance.OnQte_Z;
+            @qte_Z.performed += instance.OnQte_Z;
+            @qte_Z.canceled += instance.OnQte_Z;
+            @qte_E.started += instance.OnQte_E;
+            @qte_E.performed += instance.OnQte_E;
+            @qte_E.canceled += instance.OnQte_E;
+            @qte_R.started += instance.OnQte_R;
+            @qte_R.performed += instance.OnQte_R;
+            @qte_R.canceled += instance.OnQte_R;
             @qte_Q.started += instance.OnQte_Q;
             @qte_Q.performed += instance.OnQte_Q;
             @qte_Q.canceled += instance.OnQte_Q;
@@ -470,6 +617,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @qte_D.started += instance.OnQte_D;
             @qte_D.performed += instance.OnQte_D;
             @qte_D.canceled += instance.OnQte_D;
+            @qte_F.started += instance.OnQte_F;
+            @qte_F.performed += instance.OnQte_F;
+            @qte_F.canceled += instance.OnQte_F;
         }
 
         /// <summary>
@@ -481,6 +631,18 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UIActions" />
         private void UnregisterCallbacks(IUIActions instance)
         {
+            @qte_A.started -= instance.OnQte_A;
+            @qte_A.performed -= instance.OnQte_A;
+            @qte_A.canceled -= instance.OnQte_A;
+            @qte_Z.started -= instance.OnQte_Z;
+            @qte_Z.performed -= instance.OnQte_Z;
+            @qte_Z.canceled -= instance.OnQte_Z;
+            @qte_E.started -= instance.OnQte_E;
+            @qte_E.performed -= instance.OnQte_E;
+            @qte_E.canceled -= instance.OnQte_E;
+            @qte_R.started -= instance.OnQte_R;
+            @qte_R.performed -= instance.OnQte_R;
+            @qte_R.canceled -= instance.OnQte_R;
             @qte_Q.started -= instance.OnQte_Q;
             @qte_Q.performed -= instance.OnQte_Q;
             @qte_Q.canceled -= instance.OnQte_Q;
@@ -490,6 +652,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @qte_D.started -= instance.OnQte_D;
             @qte_D.performed -= instance.OnQte_D;
             @qte_D.canceled -= instance.OnQte_D;
+            @qte_F.started -= instance.OnQte_F;
+            @qte_F.performed -= instance.OnQte_F;
+            @qte_F.canceled -= instance.OnQte_F;
         }
 
         /// <summary>
@@ -553,6 +718,34 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         /// <summary>
+        /// Method invoked when associated input action "qte_A" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQte_A(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "qte_Z" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQte_Z(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "qte_E" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQte_E(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "qte_R" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQte_R(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "qte_Q" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -573,5 +766,12 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnQte_D(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "qte_F" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnQte_F(InputAction.CallbackContext context);
     }
 }

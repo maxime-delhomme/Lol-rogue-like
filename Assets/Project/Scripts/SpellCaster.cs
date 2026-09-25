@@ -9,6 +9,7 @@ public class SpellCaster : MonoBehaviour
     [SerializeField] private GameObject prefabSort;
     [SerializeField] private Transform pointDeLancement;
     [SerializeField] private float cooldown;
+    [SerializeField] private LayerMask layerSol;
 
     [Header("Preview")]
     [SerializeField] private GameObject prefabPreview;
@@ -22,10 +23,12 @@ public class SpellCaster : MonoBehaviour
     private InputAction m_spellAction;
     private GameObject previewInstance;
     private float cooldownRestant = 0f;
+    private Character player;
 
     private void Awake()
     {
         m_spellAction = InputActions.FindActionMap("Player").FindAction("FirstSpell");
+        player = GetComponent<Character>();
     }
 
     private void OnEnable()
@@ -62,7 +65,7 @@ public class SpellCaster : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, layerSol))
         {
             Vector3 position = hit.point;
 
@@ -70,7 +73,7 @@ public class SpellCaster : MonoBehaviour
             {
                 previewInstance = Instantiate(prefabPreview,position,Quaternion.identity);
 
-                //previewInstance.transform.localScale = Vector3.one * rayonSort;
+                previewInstance.transform.localScale = Vector3.one * rayonSort;
             }
 
             previewInstance.transform.position = position;
@@ -97,7 +100,7 @@ public class SpellCaster : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
-            Vector3 destination = hit.point;
+            Vector3 destination = new Vector3(hit.point.x, pointDeLancement.position.y, hit.point.z);
 
             Sort sort = Instantiate(prefabSort, pointDeLancement.position, Quaternion.identity).GetComponent<Sort>();
 
@@ -105,7 +108,12 @@ public class SpellCaster : MonoBehaviour
 
             cooldownRestant = cooldown;
 
-            qteManager.DemarrerQTE(sort);
+            if (player.PeutFaireQTE())
+            {
+                player.ConsommerRage();
+
+                qteManager.DemarrerQTE(sort);
+            }
         }
     }
 }

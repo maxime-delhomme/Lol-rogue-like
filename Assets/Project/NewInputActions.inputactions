@@ -57,7 +57,7 @@
             "id": "81b03f87-8b20-4978-8ecd-cf633bca4d85",
             "actions": [
                 {
-                    "name": "qte_Q",
+                    "name": "qte_A",
                     "type": "Button",
                     "id": "722ef8bc-0a54-4cd0-b457-244ef3af3a91",
                     "expectedControlType": "",
@@ -67,7 +67,7 @@
                     "priority": 0
                 },
                 {
-                    "name": "qte_S",
+                    "name": "qte_Z",
                     "type": "Button",
                     "id": "a1d0bdf8-313f-4d78-9783-4e5568beee10",
                     "expectedControlType": "",
@@ -77,9 +77,59 @@
                     "priority": 0
                 },
                 {
-                    "name": "qte_D",
+                    "name": "qte_E",
                     "type": "Button",
                     "id": "9c3c30af-7613-466a-b000-27ca79fe5a4a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "qte_R",
+                    "type": "Button",
+                    "id": "763afb87-fb46-4a65-b72c-7bcef8e5da91",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "qte_Q",
+                    "type": "Button",
+                    "id": "959bed00-8f83-41a0-b979-5a1f2ccde074",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "qte_S",
+                    "type": "Button",
+                    "id": "6af9bcc6-fc98-461b-8a30-1b88e9825dbb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "qte_D",
+                    "type": "Button",
+                    "id": "d84b3ca1-8b9c-4de5-bc55-0133bde5f6b5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "qte_F",
+                    "type": "Button",
+                    "id": "97200f4d-3746-468f-98da-22f0931c7f4d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -91,6 +141,50 @@
                 {
                     "name": "",
                     "id": "fde52b08-ef18-491f-9120-eb488cd316ee",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "qte_A",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c923644-cab5-4982-b1a9-df2161338d06",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "qte_Z",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c1a2e04-c510-4321-92fa-bfc7a0cb6111",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "qte_E",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dbd09d5c-16fa-4ad1-9cb3-25277d5bd5c0",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "qte_R",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f4b31c62-d333-445b-87c0-c0b1d126eca6",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -101,7 +195,7 @@
                 },
                 {
                     "name": "",
-                    "id": "2c923644-cab5-4982-b1a9-df2161338d06",
+                    "id": "47ee9399-5bc0-42cd-8127-4bd84c45d638",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -112,12 +206,23 @@
                 },
                 {
                     "name": "",
-                    "id": "9c1a2e04-c510-4321-92fa-bfc7a0cb6111",
+                    "id": "19287b03-6178-4184-a267-0cf94856e98a",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "qte_D",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b291496-ca12-4840-ba10-45c460cd736e",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "qte_F",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

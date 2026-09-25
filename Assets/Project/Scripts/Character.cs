@@ -1,17 +1,21 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
+    [Header("Input")]
     [SerializeField] private InputActionAsset InputActions;
     private InputAction m_moveAction;
+
+    [Header("Move")]
     NavMeshAgent _agent;
-
     [SerializeField] LayerMask clickableLayers;
-
     float lookRotationSpeed = 8f;
+
+    [SerializeField] private int rageMax;
+    private int rageActuelle = 0;
+
 
     private void Awake()
     {
@@ -62,5 +66,27 @@ public class Character : MonoBehaviour
 
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookRotationSpeed);
         }
+    }
+
+    public void AjouterRage(int montant)
+    {
+        rageActuelle += montant;
+
+        if(rageActuelle > rageMax)
+        {
+            rageActuelle = rageMax;
+        }
+
+        Debug.Log("Rage : " + rageActuelle + "/" + rageMax);
+    }
+
+    public bool PeutFaireQTE()
+    {
+        return rageActuelle >= rageMax;
+    }
+
+    public void ConsommerRage()
+    {
+        rageActuelle -= rageMax;
     }
 }

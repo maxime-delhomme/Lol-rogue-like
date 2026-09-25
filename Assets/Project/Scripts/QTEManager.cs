@@ -1,37 +1,58 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class QTEManager : MonoBehaviour
 {
+    [Header("input")]
     [SerializeField] private InputActionAsset inputActions;
-
-    [SerializeField] private float dureeQTE = 1f;
-    [SerializeField] private float ralentissement = 0.15f;
-
-    [SerializeField] private UIManager uiManager;
-
     private InputActionMap playerMap;
     private InputActionMap qteMap;
+    private InputAction[] qteActions;
 
-    private InputAction m_qAction;
-    private InputAction m_sAction;
-    private InputAction m_dAction;
+    [Header("Touche")]
+    private string[] nomsTouches =
+    {
+        "A",
+        "Z",
+        "E",
+        "R",
+        "Q",
+        "S",
+        "D",
+        "F"
+    };
 
-    private Sort sortActuel;
-
+    [Header("QTE")]
+    private int[] sequenceQTE = new int[3];
+    [SerializeField] private float dureeQTE = 1f;
+    [SerializeField] private float ralentissement = 0.15f;
     private int etapeActuelle = 0;
     private float tempsRestant;
     private bool qteActif = false;
+
+    [SerializeField] private UIManager uiManager;
+    private Sort sortActuel;
+
+
 
     private void Awake()
     {
         playerMap = inputActions.FindActionMap("Player");
         qteMap = inputActions.FindActionMap("UI");
 
-        m_qAction = qteMap.FindAction("qte_Q");
-        m_sAction = qteMap.FindAction("qte_S");
-        m_dAction = qteMap.FindAction("qte_D");
+        qteActions = new InputAction[]
+        {
+            qteMap.FindAction("qte_A"),
+            qteMap.FindAction("qte_Z"),
+            qteMap.FindAction("qte_E"),
+            qteMap.FindAction("qte_R"),
+            qteMap.FindAction("qte_Q"),
+            qteMap.FindAction("qte_S"),
+            qteMap.FindAction("qte_D"),
+            qteMap.FindAction("qte_F")
+        };
     }
 
     private void Update()
@@ -58,41 +79,69 @@ public class QTEManager : MonoBehaviour
         tempsRestant = dureeQTE;
         qteActif = true;
 
+        GenererSequence();
+
         playerMap.Disable();
         qteMap.Enable();
 
         Time.timeScale = ralentissement;
 
-        uiManager.AfficherUI();
+        uiManager.AfficherUI(nomsTouches[sequenceQTE[0]], nomsTouches[sequenceQTE[1]], nomsTouches[sequenceQTE[2]]);
+    }
+
+    private void GenererSequence()
+    {
+        int premiereTouche = UnityEngine.Random.Range(0, qteActions.Length);
+
+        int deuxiemeTouche = UnityEngine.Random.Range(0, qteActions.Length);
+
+        while (deuxiemeTouche == premiereTouche)
+        {
+            deuxiemeTouche = UnityEngine.Random.Range(0, qteActions.Length);
+        }
+
+        int troisiemeTouche = UnityEngine.Random.Range(0, qteActions.Length);
+
+        while (troisiemeTouche == premiereTouche || troisiemeTouche == deuxiemeTouche)
+        {
+            troisiemeTouche = UnityEngine.Random.Range(0, qteActions.Length);
+        }
+
+        sequenceQTE[0] = premiereTouche;
+        sequenceQTE[1] = deuxiemeTouche;
+        sequenceQTE[2] = troisiemeTouche;
     }
 
     private void VerifierTouche()
     {
-        switch (etapeActuelle)
+        InputAction toucheActuelle = qteActions[sequenceQTE[etapeActuelle]];
+
+        if (toucheActuelle.WasPressedThisFrame())
         {
-            case 0:
-                if (m_qAction.WasPressedThisFrame())
-                {
-                    etapeActuelle++;
-                }
+            uiManager.CacherTouche(etapeActuelle);
 
-                break;
+            etapeActuelle++;
 
-            case 1:
-                if (m_sAction.WasPressedThisFrame())
-                {
-                    etapeActuelle++;
-                }
+            if (etapeActuelle >= 3)
+            {
+                ReussirQTE();
+            }
 
-                break;
+            return;
+        }
 
-            case 2:
-                if (m_dAction.WasPressedThisFrame())
-                {
-                    ReussirQTE();
-                }
+        for (int i =0; i < qteActions.Length; i++)
+        {
+            if (i == sequenceQTE[etapeActuelle])
+            {
+                continue;
+            }
 
-                break;
+            if (qteActions[i].WasPressedThisFrame())
+            {
+                EchouerQTE();
+                return;
+            }
         }
     }
 
