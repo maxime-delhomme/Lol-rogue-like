@@ -34088,9 +34088,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1f312c907e10d4db710dafb15497f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sort
-  _speed: 25
-  _damage: 50
-  _rayonImpact: 2
-  layerEnnemi:
+  _spellData: {fileID: 11400000, guid: b412feec4b9ab8c4daa0c7b3a4b6e17e, type: 2}
+  _obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 384
+  _enemyLayer:
     serializedVersion: 2
     m_Bits: 128

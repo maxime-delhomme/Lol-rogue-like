@@ -132,7 +132,8 @@ MonoBehaviour:
   clickableLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  rageMax: 20
+  _maxHealth: 100
+  _maxRage: 100
 --- !u!114 &842282386776248204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,15 +146,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36649bc5d3d3bc34d980e76f36cdd4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellCaster
-  prefabSort: {fileID: 797428398837288437, guid: 5258175de32ac514da082da1ea71ea2f, type: 3}
-  pointDeLancement: {fileID: 4726407656457960908}
-  cooldown: 2
-  layerSol:
+  _uiManager: {fileID: 0}
+  _spellPrefab: {fileID: 797428398837288437, guid: 5258175de32ac514da082da1ea71ea2f, type: 3}
+  _launchPoint: {fileID: 4726407656457960908}
+  _cooldown: 0.5
+  _groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  prefabPreview: {fileID: 104726411675345864, guid: 958280ea908c3414487629196bb5227a, type: 3}
-  rayonSort: 2
-  qteManager: {fileID: 0}
+  _prefabPreview: {fileID: 104726411675345864, guid: 958280ea908c3414487629196bb5227a, type: 3}
+  _spellSize: 2
+  _qteManager: {fileID: 0}
   InputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
 --- !u!136 &1808360613791223323
 CapsuleCollider:

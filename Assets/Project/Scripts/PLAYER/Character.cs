@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -11,10 +12,18 @@ public class Character : MonoBehaviour
     [Header("Move")]
     NavMeshAgent _agent;
     [SerializeField] LayerMask clickableLayers;
-    float lookRotationSpeed = 8f;
+    float _lookRotationSpeed = 8f;
 
-    [SerializeField] private int rageMax;
-    private int rageActuelle = 0;
+    [Header("Statistiques")]
+    [SerializeField] private int _maxHealth;
+    private int _currentHealth;
+    [SerializeField] private int _maxRage;
+    private int _currentRage = 0;
+
+    public int CurrentHealth => _currentHealth;
+    public int MaxHealth => _maxHealth;
+    public int CurrentRage => _currentRage;
+    public int MaxRage => _maxRage;
 
 
     private void Awake()
@@ -22,6 +31,8 @@ public class Character : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
 
         m_moveAction = InputActions.FindActionMap("Player").FindAction("Move");
+
+        _currentHealth = _maxHealth;
     }
 
     private void OnEnable()
@@ -64,29 +75,46 @@ public class Character : MonoBehaviour
 
             Quaternion lookRotation = Quaternion.LookRotation(direction);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookRotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _lookRotationSpeed);
         }
     }
 
     public void AjouterRage(int montant)
     {
-        rageActuelle += montant;
+        _currentRage += montant;
 
-        if(rageActuelle > rageMax)
+        if(_currentRage > _maxRage)
         {
-            rageActuelle = rageMax;
+            _currentRage = _maxRage;
         }
 
-        Debug.Log("Rage : " + rageActuelle + "/" + rageMax);
+        Debug.Log("Rage : " + _currentRage + "/" + _maxRage);
     }
 
     public bool PeutFaireQTE()
     {
-        return rageActuelle >= rageMax;
+        return _currentRage >= _maxRage;
     }
 
     public void ConsommerRage()
     {
-        rageActuelle -= rageMax;
+        _currentRage -= _maxRage;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _currentHealth -= damage;
+
+        Debug.Log("Le joueur reçoit " + damage + " dégats. PV : " + _currentHealth + "/" + _maxHealth);
+
+        if(_maxHealth <= 0)
+        {
+            Death();
+        }
+    }
+
+    private void Death()
+    {
+        Debug.Log("Le joueur est mort");
     }
 }

@@ -6,24 +6,30 @@ public class Ennemi : MonoBehaviour
     [Header("Move")]
     [SerializeField] private Transform t_player;
     [SerializeField] private float _speedRotation = 5f;
-    private NavMeshAgent agent;
-    private Character player;
+    private NavMeshAgent _agent;
+    private Character _player;
+
+    private EnemySpawner _spawner;
 
     [Header("Statistiques")]
     [SerializeField] private int _health;
+    [SerializeField] private float _attackRange = 2f;
+    [SerializeField] private int _damage = 10;
+    [SerializeField] private float _attackDelay = 1f;
+    private float _attackCooldown = 0f;
 
     [Header("Drop")]
     [SerializeField] private int _rage = 10;
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
 
         GameObject objetPlayer = GameObject.FindWithTag("Player");
 
         if (objetPlayer != null)
         {
-            player =objetPlayer.GetComponent<Character>();
+            _player =objetPlayer.GetComponent<Character>();
             t_player = objetPlayer.transform;
         }
     }
@@ -33,9 +39,36 @@ public class Ennemi : MonoBehaviour
         if (t_player == null)
             return;
 
-        agent.SetDestination(t_player.position);
+        float distance = Vector3.Distance(transform.position, t_player.position);
+
+        if (distance > _attackRange)
+        {
+            _agent.SetDestination(t_player.position);
+        }
+        else
+        {
+            _agent.ResetPath();
+            Attaquer();
+        }
 
         TournerVersJoueur();
+    }
+
+    private void Attaquer()
+    {
+        _attackCooldown -= Time.deltaTime;
+
+        if (_attackCooldown > 0f)
+        {
+            return;
+        }
+
+        if(_player != null)
+        {
+            _player.TakeDamage(_damage);
+        }
+
+        _attackCooldown = _attackDelay;
     }
 
     private void TournerVersJoueur()
@@ -68,11 +101,21 @@ public class Ennemi : MonoBehaviour
 
     private void Death()
     {
-        if (player != null)
+        if (_player != null)
         {
-            player.AjouterRage(_rage);
+            _player.AjouterRage(_rage);
+        }
+
+        if(_spawner != null)
+        {
+            _spawner.EnemyDied();
         }
 
         Destroy(gameObject);
+    }
+
+    public void SetSpawner(EnemySpawner spawner)
+    {
+        _spawner = spawner;
     }
 }
