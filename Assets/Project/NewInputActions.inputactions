@@ -25,6 +25,36 @@
                     "interactions": "",
                     "initialStateCheck": true,
                     "priority": 0
+                },
+                {
+                    "name": "SecondSpell",
+                    "type": "Button",
+                    "id": "d36a8869-4137-4551-851a-a1aa8c12eee4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "ThirdSpell",
+                    "type": "Button",
+                    "id": "9ac6ee00-8fda-4f70-9a9f-9d008ba8db61",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "FourthSpell",
+                    "type": "Button",
+                    "id": "f48e180e-daee-4f38-ba05-e8a80b4e11b4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -47,6 +77,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "FirstSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61a10756-0277-481e-9111-4a74be462787",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fbaebe21-f1a2-4b95-9bed-9225f864a658",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThirdSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2aaa2b81-a141-46a4-99b5-49e267b15648",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FourthSpell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

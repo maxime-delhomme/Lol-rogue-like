@@ -2,59 +2,50 @@
     <Style src="project://database/Assets/Project/UI/stylesheet.uss?fileID=7433441132597879392&amp;guid=c9102a053d2b342409690440b9a9f1ad&amp;type=3#stylesheet"/>
     <ui:VisualElement name="qte-container" class="qte-container" style="justify-content: flex-start; top: auto; position: relative; left: auto; flex-grow: 1; background-color: rgba(0, 0, 0, 0.447);">
         <ui:VisualElement class="qte-keys">
-
             <ui:VisualElement name="key-container-1" class="qte-key-container">
-                <ui:Label name="key1" text="Q" class="qte-key" />
-                <ui:VisualElement name="timer1" class="qte-timer" />
+                <ui:Label name="key1" text="Q" class="qte-key"/>
+                <ui:VisualElement name="timer1" class="qte-timer"/>
             </ui:VisualElement>
-
             <ui:VisualElement name="key-container-2" class="qte-key-container">
-                <ui:Label name="key2" text="S" class="qte-key" />
-                <ui:VisualElement name="timer2" class="qte-timer" />
+                <ui:Label name="key2" text="S" class="qte-key"/>
+                <ui:VisualElement name="timer2" class="qte-timer"/>
             </ui:VisualElement>
-
             <ui:VisualElement name="key-container-3" class="qte-key-container">
-                <ui:Label name="key3" text="D" class="qte-key" />
-                <ui:VisualElement name="timer3" class="qte-timer" />
+                <ui:Label name="key3" text="D" class="qte-key"/>
+                <ui:VisualElement name="timer3" class="qte-timer"/>
             </ui:VisualElement>
-
         </ui:VisualElement>
     </ui:VisualElement>
-
-    
     <ui:VisualElement name="player-stats" class="player-stats">
-
-        <ui:Label name="health-text" text="100 / 100" class="stat-text" />
-
+        <ui:Label name="health-text" text="100 / 100" class="stat-text"/>
         <ui:VisualElement class="bar">
-            <ui:VisualElement name="health-bar" class="bar-fill health-bar" />
+            <ui:VisualElement name="health-bar" class="bar-fill health-bar"/>
         </ui:VisualElement>
-
-
-        <ui:Label name="rage-text" text="0 / 100" class="stat-text" />
-
+        <ui:Label name="rage-text" text="0 / 100" class="stat-text"/>
         <ui:VisualElement class="bar">
-            <ui:VisualElement name="rage-bar" class="bar-fill rage-bar" />
+            <ui:VisualElement name="rage-bar" class="bar-fill rage-bar"/>
         </ui:VisualElement>
-
     </ui:VisualElement>
-
-    <ui:VisualElement name="spell-ui" class="spell-ui">
-
-        <ui:VisualElement name="spell-icon-container" class="spell-icon-container">
-
-            <ui:VisualElement name="spell-icon" class="spell-icon" />
-
-            <ui:VisualElement
-                name="spell-cooldown-overlay"
-                class="spell-cooldown-overlay" />
-
-            <ui:Label
-                name="spell-cooldown-text"
-                text=""
-                class="spell-cooldown-text" />
-
+    <ui:VisualElement name="spell-ui" class="spell-ui" style="flex-direction: row; flex-grow: 0; flex-shrink: 1; flex-wrap: nowrap; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">
+        <ui:VisualElement name="spell-icon-container" class="spell-icon-container" style="flex-direction: column;">
+            <ui:VisualElement name="spell-icon" class="spell-icon"/>
+            <ui:VisualElement name="spell-cooldown-overlay-1" class="spell-cooldown-overlay"/>
+            <ui:Label name="spell-cooldown-text-1" text="" class="spell-cooldown-text"/>
         </ui:VisualElement>
-
+        <ui:VisualElement name="spell-icon-container" class="spell-icon-container">
+            <ui:VisualElement name="spell-icon" class="spell-icon"/>
+            <ui:VisualElement name="spell-cooldown-overlay-2" class="spell-cooldown-overlay"/>
+            <ui:Label name="spell-cooldown-text-2" text="" class="spell-cooldown-text"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="spell-icon-container" class="spell-icon-container">
+            <ui:VisualElement name="spell-icon" class="spell-icon"/>
+            <ui:VisualElement name="spell-cooldown-overlay-3" class="spell-cooldown-overlay"/>
+            <ui:Label name="spell-cooldown-text-3" text="" class="spell-cooldown-text"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="spell-icon-container" class="spell-icon-container">
+            <ui:VisualElement name="spell-icon" class="spell-icon"/>
+            <ui:VisualElement name="spell-cooldown-overlay-4" class="spell-cooldown-overlay"/>
+            <ui:Label name="spell-cooldown-text-4" text="" class="spell-cooldown-text"/>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

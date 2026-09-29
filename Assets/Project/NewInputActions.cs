@@ -111,6 +111,36 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": true,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""SecondSpell"",
+                    ""type"": ""Button"",
+                    ""id"": ""d36a8869-4137-4551-851a-a1aa8c12eee4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""ThirdSpell"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ac6ee00-8fda-4f70-9a9f-9d008ba8db61"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""FourthSpell"",
+                    ""type"": ""Button"",
+                    ""id"": ""f48e180e-daee-4f38-ba05-e8a80b4e11b4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -133,6 +163,39 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""FirstSpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61a10756-0277-481e-9111-4a74be462787"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondSpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbaebe21-f1a2-4b95-9bed-9225f864a658"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThirdSpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2aaa2b81-a141-46a4-99b5-49e267b15648"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FourthSpell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -237,6 +300,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_FirstSpell = m_Player.FindAction("FirstSpell", throwIfNotFound: true);
+        m_Player_SecondSpell = m_Player.FindAction("SecondSpell", throwIfNotFound: true);
+        m_Player_ThirdSpell = m_Player.FindAction("ThirdSpell", throwIfNotFound: true);
+        m_Player_FourthSpell = m_Player.FindAction("FourthSpell", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_qte_Z = m_UI.FindAction("qte_Z", throwIfNotFound: true);
@@ -326,6 +392,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_FirstSpell;
+    private readonly InputAction m_Player_SecondSpell;
+    private readonly InputAction m_Player_ThirdSpell;
+    private readonly InputAction m_Player_FourthSpell;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -345,6 +414,18 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/FirstSpell".
         /// </summary>
         public InputAction @FirstSpell => m_Wrapper.m_Player_FirstSpell;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SecondSpell".
+        /// </summary>
+        public InputAction @SecondSpell => m_Wrapper.m_Player_SecondSpell;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ThirdSpell".
+        /// </summary>
+        public InputAction @ThirdSpell => m_Wrapper.m_Player_ThirdSpell;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/FourthSpell".
+        /// </summary>
+        public InputAction @FourthSpell => m_Wrapper.m_Player_FourthSpell;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -377,6 +458,15 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @FirstSpell.started += instance.OnFirstSpell;
             @FirstSpell.performed += instance.OnFirstSpell;
             @FirstSpell.canceled += instance.OnFirstSpell;
+            @SecondSpell.started += instance.OnSecondSpell;
+            @SecondSpell.performed += instance.OnSecondSpell;
+            @SecondSpell.canceled += instance.OnSecondSpell;
+            @ThirdSpell.started += instance.OnThirdSpell;
+            @ThirdSpell.performed += instance.OnThirdSpell;
+            @ThirdSpell.canceled += instance.OnThirdSpell;
+            @FourthSpell.started += instance.OnFourthSpell;
+            @FourthSpell.performed += instance.OnFourthSpell;
+            @FourthSpell.canceled += instance.OnFourthSpell;
         }
 
         /// <summary>
@@ -394,6 +484,15 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @FirstSpell.started -= instance.OnFirstSpell;
             @FirstSpell.performed -= instance.OnFirstSpell;
             @FirstSpell.canceled -= instance.OnFirstSpell;
+            @SecondSpell.started -= instance.OnSecondSpell;
+            @SecondSpell.performed -= instance.OnSecondSpell;
+            @SecondSpell.canceled -= instance.OnSecondSpell;
+            @ThirdSpell.started -= instance.OnThirdSpell;
+            @ThirdSpell.performed -= instance.OnThirdSpell;
+            @ThirdSpell.canceled -= instance.OnThirdSpell;
+            @FourthSpell.started -= instance.OnFourthSpell;
+            @FourthSpell.performed -= instance.OnFourthSpell;
+            @FourthSpell.canceled -= instance.OnFourthSpell;
         }
 
         /// <summary>
@@ -577,6 +676,27 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFirstSpell(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SecondSpell" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSecondSpell(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ThirdSpell" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnThirdSpell(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FourthSpell" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFourthSpell(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

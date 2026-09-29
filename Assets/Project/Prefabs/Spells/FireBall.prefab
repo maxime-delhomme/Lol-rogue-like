@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 1124503021307563649}
   - component: {fileID: 2829496987107586364}
   - component: {fileID: 7932361621166941080}
-  - component: {fileID: 8646024167142378233}
+  - component: {fileID: 7727445561852080985}
+  - component: {fileID: 3308656277359127352}
   m_Layer: 0
   m_Name: FireBall
   m_TagString: Untagged
@@ -34076,7 +34077,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 797428398837288437}
   m_Mesh: {fileID: 0}
---- !u!114 &8646024167142378233
+--- !u!114 &7727445561852080985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -34085,13 +34086,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 797428398837288437}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a1f312c907e10d4db710dafb15497f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 22f0f3b74cf925e4c80471997fec5eed, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sort
-  _spellData: {fileID: 11400000, guid: b412feec4b9ab8c4daa0c7b3a4b6e17e, type: 2}
-  _obstacleLayer:
+  m_EditorClassIdentifier: Assembly-CSharp::Fireball
+--- !u!135 &3308656277359127352
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797428398837288437}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 384
-  _enemyLayer:
+    m_Bits: 0
+  m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

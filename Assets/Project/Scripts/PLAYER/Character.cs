@@ -87,8 +87,6 @@ public class Character : MonoBehaviour
         {
             _currentRage = _maxRage;
         }
-
-        Debug.Log("Rage : " + _currentRage + "/" + _maxRage);
     }
 
     public bool PeutFaireQTE()
@@ -104,8 +102,6 @@ public class Character : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _currentHealth -= damage;
-
-        Debug.Log("Le joueur reçoit " + damage + " dégats. PV : " + _currentHealth + "/" + _maxHealth);
 
         if(_maxHealth <= 0)
         {

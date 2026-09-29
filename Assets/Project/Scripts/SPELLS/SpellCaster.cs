@@ -1,139 +1,142 @@
 using System;
-using System.Runtime.CompilerServices;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class SpellCaster : MonoBehaviour
 {
+    [Header("Reference")]
+    [SerializeField] private QTEManager _qteManager;
+    [SerializeField] private Character _player;
     [SerializeField] private UIManager _uiManager;
 
-    [Header("Spell")]
-    [SerializeField] private GameObject _spellPrefab;
+    [Header("Spells")]
+    [SerializeField] private SpellData[] _spells;
     [SerializeField] private Transform _launchPoint;
-    [SerializeField] private float _cooldown = 2f;
+    [SerializeField] private Camera _camera;
     [SerializeField] private LayerMask _groundLayer;
-    private Vector3 _pendingSpellDirection;
 
-    [Header("Preview")]
-    [SerializeField] private GameObject _prefabPreview;
-    [SerializeField] private float _spellSize;
-
-    [Header("QTE")]
-    [SerializeField] private QTEManager _qteManager;
 
     [Header("Input")]
-    [SerializeField] private InputActionAsset InputActions;
-    private InputAction m_spellAction;
-    private GameObject _previewInstance;
-    private float _cooldownTimer = 0f;
-    private Character player;
-
+    [SerializeField] private InputActionAsset _inputActions;
+    private InputAction[] _spellActions;
+    private float[] _cooldownTimers;
+    private int _pendingSpellIndex = -1;
+    private Vector3 _pendingTargetPosition;
     private void Awake()
     {
-        m_spellAction = InputActions.FindActionMap("Player").FindAction("FirstSpell");
-        player = GetComponent<Character>();
+        _spellActions = new InputAction[]
+        {
+            _inputActions.FindActionMap("Player").FindAction("FirstSpell"),
+            _inputActions.FindActionMap("Player").FindAction("SecondSpell"),
+            _inputActions.FindActionMap("Player").FindAction("ThirdSpell"),
+            _inputActions.FindActionMap("Player").FindAction("FourthSpell")
+        };
+
+        _cooldownTimers = new float[_spells.Length];
+
+        _player = GameObject.FindWithTag("Player").GetComponent<Character>();
     }
 
     private void OnEnable()
     {
-        InputActions.FindActionMap("Player").Enable();
+        _inputActions.FindActionMap("Player").Enable();
     }
 
     private void OnDisable()
     {
-        InputActions.FindActionMap("Player").Disable();
+        _inputActions.FindActionMap("Player").Disable();
     }
 
     private void Update()
     {
-        if(_cooldownTimer > 0f)
+        for (int i = 0; i < _cooldownTimers.Length; i++)
         {
-            _cooldownTimer -= Time.deltaTime;
-        }
-
-        if (_uiManager != null)
-        {
-            _uiManager.UpdateCooldownSpell(_cooldownTimer, _cooldown);
-        }
-
-        if (m_spellAction.IsPressed() && _cooldownTimer <= 0f)
-        {
-            AfficherPreview();
-        }
-
-        if (m_spellAction.WasReleasedThisFrame())
-
-        {
-            LancerSort();
-            CacherPreview();
-        }
-    }
-
-    private void AfficherPreview()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f, _groundLayer))
-        {
-            Vector3 position = hit.point;
-
-            if(_previewInstance == null)
+            if (_cooldownTimers[i] > 0f)
             {
-                _previewInstance = Instantiate(_prefabPreview,position,Quaternion.identity);
-
-                _previewInstance.transform.localScale = Vector3.one * _spellSize;
+                _cooldownTimers[i] -= Time.deltaTime;
             }
 
-            _previewInstance.transform.position = position;
+            _uiManager.UpdateCooldownSpell(i, _cooldownTimers[i], _spells[i]._cooldown);
         }
-    }
 
-    private void CacherPreview()
-    {
-        if (_previewInstance != null)
+        for (int i = 0; i < _spellActions.Length; i++)
         {
-            Destroy(_previewInstance);
-            _previewInstance = null;
+            if (_spellActions[i].WasPressedThisFrame())
+            {
+                SelectionnerSort(i);
+            }
         }
     }
 
-    private void LancerSort()
+    private Vector3 GetMousePosition()
     {
-        if (_cooldownTimer > 0f)
+        Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _groundLayer))
+        {
+            return hit.point;
+        }
+
+        return transform.position;
+    }
+    private void SelectionnerSort(int index)
+    {
+        if (index >= _spells.Length)
         {
             return;
         }
 
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f, _groundLayer))
+        if (_cooldownTimers[index] > 0f)
         {
-            Vector3 destination = new Vector3(hit.point.x, _launchPoint.position.y, hit.point.z);
+            return;
+        }
 
-            Vector3 direction = (destination - _launchPoint.position).normalized;
+        _pendingSpellIndex = index;
+        _pendingTargetPosition = GetMousePosition();
 
-            _pendingSpellDirection = direction;
-
-            if (player.PeutFaireQTE())
-            {
-                player.ConsommerRage();
-
-                _qteManager.DemarrerQTE(this);
-
-                return;
-            }
-
-            LancerSort(false);
+        if (_player.PeutFaireQTE())
+        {
+            _qteManager.DemarrerQTE(this, index);
+        }
+        else
+        {
+            LancerSort(index, false);
         }
     }
 
-    public void LancerSort(bool improved)
+    public void LancerSort(int index, bool improved)
     {
-        Sort sort = Instantiate(_spellPrefab, _launchPoint.position, Quaternion.identity).GetComponent<Sort>();
+        SpellData spellData = _spells[index];
 
-        sort.Initialiser(_pendingSpellDirection, improved);
+        Vector3 targetPosition = _pendingTargetPosition;
 
-        _cooldownTimer = _cooldown;
+        Vector3 direction = targetPosition - _launchPoint.position;
+        direction.y = 0f;
+        direction.Normalize();
+
+        GameObject spellObject = Instantiate(spellData._prefab, _launchPoint.position, Quaternion.identity);
+
+        ISpell spell = spellObject.GetComponent<ISpell>();
+
+        if (spell == null)
+        {
+            Debug.LogError("Le prefab du sort ne possède pas de composant ISpell.");
+            Destroy(spellObject);
+            return;
+        }
+
+
+        SpellCastContext context = new SpellCastContext
+        {
+            _caster = transform,
+            _direction = direction,
+            _targetPosition = targetPosition,
+            _improved = improved,
+            _data = spellData
+        };
+
+        spell.Initialiser(context);
+
+        _cooldownTimers[index] = spellData._cooldown;
     }
 }

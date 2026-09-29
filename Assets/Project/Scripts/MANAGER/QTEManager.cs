@@ -1,10 +1,15 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class QTEManager : MonoBehaviour
 {
+    [SerializeField] private SpellCaster _spellCaster;
+    [SerializeField] private Character _player;
+    private int _spellIndex;
+
     [Header("input")]
     [SerializeField] private InputActionAsset _inputActions;
 
@@ -18,7 +23,6 @@ public class QTEManager : MonoBehaviour
     private InputActionMap _playerMap;
     private InputActionMap _qteMap;
     private InputAction[] _qteActions;
-    private SpellCaster _currentSpellCaster;
     private int _currentStep = 0;
     private bool _qteActive = false;
 
@@ -46,6 +50,9 @@ public class QTEManager : MonoBehaviour
             _qteMap.FindAction("qte_S"),
             _qteMap.FindAction("qte_D")
         };
+
+        _spellCaster = GameObject.FindWithTag("Player").GetComponent<SpellCaster>();
+        _player = GameObject.FindWithTag("Player").GetComponent<Character>();
     }
 
     private void Update()
@@ -133,9 +140,10 @@ public class QTEManager : MonoBehaviour
         }
     }
 
-    public void DemarrerQTE(SpellCaster spellCaster)
+    public void DemarrerQTE(SpellCaster spellCaster, int spellIndex)
     {
-        _currentSpellCaster = spellCaster;
+        _spellCaster = spellCaster;
+        _spellIndex = spellIndex;
 
         _currentStep = 0;
         _qteActive = true;
@@ -203,7 +211,8 @@ public class QTEManager : MonoBehaviour
 
         _uiManager.CacherUI();
 
-        _currentSpellCaster.LancerSort(true);
+        _spellCaster.LancerSort(_spellIndex, true);
+        _player.ConsommerRage();
     }
 
     private void EchouerQTE()
@@ -216,7 +225,10 @@ public class QTEManager : MonoBehaviour
         _playerMap.Enable();
 
         _uiManager.CacherUI();
-        _currentSpellCaster.LancerSort(false);
+
+        _spellCaster.LancerSort(_spellIndex, false);
+        _player.ConsommerRage();
+
     }
 
     private void OnDisable()

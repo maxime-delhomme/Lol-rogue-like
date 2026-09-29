@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7838002754963417751}
   - component: {fileID: 1972566437018491523}
   - component: {fileID: 8299020649687118767}
-  - component: {fileID: 8373798298189133160}
-  - component: {fileID: 842282386776248204}
   - component: {fileID: 1808360613791223323}
+  - component: {fileID: 8373798298189133160}
+  - component: {fileID: 357657529980107206}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -116,47 +116,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8373798298189133160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4148086301139987971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db886c75747a7b40be760b10d047037, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Character
-  InputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
-  clickableLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  _maxHealth: 100
-  _maxRage: 100
---- !u!114 &842282386776248204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4148086301139987971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36649bc5d3d3bc34d980e76f36cdd4a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpellCaster
-  _uiManager: {fileID: 0}
-  _spellPrefab: {fileID: 797428398837288437, guid: 5258175de32ac514da082da1ea71ea2f, type: 3}
-  _launchPoint: {fileID: 4726407656457960908}
-  _cooldown: 0.5
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _prefabPreview: {fileID: 104726411675345864, guid: 958280ea908c3414487629196bb5227a, type: 3}
-  _spellSize: 2
-  _qteManager: {fileID: 0}
-  InputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
 --- !u!136 &1808360613791223323
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -180,3 +139,39 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8373798298189133160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4148086301139987971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db886c75747a7b40be760b10d047037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  InputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
+  clickableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _maxHealth: 100
+  _maxRage: 100
+--- !u!114 &357657529980107206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4148086301139987971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36649bc5d3d3bc34d980e76f36cdd4a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpellCaster
+  _spells:
+  - {fileID: 11400000, guid: b412feec4b9ab8c4daa0c7b3a4b6e17e, type: 2}
+  - {fileID: 11400000, guid: d5e270c0b54d4624491c2a2cc4e0d7a0, type: 2}
+  - {fileID: 11400000, guid: a02c8c2b9eeb2da4ebaa81760de20882, type: 2}
+  - {fileID: 11400000, guid: 5f1727fc9a5855b4f88a8c6187f26d2a, type: 2}
+  _inputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}

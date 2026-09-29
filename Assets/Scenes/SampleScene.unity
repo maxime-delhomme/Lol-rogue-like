@@ -2351,6 +2351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd515dac144372428fe38e91ae275ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QTEManager
+  _spellCaster: {fileID: 0}
+  _player: {fileID: 0}
   _inputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
   _timerPerKey: 2
   _keyDisplayDelay: 0.1
@@ -3590,6 +3592,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 357657529980107206, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 357657529980107206, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
+      propertyPath: _uiManager
+      value: 
+      objectReference: {fileID: 1826714205}
+    - target: {fileID: 357657529980107206, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
+      propertyPath: _qteManager
+      value: 
+      objectReference: {fileID: 1265367910}
+    - target: {fileID: 357657529980107206, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
+      propertyPath: _launchPoint
+      value: 
+      objectReference: {fileID: 1574458489}
+    - target: {fileID: 357657529980107206, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
+      propertyPath: _groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 842282386776248204, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
       propertyPath: _uiManager
       value: 
@@ -3645,6 +3667,10 @@ PrefabInstance:
     - target: {fileID: 4726407656457960908, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8373798298189133160, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
+      propertyPath: _maxRage
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

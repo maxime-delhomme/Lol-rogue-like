@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78879d0fdb1b40944b2c0e2f4ae93ad4, type: 3}
   m_Name: FireballData
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
+  _prefab: {fileID: 797428398837288437, guid: 5258175de32ac514da082da1ea71ea2f, type: 3}
   _damage: 50
   _speed: 20
   _impactRadius: 3
   _range: 10
+  _cooldown: 0.5

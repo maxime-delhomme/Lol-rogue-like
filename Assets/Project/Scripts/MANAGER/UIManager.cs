@@ -19,9 +19,8 @@ public class UIManager : MonoBehaviour
     private VisualElement rageBar;
 
     [Header("Spells")]
-    private VisualElement spellIcon;
-    private VisualElement spellCooldownOverlay;
-    private Label spellCooldownText;
+    private VisualElement[] _spellCooldownOverlays;
+    private Label[] _spellCooldownTexts;
 
     private void Awake()
     {
@@ -62,9 +61,21 @@ public class UIManager : MonoBehaviour
         healthBar = root.Q<VisualElement>("health-bar");
         rageBar = root.Q<VisualElement>("rage-bar");
 
-        spellIcon = root.Q<VisualElement>("spell-icon");
-        spellCooldownOverlay = root.Q<VisualElement>("spell-cooldown-overlay");
-        spellCooldownText = root.Q<Label>("spell-cooldown-text");
+        _spellCooldownOverlays = new VisualElement[]
+        {
+            root.Q<VisualElement>("spell-cooldown-overlay-1"),
+            root.Q<VisualElement>("spell-cooldown-overlay-2"),
+            root.Q<VisualElement>("spell-cooldown-overlay-3"),
+            root.Q<VisualElement>("spell-cooldown-overlay-4")
+        };
+
+        _spellCooldownTexts = new Label[]
+        {
+            root.Q<Label>("spell-cooldown-text-1"),
+            root.Q<Label>("spell-cooldown-text-2"),
+            root.Q<Label>("spell-cooldown-text-3"),
+            root.Q<Label>("spell-cooldown-text-4")
+        };
 
         CacherUI();
     }
@@ -96,20 +107,20 @@ public class UIManager : MonoBehaviour
         rageBar.style.width = Length.Percent(pourcentage * 100f); 
     }
 
-    public void UpdateCooldownSpell(float tempsRestant, float cooldownMax)
+    public void UpdateCooldownSpell(int index, float tempsRestant, float cooldownMax)
     {
         if (tempsRestant <= 0f)
         {
-            spellCooldownOverlay.style.height = Length.Percent(0);
-            spellCooldownText.text = "";
+            _spellCooldownOverlays[index].style.height = Length.Percent(0);
+            _spellCooldownTexts[index].text = "";
             return;
         }
 
         float pourcentage = tempsRestant / cooldownMax;
 
-        spellCooldownOverlay.style.height = Length.Percent(pourcentage * 100f);
+        _spellCooldownOverlays[index].style.height = Length.Percent(pourcentage * 100f);
 
-        spellCooldownText.text = tempsRestant.ToString("0.0");
+        _spellCooldownTexts[index].text = tempsRestant.ToString("0.0");
     }
 
     public void AfficherUI(string touche1, string touche2, string touche3)
