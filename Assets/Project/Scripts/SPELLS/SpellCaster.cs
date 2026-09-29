@@ -14,6 +14,8 @@ public class SpellCaster : MonoBehaviour
     [SerializeField] private Transform _launchPoint;
     [SerializeField] private Camera _camera;
     [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private GameObject _previewPrefab;
+    private GameObject _previewObject;
 
 
     [Header("Input")]
@@ -22,6 +24,7 @@ public class SpellCaster : MonoBehaviour
     private float[] _cooldownTimers;
     private int _pendingSpellIndex = -1;
     private Vector3 _pendingTargetPosition;
+    private bool _isPreviewing = false;
     private void Awake()
     {
         _spellActions = new InputAction[]
@@ -63,23 +66,47 @@ public class SpellCaster : MonoBehaviour
         {
             if (_spellActions[i].WasPressedThisFrame())
             {
+                LancerPreview(i);
+            }
+
+            if (_spellActions[i].WasReleasedThisFrame())
+            {
                 SelectionnerSort(i);
             }
         }
-    }
 
-    private Vector3 GetMousePosition()
+
+        if (_isPreviewing)
+        {
+            _pendingTargetPosition = GetMousePosition(_spells[_pendingSpellIndex]._range);
+        }
+
+        _previewObject.transform.position = _pendingTargetPosition;
+    }
+    private Vector3 GetMousePosition(float range)
     {
         Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out RaycastHit hit, 1000f, _groundLayer))
         {
-            return hit.point;
+            Vector3 position = hit.point;
+
+            Vector3 offset = position - transform.position;
+            offset.y = 0f;
+
+            if (offset.magnitude > range)
+            {
+                offset = offset.normalized * range;
+                position = transform.position + offset;
+            }
+
+            return position;
         }
 
         return transform.position;
     }
-    private void SelectionnerSort(int index)
+
+    private void LancerPreview(int index)
     {
         if (index >= _spells.Length)
         {
@@ -92,7 +119,32 @@ public class SpellCaster : MonoBehaviour
         }
 
         _pendingSpellIndex = index;
-        _pendingTargetPosition = GetMousePosition();
+        _isPreviewing = true;
+
+        SpellData spellData = _spells[index];
+
+        _previewObject = Instantiate(_previewPrefab);
+        _previewObject.transform.localScale = Vector3.one * spellData._impactRadius * 2f;
+
+
+    }
+
+    private void SelectionnerSort(int index)
+    {
+        if (!_isPreviewing)
+        {
+            return;
+        }
+
+        if (index != _pendingSpellIndex)
+        {
+            return;
+        }
+
+        _isPreviewing = false;
+
+        Destroy(_previewObject);
+        _previewObject = null;
 
         if (_player.PeutFaireQTE())
         {

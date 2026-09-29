@@ -12,4 +12,7 @@ public class SpellData : ScriptableObject
     public float _impactRadius;
     public float _range;
     public float _cooldown;
+
+    [Header("Enhanced Stats")]
+    public float _projectileCount;
 }

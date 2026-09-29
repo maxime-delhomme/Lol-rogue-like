@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78879d0fdb1b40944b2c0e2f4ae93ad4, type: 3}
-  m_Name: LightningData
+  m_Name: ThunderBoltData
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
-  _damage: 0
+  _prefab: {fileID: 4788716778352210118, guid: 5d83a05c5986379488894e9c0775b33f, type: 3}
+  _damage: 70
   _speed: 0
-  _impactRadius: 0
-  _range: 0
+  _impactRadius: 5
+  _range: 15
+  _cooldown: 5
+  _projectileCount: 0

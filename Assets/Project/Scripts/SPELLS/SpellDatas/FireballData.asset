@@ -18,3 +18,4 @@ MonoBehaviour:
   _impactRadius: 3
   _range: 10
   _cooldown: 0.5
+  _projectileCount: 12
