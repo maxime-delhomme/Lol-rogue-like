@@ -76,12 +76,13 @@ public class SpellCaster : MonoBehaviour
         }
 
 
-        if (_isPreviewing)
+        if (_isPreviewing && _previewObject != null)
         {
             _pendingTargetPosition = GetMousePosition(_spells[_pendingSpellIndex]._range);
+            _previewObject.transform.position = _pendingTargetPosition;
         }
 
-        _previewObject.transform.position = _pendingTargetPosition;
+
     }
     private Vector3 GetMousePosition(float range)
     {
@@ -159,6 +160,11 @@ public class SpellCaster : MonoBehaviour
     public void LancerSort(int index, bool improved)
     {
         SpellData spellData = _spells[index];
+
+        if (improved && spellData._improvedSpell != null)
+        {
+            spellData = spellData._improvedSpell;
+        }
 
         Vector3 targetPosition = _pendingTargetPosition;
 

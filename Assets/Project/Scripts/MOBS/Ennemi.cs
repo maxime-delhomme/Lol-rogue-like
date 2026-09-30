@@ -1,49 +1,48 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class Ennemi : MonoBehaviour
 {
     [Header("Move")]
-    [SerializeField] private Transform t_player;
-    [SerializeField] private float _speedRotation = 5f;
+    [SerializeField] private Transform _playerTransform;
     private NavMeshAgent _agent;
     private Character _player;
-
     private EnemySpawner _spawner;
 
-    [Header("Statistiques")]
-    [SerializeField] private int _health;
-    [SerializeField] private float _attackRange = 2f;
-    [SerializeField] private int _damage = 10;
-    [SerializeField] private float _attackDelay = 1f;
+    [Header("Data")]
+    [SerializeField] private EnemyData _data;
+    private int _currentHealth;
     private float _attackCooldown = 0f;
-
-    [Header("Drop")]
-    [SerializeField] private int _rage = 10;
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = _data._moveSpeed;
 
-        GameObject objetPlayer = GameObject.FindWithTag("Player");
+        GameObject playerObject = GameObject.FindWithTag("Player");
 
-        if (objetPlayer != null)
+        if (playerObject != null)
         {
-            _player =objetPlayer.GetComponent<Character>();
-            t_player = objetPlayer.transform;
+            _player =playerObject.GetComponent<Character>();
+            _playerTransform = playerObject.transform;
         }
+
+        _currentHealth = _data._health;
+
     }
 
     private void Update()
     {
-        if (t_player == null)
+        if (_playerTransform == null)
             return;
 
-        float distance = Vector3.Distance(transform.position, t_player.position);
+        float distance = Vector3.Distance(transform.position, _playerTransform.position);
 
-        if (distance > _attackRange)
+        if (distance > _data._attackRange)
         {
-            _agent.SetDestination(t_player.position);
+            _agent.SetDestination(_playerTransform.position);
         }
         else
         {
@@ -65,15 +64,15 @@ public class Ennemi : MonoBehaviour
 
         if(_player != null)
         {
-            _player.TakeDamage(_damage);
+            _player.TakeDamage(_data._damage);
         }
 
-        _attackCooldown = _attackDelay;
+        _attackCooldown = _data._attackDelay;
     }
 
     private void TournerVersJoueur()
     {
-        Vector3 direction = t_player.position - transform.position;
+        Vector3 direction = _playerTransform.position - transform.position;
 
         direction.y = 0f;
 
@@ -83,17 +82,17 @@ public class Ennemi : MonoBehaviour
 
             Quaternion rotationCible = Quaternion.LookRotation(direction);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotationCible, Time.deltaTime * _speedRotation);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotationCible, Time.deltaTime * _data._speedRotation);
         }
     }
 
     public void TakeDamage(int damage)
     {
-        _health -= damage;
+        _currentHealth -= damage;
 
-        Debug.Log(gameObject.name + " reçoit " +  damage + " dégats. PV restants : " + _health);
+        Debug.Log(gameObject.name + " reçoit " +  damage + " dégats. PV restants : " + _currentHealth);
 
-        if(_health <= 0 )
+        if(_currentHealth <= 0 )
         {
             Death();
         }
@@ -103,7 +102,12 @@ public class Ennemi : MonoBehaviour
     {
         if (_player != null)
         {
-            _player.AjouterRage(_rage);
+            _player.AjouterRage(_data._rage);
+        }
+
+        if (LootSpawner.Instance != null)
+        {
+            LootSpawner.Instance.SpawnLoot(_data._expOrbPrefab, _data._expOrbCount, transform.position);
         }
 
         if(_spawner != null)

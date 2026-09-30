@@ -157,6 +157,8 @@ MonoBehaviour:
     m_Bits: 4294967295
   _maxHealth: 100
   _maxRage: 100
+  _experience: 0
+  _maxExperience: 100
 --- !u!114 &357657529980107206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,9 +171,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36649bc5d3d3bc34d980e76f36cdd4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellCaster
+  _qteManager: {fileID: 0}
+  _player: {fileID: 0}
+  _uiManager: {fileID: 0}
   _spells:
   - {fileID: 11400000, guid: b412feec4b9ab8c4daa0c7b3a4b6e17e, type: 2}
   - {fileID: 11400000, guid: d5e270c0b54d4624491c2a2cc4e0d7a0, type: 2}
   - {fileID: 11400000, guid: a02c8c2b9eeb2da4ebaa81760de20882, type: 2}
   - {fileID: 11400000, guid: 5f1727fc9a5855b4f88a8c6187f26d2a, type: 2}
+  _launchPoint: {fileID: 0}
+  _camera: {fileID: 0}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _previewPrefab: {fileID: 0}
   _inputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}

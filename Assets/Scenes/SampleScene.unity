@@ -2332,6 +2332,7 @@ GameObject:
   - component: {fileID: 1265367911}
   - component: {fileID: 1265367910}
   - component: {fileID: 1265367912}
+  - component: {fileID: 1265367913}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2355,8 +2356,8 @@ MonoBehaviour:
   _player: {fileID: 0}
   _inputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
   _timerPerKey: 2
-  _keyDisplayDelay: 0.1
-  _timeScale: 0
+  _keyDisplayDelay: 0.2
+  _timeScale: 0.1
   _uiManager: {fileID: 1826714205}
 --- !u!4 &1265367911
 Transform:
@@ -2392,8 +2393,22 @@ MonoBehaviour:
   - {fileID: 943815940}
   - {fileID: 1369850339}
   - {fileID: 613105875}
-  _enemyCounts: 5
+  _enemyCounts: 10
   _respawnDelay: 2
+--- !u!114 &1265367913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265367909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8661a894e64e7c46b47c2b675886f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LootSpawner
+  _spawnDelay: 0.15
+  _spawnRadius: 1.5
 --- !u!1 &1369850338
 GameObject:
   m_ObjectHideFlags: 0
@@ -3584,6 +3599,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014410369}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2035947482 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373798298189133160, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
+  m_PrefabInstance: {fileID: 366241061290600297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db886c75747a7b40be760b10d047037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
 --- !u!1001 &366241061290600297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3596,6 +3622,10 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 357657529980107206, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 2035947482}
     - target: {fileID: 357657529980107206, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
       propertyPath: _uiManager
       value: 
@@ -3671,10 +3701,6 @@ PrefabInstance:
     - target: {fileID: 4726407656457960908, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8373798298189133160, guid: f65c2d4ca7aa174408a334139601566b, type: 3}
-      propertyPath: _maxRage
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

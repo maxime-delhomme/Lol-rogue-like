@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78879d0fdb1b40944b2c0e2f4ae93ad4, type: 3}
-  m_Name: FireballData
+  m_Name: FireballImprovedData
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
-  _prefab: {fileID: 797428398837288437, guid: 5258175de32ac514da082da1ea71ea2f, type: 3}
-  _projectilePrefab: {fileID: 0}
-  _damage: 50
+  _prefab: {fileID: 797428398837288437, guid: 1a3f3c250e902de40b82654f2d65e30a, type: 3}
+  _projectilePrefab: {fileID: 797428398837288437, guid: 5258175de32ac514da082da1ea71ea2f, type: 3}
+  _damage: 100
   _speed: 20
   _impactRadius: 2
   _range: 10
-  _cooldown: 0.5
-  _projectileCount: 0
-  _projectileDelay: 0
-  _improvedSpell: {fileID: 11400000, guid: ebf4f874ca30d2b4187121317d24d859, type: 2}
+  _cooldown: 0
+  _projectileCount: 20
+  _projectileDelay: 0.05
+  _improvedSpell: {fileID: 0}

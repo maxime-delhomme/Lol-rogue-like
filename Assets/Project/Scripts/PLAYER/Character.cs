@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -19,11 +20,15 @@ public class Character : MonoBehaviour
     private int _currentHealth;
     [SerializeField] private int _maxRage;
     private int _currentRage = 0;
+    [SerializeField] private int _experience = 0;
+    [SerializeField] private int _maxExperience;
 
     public int CurrentHealth => _currentHealth;
     public int MaxHealth => _maxHealth;
     public int CurrentRage => _currentRage;
     public int MaxRage => _maxRage;
+    public int CurrentExperience => _experience;
+    public int MaxExperience => _maxExperience;
 
 
     private void Awake()
@@ -58,7 +63,7 @@ public class Character : MonoBehaviour
     void ClickToMove()
     {
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, 100, clickableLayers))
         {
             _agent.destination = hit.point;
         }
@@ -107,6 +112,18 @@ public class Character : MonoBehaviour
         {
             Death();
         }
+    }
+
+    public void GainExperience(int amount)
+    {
+        _experience += amount;
+
+        if (_experience > _maxExperience)
+        {
+            _experience = _maxExperience;
+        }
+
+        Debug.Log("XP : " + _experience + "/" + _maxExperience);
     }
 
     private void Death()

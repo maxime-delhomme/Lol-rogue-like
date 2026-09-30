@@ -4,6 +4,7 @@ using UnityEngine;
 public class SpellData : ScriptableObject
 {
     public GameObject _prefab;
+    public GameObject _projectilePrefab;
 
 
     [Header("Stats")]
@@ -12,7 +13,9 @@ public class SpellData : ScriptableObject
     public float _impactRadius;
     public float _range;
     public float _cooldown;
-
-    [Header("Enhanced Stats")]
     public float _projectileCount;
+    public float _projectileDelay;
+
+    [Header("Improved")]
+    public SpellData _improvedSpell;
 }

@@ -1166,10 +1166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a855eeb95aa45b84caf6dc20e93a665c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ennemi
-  t_player: {fileID: 0}
-  _speedRotation: 5
-  _health: 100
-  _rage: 10
+  _playerTransform: {fileID: 0}
+  _data: {fileID: 11400000, guid: 52758c09fae0e8446bd10460fc14aabd, type: 2}
 --- !u!195 &-2362462139391669675
 NavMeshAgent:
   m_ObjectHideFlags: 0
