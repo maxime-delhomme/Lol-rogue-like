@@ -4,7 +4,9 @@ using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
-    private Character player;
+    [Header("Reference")]
+    private Character _player;
+    private LevelUpManager _levelUpManager;
 
     [Header("QTE")]
     private VisualElement qteContainer;
@@ -18,6 +20,12 @@ public class UIManager : MonoBehaviour
     private VisualElement healthBar;
     private VisualElement rageBar;
 
+    [Header("LevelUp")]
+    private VisualElement _bonusContainer;
+    private Button[] _bonusButtons;
+    private Label[] _bonusNames;
+    private Label[] _bonusDescriptions;
+
     [Header("Spells")]
     private VisualElement[] _spellCooldownOverlays;
     private Label[] _spellCooldownTexts;
@@ -26,13 +34,6 @@ public class UIManager : MonoBehaviour
     {
         UIDocument uiDocument = GetComponent<UIDocument>();
         VisualElement root = uiDocument.rootVisualElement;
-
-        GameObject playerObject = GameObject.FindWithTag("Player");
-
-        if (playerObject != null)
-        {
-            player = playerObject.GetComponent<Character>();
-        }
 
         qteContainer = root.Q<VisualElement>("qte-container");
         _keys = new Label[]
@@ -77,12 +78,57 @@ public class UIManager : MonoBehaviour
             root.Q<Label>("spell-cooldown-text-4")
         };
 
+        _bonusContainer = root.Q<VisualElement>("level-up-container");
+
+        _bonusButtons = new Button[]
+        {
+            root.Q<Button>("bonus-button-1"),
+            root.Q<Button>("bonus-button-2"),
+            root.Q<Button>("bonus-button-3")
+        };
+
+        _bonusNames = new Label[]
+        {
+            root.Q<Label>("bonus-name-1"),
+            root.Q<Label>("bonus-name-2"),
+            root.Q<Label>("bonus-name-3")
+        };
+
+        _bonusDescriptions = new Label[]
+        {
+            root.Q<Label>("bonus-description-1"),
+            root.Q<Label>("bonus-description-2"),
+            root.Q<Label>("bonus-description-3")
+        };
+
+        for (int i = 0; i < _bonusButtons.Length; i++)
+        {
+            int index = i;
+
+            _bonusButtons[i].clicked += () =>
+            {
+                _levelUpManager.SelectBonus(index);
+            };
+        }
+
+
         CacherUI();
+        HideLevelUp();
+    }
+
+    public void SetPlayer(Character player)
+    {
+        _player = player;
+    }
+
+    public void SetLevelUpManager(LevelUpManager levelUpManager)
+    {
+        _levelUpManager = levelUpManager;
     }
 
     private void Update()
     {
-        if (player == null)
+        if (_player == null)
             return;
 
         UpdateVie();
@@ -91,18 +137,18 @@ public class UIManager : MonoBehaviour
 
     private void UpdateVie()
     {
-        healthText.text = player.CurrentHealth + " / " + player.MaxHealth;
+        healthText.text = _player.CurrentHealth + " / " + _player.MaxHealth;
 
-        float pourcentage = (float)player.CurrentHealth / player.MaxHealth;
+        float pourcentage = (float)_player.CurrentHealth / _player.MaxHealth;
 
         healthBar.style.width = Length.Percent(pourcentage * 100f);
     }
 
     private void UpdateRage()
     {
-        rageText.text = player.CurrentRage + " / " + player.MaxRage;
+        rageText.text = _player.CurrentRage + " / " + _player.MaxRage;
 
-        float pourcentage = (float)player.CurrentRage / player.MaxRage;
+        float pourcentage = (float)_player.CurrentRage / _player.MaxRage;
 
         rageBar.style.width = Length.Percent(pourcentage * 100f); 
     }
@@ -159,5 +205,29 @@ public class UIManager : MonoBehaviour
         float pourcentage = tempsRestant / tempsMax;
 
         _timers[index].style.height = Length.Percent(pourcentage * 100f);
+    }
+
+    public void ShowLevelUp(LevelUpBonusData[] bonus)
+    {
+        for (int i = 0; i < _bonusButtons.Length; i++)
+        {
+            if (i >= bonus.Length)
+            {
+                _bonusButtons[i].style.display = DisplayStyle.None;
+                continue;
+            }
+
+            _bonusButtons[i].style.display = DisplayStyle.Flex;
+
+            _bonusButtons[i].text = bonus[i]._bonusName;
+            _bonusDescriptions[i].text = bonus[i]._description;
+        }
+
+        _bonusContainer.style.display = DisplayStyle.Flex;
+    }
+    
+    public void HideLevelUp()
+    {
+        _bonusContainer.style.display = DisplayStyle.None;
     }
 }

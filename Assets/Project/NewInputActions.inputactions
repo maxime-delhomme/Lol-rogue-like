@@ -55,6 +55,16 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "CancelSpell",
+                    "type": "Button",
+                    "id": "b3899646-a7ae-45eb-a770-cf45f5648cc7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -110,6 +120,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "FourthSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14154f2c-05de-4825-89d9-d022441f3afe",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelSpell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

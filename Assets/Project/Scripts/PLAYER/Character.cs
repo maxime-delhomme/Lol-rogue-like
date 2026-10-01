@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,38 +7,50 @@ using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
+    [Header("Reference")]
+    private LevelUpManager _levelUpManager;
+
     [Header("Input")]
     [SerializeField] private InputActionAsset InputActions;
     private InputAction m_moveAction;
 
     [Header("Move")]
     NavMeshAgent _agent;
-    [SerializeField] LayerMask clickableLayers;
-    float _lookRotationSpeed = 8f;
+    [SerializeField] LayerMask _clickableLayers;
 
-    [Header("Statistiques")]
-    [SerializeField] private int _maxHealth;
+    [Header("Data")]
+    [SerializeField] private CharacterData _data;
     private int _currentHealth;
-    [SerializeField] private int _maxRage;
-    private int _currentRage = 0;
-    [SerializeField] private int _experience = 0;
-    [SerializeField] private int _maxExperience;
+    private int _currentRage;
+    private int _currentExperience = 0;
+    private int _level = 1;
+    private int _pendingLevelUps;
+
+    [Header("BonusStats")]
+    private int _bonusMaxHealth;
+    private float _bonusMoveSpeed;
 
     public int CurrentHealth => _currentHealth;
-    public int MaxHealth => _maxHealth;
+    public int MaxHealth => _data._maxHealth + _bonusMaxHealth;
+    public float MoveSpeed => _data._moveSpeed + _bonusMoveSpeed;
     public int CurrentRage => _currentRage;
-    public int MaxRage => _maxRage;
-    public int CurrentExperience => _experience;
-    public int MaxExperience => _maxExperience;
+    public int MaxRage => _data._maxRage;
+    public int CurrentExperience => _currentExperience;
+    public int MaxExperience => _data._maxExperience;
+    public int CurrentLevel => _level;
+    public int PendingLevelUps => _pendingLevelUps;
 
 
     private void Awake()
     {
+        _levelUpManager = GetComponent<LevelUpManager>();
+
         _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = _data._moveSpeed;
 
         m_moveAction = InputActions.FindActionMap("Player").FindAction("Move");
 
-        _currentHealth = _maxHealth;
+        _currentHealth = _data._maxHealth;
     }
 
     private void OnEnable()
@@ -63,7 +76,7 @@ public class Character : MonoBehaviour
     void ClickToMove()
     {
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, 100, clickableLayers))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, 100, _clickableLayers))
         {
             _agent.destination = hit.point;
         }
@@ -80,54 +93,94 @@ public class Character : MonoBehaviour
 
             Quaternion lookRotation = Quaternion.LookRotation(direction);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _lookRotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _data._lookRotationSpeed);
         }
+    }
+
+    public bool PeutFaireQTE()
+    {
+        return _currentRage >= _data._maxRage;
     }
 
     public void AjouterRage(int montant)
     {
         _currentRage += montant;
 
-        if(_currentRage > _maxRage)
+        if(_currentRage > _data._maxRage)
         {
-            _currentRage = _maxRage;
+            _currentRage = _data._maxRage;
         }
-    }
-
-    public bool PeutFaireQTE()
-    {
-        return _currentRage >= _maxRage;
     }
 
     public void ConsommerRage()
     {
-        _currentRage -= _maxRage;
+        _currentRage -= _data._maxRage;
     }
 
     public void TakeDamage(int damage)
     {
         _currentHealth -= damage;
 
-        if(_maxHealth <= 0)
+        if(_currentHealth <= 0)
         {
             Death();
         }
     }
 
-    public void GainExperience(int amount)
-    {
-        _experience += amount;
-
-        if (_experience > _maxExperience)
-        {
-            _experience = _maxExperience;
-        }
-
-        Debug.Log("XP : " + _experience + "/" + _maxExperience);
-    }
-
     private void Death()
     {
         Debug.Log("Le joueur est mort");
+    }
+
+    private int CalculateExperienceRequired(int level)
+    {
+        float experience = _data._baseExperience * Mathf.Pow(level, _data._experienceExponent) + _data._experienceLinearBonus * level;
+        return Mathf.RoundToInt(experience);
+    }
+
+    public void GainExperience(int amount)
+    {
+        _currentExperience += amount;
+
+        int experienceRequired = CalculateExperienceRequired(_level);
+
+        while (_currentExperience >= experienceRequired)
+        {
+            _currentExperience -= experienceRequired;
+            _level++;
+
+            _pendingLevelUps++;
+
+            experienceRequired = CalculateExperienceRequired(_level);
+        }
+
+        if (_pendingLevelUps > 0)
+        {
+            _levelUpManager.StartLevelUp();
+        }
+
+        Debug.Log("XP : " + _currentExperience + " / " + experienceRequired + " | Niveau : " + _level);
+    }
+
+    public void ConsumePendingLevelUp()
+    {
+        _pendingLevelUps--;
+    }
+
+
+    public void ApplyBonus(LevelUpBonusData bonus)
+    {
+        switch (bonus._type)
+        {
+            case LevelUpBonusType.MaxHealth:
+                _bonusMaxHealth += Mathf.RoundToInt(bonus._value);
+                _currentHealth += Mathf.RoundToInt(bonus._value);
+                break;
+
+            case LevelUpBonusType.MoveSpeed:
+                _bonusMoveSpeed += bonus._value;
+                _agent.speed = MoveSpeed;
+                break;
+        }
     }
 }

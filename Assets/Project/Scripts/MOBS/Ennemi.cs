@@ -16,10 +16,16 @@ public class Ennemi : MonoBehaviour
     private int _currentHealth;
     private float _attackCooldown = 0f;
 
+    public void Initialiser(EnemyData data)
+    {
+        _data = data;
+        _currentHealth = _data._health;
+        _agent.speed = _data._moveSpeed;
+    }
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = _data._moveSpeed;
 
         GameObject playerObject = GameObject.FindWithTag("Player");
 
@@ -28,9 +34,6 @@ public class Ennemi : MonoBehaviour
             _player =playerObject.GetComponent<Character>();
             _playerTransform = playerObject.transform;
         }
-
-        _currentHealth = _data._health;
-
     }
 
     private void Update()

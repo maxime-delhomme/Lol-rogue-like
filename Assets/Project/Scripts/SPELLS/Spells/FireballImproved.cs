@@ -18,7 +18,7 @@ public class FireballImproved : MonoBehaviour, ISpell
     {
         for (int i = 0; i < _data._projectileCount; i++)
         {
-            float angle = 720f / _data._projectileCount * i;
+            float angle = 1440f / _data._projectileCount * i;
 
             Vector3 direction = Quaternion.Euler(0f, angle, 0f) * Vector3.forward;
 

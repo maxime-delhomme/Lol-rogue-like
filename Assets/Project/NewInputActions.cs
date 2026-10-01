@@ -141,6 +141,16 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""CancelSpell"",
+                    ""type"": ""Button"",
+                    ""id"": ""b3899646-a7ae-45eb-a770-cf45f5648cc7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -196,6 +206,17 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""FourthSpell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14154f2c-05de-4825-89d9-d022441f3afe"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelSpell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -303,6 +324,7 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         m_Player_SecondSpell = m_Player.FindAction("SecondSpell", throwIfNotFound: true);
         m_Player_ThirdSpell = m_Player.FindAction("ThirdSpell", throwIfNotFound: true);
         m_Player_FourthSpell = m_Player.FindAction("FourthSpell", throwIfNotFound: true);
+        m_Player_CancelSpell = m_Player.FindAction("CancelSpell", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_qte_Z = m_UI.FindAction("qte_Z", throwIfNotFound: true);
@@ -395,6 +417,7 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SecondSpell;
     private readonly InputAction m_Player_ThirdSpell;
     private readonly InputAction m_Player_FourthSpell;
+    private readonly InputAction m_Player_CancelSpell;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -426,6 +449,10 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/FourthSpell".
         /// </summary>
         public InputAction @FourthSpell => m_Wrapper.m_Player_FourthSpell;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/CancelSpell".
+        /// </summary>
+        public InputAction @CancelSpell => m_Wrapper.m_Player_CancelSpell;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -467,6 +494,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @FourthSpell.started += instance.OnFourthSpell;
             @FourthSpell.performed += instance.OnFourthSpell;
             @FourthSpell.canceled += instance.OnFourthSpell;
+            @CancelSpell.started += instance.OnCancelSpell;
+            @CancelSpell.performed += instance.OnCancelSpell;
+            @CancelSpell.canceled += instance.OnCancelSpell;
         }
 
         /// <summary>
@@ -493,6 +523,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @FourthSpell.started -= instance.OnFourthSpell;
             @FourthSpell.performed -= instance.OnFourthSpell;
             @FourthSpell.canceled -= instance.OnFourthSpell;
+            @CancelSpell.started -= instance.OnCancelSpell;
+            @CancelSpell.performed -= instance.OnCancelSpell;
+            @CancelSpell.canceled -= instance.OnCancelSpell;
         }
 
         /// <summary>
@@ -697,6 +730,13 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFourthSpell(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CancelSpell" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCancelSpell(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

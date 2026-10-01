@@ -6,7 +6,7 @@ public class SpellCaster : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] private QTEManager _qteManager;
-    [SerializeField] private Character _player;
+    private Character _player;
     [SerializeField] private UIManager _uiManager;
 
     [Header("Spells")]
@@ -21,12 +21,15 @@ public class SpellCaster : MonoBehaviour
     [Header("Input")]
     [SerializeField] private InputActionAsset _inputActions;
     private InputAction[] _spellActions;
+    private InputAction _cancelSpellAction;
     private float[] _cooldownTimers;
     private int _pendingSpellIndex = -1;
     private Vector3 _pendingTargetPosition;
     private bool _isPreviewing = false;
     private void Awake()
     {
+        _player = GetComponent<Character>();
+
         _spellActions = new InputAction[]
         {
             _inputActions.FindActionMap("Player").FindAction("FirstSpell"),
@@ -34,10 +37,9 @@ public class SpellCaster : MonoBehaviour
             _inputActions.FindActionMap("Player").FindAction("ThirdSpell"),
             _inputActions.FindActionMap("Player").FindAction("FourthSpell")
         };
+        _cancelSpellAction = _inputActions.FindActionMap("Player").FindAction("CancelSpell");
 
         _cooldownTimers = new float[_spells.Length];
-
-        _player = GameObject.FindWithTag("Player").GetComponent<Character>();
     }
 
     private void OnEnable()
@@ -48,6 +50,21 @@ public class SpellCaster : MonoBehaviour
     private void OnDisable()
     {
         _inputActions.FindActionMap("Player").Disable();
+    }
+
+    public void SetQTEManager(QTEManager qteManager)
+    {
+        _qteManager = qteManager;
+    }
+
+    public void SetCamera(Camera camera)
+    {
+        _camera = camera;
+    }
+
+    public void SetUIManager(UIManager uiManager)
+    {
+        _uiManager = uiManager;
     }
 
     private void Update()
@@ -75,6 +92,11 @@ public class SpellCaster : MonoBehaviour
             }
         }
 
+        if (_isPreviewing && _cancelSpellAction.WasPressedThisFrame())
+        {
+            AnnulerPreview();
+            return;
+        }
 
         if (_isPreviewing && _previewObject != null)
         {
@@ -84,6 +106,19 @@ public class SpellCaster : MonoBehaviour
 
 
     }
+
+    private void AnnulerPreview()
+    {
+        _isPreviewing = false;
+        _pendingSpellIndex = -1;
+
+        if (_previewObject != null)
+        {
+            Destroy(_previewObject);
+            _previewObject = null;
+        }
+    }
+
     private Vector3 GetMousePosition(float range)
     {
         Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -144,8 +179,11 @@ public class SpellCaster : MonoBehaviour
 
         _isPreviewing = false;
 
-        Destroy(_previewObject);
-        _previewObject = null;
+        if (_previewObject != null)
+        {
+            Destroy(_previewObject);
+            _previewObject = null;
+        }
 
         if (_player.PeutFaireQTE())
         {
@@ -155,6 +193,8 @@ public class SpellCaster : MonoBehaviour
         {
             LancerSort(index, false);
         }
+
+        _pendingSpellIndex = -1;
     }
 
     public void LancerSort(int index, bool improved)

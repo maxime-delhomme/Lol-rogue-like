@@ -2,10 +2,15 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform target;
+    [SerializeField] private Transform target;
 
-    public float smoothSpeed = 8f;
-    public Vector3 offset;
+    [SerializeField] private float smoothSpeed = 8f;
+    [SerializeField] private Vector3 offset;
+
+    public void SetTarget(Transform playerTransform)
+    {
+        target = playerTransform;
+    }
 
     void Update()
     {

@@ -19,6 +19,6 @@ MonoBehaviour:
   _impactRadius: 2
   _range: 10
   _cooldown: 0
-  _projectileCount: 20
+  _projectileCount: 50
   _projectileDelay: 0.05
   _improvedSpell: {fileID: 0}

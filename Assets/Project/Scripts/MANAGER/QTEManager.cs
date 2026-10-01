@@ -12,6 +12,9 @@ public class QTEManager : MonoBehaviour
 
     [Header("input")]
     [SerializeField] private InputActionAsset _inputActions;
+    private InputActionMap _playerMap;
+    private InputActionMap _qteMap;
+    private InputAction[] _qteActions;
 
     [Header("QTE")]
     [SerializeField] private float _timerPerKey;
@@ -20,9 +23,7 @@ public class QTEManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private UIManager _uiManager;
-    private InputActionMap _playerMap;
-    private InputActionMap _qteMap;
-    private InputAction[] _qteActions;
+
     private int _currentStep = 0;
     private bool _qteActive = false;
 
@@ -50,9 +51,15 @@ public class QTEManager : MonoBehaviour
             _qteMap.FindAction("qte_S"),
             _qteMap.FindAction("qte_D")
         };
+    }
 
-        _spellCaster = GameObject.FindWithTag("Player").GetComponent<SpellCaster>();
-        _player = GameObject.FindWithTag("Player").GetComponent<Character>();
+    public void SetPlayer(Character player)
+    {
+        _player = player;
+    }
+    public void SetSpellCaster(SpellCaster spellCaster)
+    {
+        _spellCaster = spellCaster;
     }
 
     private void Update()

@@ -48,4 +48,85 @@
             <ui:Label name="spell-cooldown-text-4" text="" class="spell-cooldown-text"/>
         </ui:VisualElement>
     </ui:VisualElement>
+
+    <ui:VisualElement name="level-up-container" class="level-up-container">
+
+        <ui:Label
+            text="LEVEL UP !"
+            name="level-up-title"
+            class="level-up-title" />
+
+        <ui:Label
+            text="Choisissez un bonus"
+            name="level-up-subtitle"
+            class="level-up-subtitle" />
+
+        <ui:VisualElement
+            name="bonus-container"
+            class="bonus-container">
+
+            <ui:Button
+                name="bonus-button-1"
+                class="bonus-button">
+
+                <ui:VisualElement class="bonus-content">
+
+                    <ui:Label
+                        name="bonus-name-1"
+                        text="Bonus"
+                        class="bonus-name" />
+
+                    <ui:Label
+                        name="bonus-description-1"
+                        text="Description du bonus"
+                        class="bonus-description" />
+
+                </ui:VisualElement>
+
+            </ui:Button>
+
+            <ui:Button
+                name="bonus-button-2"
+                class="bonus-button">
+
+                <ui:VisualElement class="bonus-content">
+
+                    <ui:Label
+                        name="bonus-name-2"
+                        text="Bonus"
+                        class="bonus-name" />
+
+                    <ui:Label
+                        name="bonus-description-2"
+                        text="Description du bonus"
+                        class="bonus-description" />
+
+                </ui:VisualElement>
+
+            </ui:Button>
+
+            <ui:Button
+                name="bonus-button-3"
+                class="bonus-button">
+
+                <ui:VisualElement class="bonus-content">
+
+                    <ui:Label
+                        name="bonus-name-3"
+                        text="Bonus"
+                        class="bonus-name" />
+
+                    <ui:Label
+                        name="bonus-description-3"
+                        text="Description du bonus"
+                        class="bonus-description" />
+
+                </ui:VisualElement>
+
+            </ui:Button>
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
 </ui:UXML>
