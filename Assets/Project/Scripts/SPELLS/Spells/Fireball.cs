@@ -1,15 +1,15 @@
-using System;
 using UnityEngine;
-using UnityEngine.AdaptivePerformance;
 
 public class Fireball : MonoBehaviour, ISpell
 {
     private SpellData _data;
+    private Character _caster;
     private Vector3 _direction;
     private Vector3 _startPosition;
     public void Initialiser(SpellCastContext context)
     {
         _data = context._data;
+        _caster = context._caster.GetComponent<Character>();
         _direction = context._direction;
         _startPosition = transform.position;
     }
@@ -53,7 +53,7 @@ public class Fireball : MonoBehaviour, ISpell
                 continue; 
             }
 
-            int damage = _data._damage;
+            int damage = _caster.CalculateSpellDamage(_data._damage);
 
             enemy.TakeDamage(damage);
         }

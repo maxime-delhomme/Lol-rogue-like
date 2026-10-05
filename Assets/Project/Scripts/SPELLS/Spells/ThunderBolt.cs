@@ -1,14 +1,14 @@
-using System;
 using UnityEngine;
-using UnityEngine.AdaptivePerformance;
 
 public class ThunderBolt : MonoBehaviour, ISpell
 {
     private SpellData _data;
+    private Character _caster;
 
     public void Initialiser(SpellCastContext context)
     {
         _data = context._data;
+        _caster = context._caster.GetComponent<Character>();
 
         transform.position = context._targetPosition;
 
@@ -28,8 +28,9 @@ public class ThunderBolt : MonoBehaviour, ISpell
             {
                 continue;
             }
+            int damage = _caster.CalculateSpellDamage(_data._damage);
 
-            enemy.TakeDamage(_data._damage);
+            enemy.TakeDamage(damage);
         }
 
         Destroy(gameObject);

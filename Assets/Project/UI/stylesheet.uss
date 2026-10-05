@@ -208,3 +208,23 @@
 
     -unity-text-align: middle-center;
 }
+
+.experience-bar-background {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 12px;
+
+    background-color: rgba(20, 20, 20, 0.8);
+}
+
+.experience-bar {
+    width: 0%;
+
+    height: 100%;
+
+    background-color: rgb(40, 140, 255);
+}

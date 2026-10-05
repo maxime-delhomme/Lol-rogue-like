@@ -199,4 +199,13 @@ MonoBehaviour:
   _inputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
   _bonusPool:
   - {fileID: 11400000, guid: 9c3c579e3c080d3488eefa4d5a479cad, type: 2}
+  - {fileID: 11400000, guid: 1ea4603d9b298834599306087e47a78b, type: 2}
+  - {fileID: 11400000, guid: e4ddd8cf049f554418101194deff84a7, type: 2}
+  - {fileID: 11400000, guid: c405a3d8ce1333941a5dffdf16f2aaaf, type: 2}
+  - {fileID: 11400000, guid: b39eb91203680d34faf29cf1c9369bee, type: 2}
+  - {fileID: 11400000, guid: e1c96c518979ea84393ca37236f36753, type: 2}
+  - {fileID: 11400000, guid: 98c6d4ab188874141b33119bf3581794, type: 2}
+  - {fileID: 11400000, guid: 560307052bbf42c4fbb0120b23727458, type: 2}
   - {fileID: 11400000, guid: e8bbcd85929065e4099047b53a8d5c91, type: 2}
+  - {fileID: 11400000, guid: 0319b905ec27eea4bb7f6d4c2798c474, type: 2}
+  - {fileID: 11400000, guid: 2a026b80efaff134b8d5e27eb69fa8b2, type: 2}

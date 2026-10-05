@@ -5,12 +5,26 @@ public class CharacterData : ScriptableObject
 {
     [Header("Reference")]
 
-    [Header("Statistiques")]
+
+    [Header("InGameStats")]
     public int _maxHealth;
+    public float _lifeSteal;
+    public int _armor;
+    public int _damage;
+    public float _critChance;
+    public float _critDamage;
+    public int _range;
+    public float _abilityHaste;
+    public float _moveSpeed;
+    public float _luck;
+    public float _xpGain;
+
+
+    [Header("OffStats")]
     public int _maxRage;
     public int _maxExperience;
-    public int _moveSpeed;
     public float _lookRotationSpeed;
+
 
     [Header("Experience")]
     public float _baseExperience;

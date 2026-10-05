@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
     private Button[] _bonusButtons;
     private Label[] _bonusNames;
     private Label[] _bonusDescriptions;
+    private VisualElement _experienceBar;
+    private Label _levelUpTitle;
 
     [Header("Spells")]
     private VisualElement[] _spellCooldownOverlays;
@@ -87,6 +89,16 @@ public class UIManager : MonoBehaviour
             root.Q<Button>("bonus-button-3")
         };
 
+        for (int i = 0; i < _bonusButtons.Length; i++)
+        {
+            int index = i;
+
+            _bonusButtons[i].clicked += () =>
+            {
+                _levelUpManager.SelectBonus(index);
+            };
+        }
+
         _bonusNames = new Label[]
         {
             root.Q<Label>("bonus-name-1"),
@@ -101,15 +113,9 @@ public class UIManager : MonoBehaviour
             root.Q<Label>("bonus-description-3")
         };
 
-        for (int i = 0; i < _bonusButtons.Length; i++)
-        {
-            int index = i;
+        _experienceBar = root.Q<VisualElement>("experience-bar");
 
-            _bonusButtons[i].clicked += () =>
-            {
-                _levelUpManager.SelectBonus(index);
-            };
-        }
+        _levelUpTitle = root.Q<Label>("level-up-title");
 
 
         CacherUI();
@@ -133,6 +139,7 @@ public class UIManager : MonoBehaviour
 
         UpdateVie();
         UpdateRage();
+        UpdateExperience();
     }
 
     private void UpdateVie()
@@ -151,6 +158,12 @@ public class UIManager : MonoBehaviour
         float pourcentage = (float)_player.CurrentRage / _player.MaxRage;
 
         rageBar.style.width = Length.Percent(pourcentage * 100f); 
+    }
+    private void UpdateExperience()
+    {
+        float pourcentage = (float)_player.CurrentExperience / _player.ExperienceRequired;
+
+        _experienceBar.style.width = Length.Percent(pourcentage * 100f);
     }
 
     public void UpdateCooldownSpell(int index, float tempsRestant, float cooldownMax)
@@ -209,6 +222,8 @@ public class UIManager : MonoBehaviour
 
     public void ShowLevelUp(LevelUpBonusData[] bonus)
     {
+        _levelUpTitle.text = "Level UP ! Niveau " + _player.CurrentLevel;
+
         for (int i = 0; i < _bonusButtons.Length; i++)
         {
             if (i >= bonus.Length)

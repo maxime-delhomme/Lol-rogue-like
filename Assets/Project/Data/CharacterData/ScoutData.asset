@@ -13,9 +13,18 @@ MonoBehaviour:
   m_Name: ScoutData
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   _maxHealth: 100
+  _lifeSteal: 0
+  _armor: 0
+  _damage: 20
+  _critChance: 0
+  _critDamage: 0
+  _range: 0
+  _abilityHaste: 0
+  _moveSpeed: 6
+  _luck: 0
+  _xpGain: 0
   _maxRage: 100
   _maxExperience: 100
-  _moveSpeed: 5
   _lookRotationSpeed: 1
   _baseExperience: 50
   _experienceExponent: 1.25

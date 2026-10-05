@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
   _prefab: {fileID: 797428398837288437, guid: 5258175de32ac514da082da1ea71ea2f, type: 3}
   _projectilePrefab: {fileID: 0}
-  _damage: 50
+  _damage: 10
   _speed: 20
   _impactRadius: 2
   _range: 10

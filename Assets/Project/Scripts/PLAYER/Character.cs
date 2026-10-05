@@ -1,6 +1,4 @@
 using System;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -23,20 +21,26 @@ public class Character : MonoBehaviour
     private int _currentHealth;
     private int _currentRage;
     private int _currentExperience = 0;
+    private int _experienceRequired;
     private int _level = 1;
     private int _pendingLevelUps;
 
     [Header("BonusStats")]
     private int _bonusMaxHealth;
+    private int _bonusDamage;
     private float _bonusMoveSpeed;
+    private float _damageAugments = 1f;
 
     public int CurrentHealth => _currentHealth;
     public int MaxHealth => _data._maxHealth + _bonusMaxHealth;
     public float MoveSpeed => _data._moveSpeed + _bonusMoveSpeed;
+    public int Damage => _data._damage;
+    public float DamageAugments => _damageAugments;
+    public int BonusDamage => _bonusDamage;
     public int CurrentRage => _currentRage;
     public int MaxRage => _data._maxRage;
     public int CurrentExperience => _currentExperience;
-    public int MaxExperience => _data._maxExperience;
+    public int ExperienceRequired => _experienceRequired;
     public int CurrentLevel => _level;
     public int PendingLevelUps => _pendingLevelUps;
 
@@ -142,24 +146,22 @@ public class Character : MonoBehaviour
     {
         _currentExperience += amount;
 
-        int experienceRequired = CalculateExperienceRequired(_level);
+        _experienceRequired = CalculateExperienceRequired(_level);
 
-        while (_currentExperience >= experienceRequired)
+        while (_currentExperience >= _experienceRequired)
         {
-            _currentExperience -= experienceRequired;
+            _currentExperience -= _experienceRequired;
             _level++;
 
             _pendingLevelUps++;
 
-            experienceRequired = CalculateExperienceRequired(_level);
+            _experienceRequired = CalculateExperienceRequired(_level);
         }
 
         if (_pendingLevelUps > 0)
         {
             _levelUpManager.StartLevelUp();
         }
-
-        Debug.Log("XP : " + _currentExperience + " / " + experienceRequired + " | Niveau : " + _level);
     }
 
     public void ConsumePendingLevelUp()
@@ -181,6 +183,21 @@ public class Character : MonoBehaviour
                 _bonusMoveSpeed += bonus._value;
                 _agent.speed = MoveSpeed;
                 break;
+
+            case LevelUpBonusType.Damage:
+                int damageBonus = Mathf.RoundToInt(bonus._value);
+                _bonusDamage += damageBonus;
+                break;
         }
+    }
+
+    public int CalculateSpellDamage(int spellDamage)
+    {
+        float damage = (Damage + spellDamage + BonusDamage) * DamageAugments;
+        Debug.Log(damage);
+
+        return Mathf.RoundToInt(damage);
+
+
     }
 }

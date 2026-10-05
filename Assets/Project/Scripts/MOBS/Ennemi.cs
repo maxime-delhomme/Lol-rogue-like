@@ -93,8 +93,6 @@ public class Ennemi : MonoBehaviour
     {
         _currentHealth -= damage;
 
-        Debug.Log(gameObject.name + " reçoit " +  damage + " dégats. PV restants : " + _currentHealth);
-
         if(_currentHealth <= 0 )
         {
             Death();

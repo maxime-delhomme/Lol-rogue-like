@@ -21,10 +21,7 @@ public class EnemySpawner : MonoBehaviour
     public void SetPlayer(Character player)
     {
         _player = player;
-    }
 
-    private void Start()
-    {
         StartCoroutine(SpawnEnemiesCoroutine());
     }
 
@@ -40,6 +37,12 @@ public class EnemySpawner : MonoBehaviour
 
     private bool TryGetSpawnPosition(out Vector3 spawnPosition)
     {
+        if (_player == null)
+        {
+            spawnPosition = Vector3.zero;
+            return false;
+        }
+
         NavMeshTriangulation navMesh = NavMesh.CalculateTriangulation();
 
         for (int i = 0; i < _maxSpawnAttemps; i++)

@@ -129,4 +129,8 @@
 
     </ui:VisualElement>
 
+    <ui:VisualElement name="experience-bar-background" class="experience-bar-background">
+        <ui:VisualElement name="experience-bar" class="experience-bar" />
+    </ui:VisualElement>
+
 </ui:UXML>

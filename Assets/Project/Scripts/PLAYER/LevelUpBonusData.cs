@@ -3,7 +3,16 @@ using UnityEngine;
 public enum LevelUpBonusType
 {
     MaxHealth,
+    LifeSteal,
+    Armor,
+    Damage,
+    CriticalChance,
+    CriticalDamage,
+    Range,
+    AbilityHaste,
     MoveSpeed,
+    Luck,
+    xpGain,
 }
 
 [CreateAssetMenu(menuName = "Level Up/Bonus Data")]

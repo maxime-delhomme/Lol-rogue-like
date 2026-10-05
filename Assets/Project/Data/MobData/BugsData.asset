@@ -19,7 +19,7 @@ MonoBehaviour:
   _damage: 5
   _attackDelay: 1
   _speedRotation: 5
-  _moveSpeed: 5
+  _moveSpeed: 3
   _rage: 3
   _expOrbPrefab: {fileID: 4572596115547054076, guid: 5386c85745aa3724da2e336c841d08fb, type: 3}
   _expOrbCount: 2
