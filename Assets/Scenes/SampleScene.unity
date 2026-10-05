@@ -2334,6 +2334,7 @@ GameObject:
   - component: {fileID: 1265367910}
   - component: {fileID: 1265367912}
   - component: {fileID: 1265367913}
+  - component: {fileID: 1265367915}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2424,6 +2425,20 @@ MonoBehaviour:
   _qteManager: {fileID: 1265367910}
   _uiManager: {fileID: 1826714205}
   _enemySpawner: {fileID: 1265367912}
+  _rarityManager: {fileID: 1265367915}
+--- !u!114 &1265367915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265367909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f0fc9580ceaff4a9ef8e49d97e0786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RarityManager
+  _rarityData: {fileID: 11400000, guid: c3b44220ff8c44a44aa121a1a20afb26, type: 2}
 --- !u!1 &1369850338
 GameObject:
   m_ObjectHideFlags: 0

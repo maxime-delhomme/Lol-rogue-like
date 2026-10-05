@@ -76,7 +76,8 @@ public class SpellCaster : MonoBehaviour
                 _cooldownTimers[i] -= Time.deltaTime;
             }
 
-            _uiManager.UpdateCooldownSpell(i, _cooldownTimers[i], _spells[i]._cooldown);
+            float cooldown = _player.CalculateSpellCooldown(_spells[i]._cooldown);
+            _uiManager.UpdateCooldownSpell(i, _cooldownTimers[i], cooldown);
         }
 
         for (int i = 0; i < _spellActions.Length; i++)
@@ -100,7 +101,8 @@ public class SpellCaster : MonoBehaviour
 
         if (_isPreviewing && _previewObject != null)
         {
-            _pendingTargetPosition = GetMousePosition(_spells[_pendingSpellIndex]._range);
+            int range = _player.CalculateSpellRange(_spells[_pendingSpellIndex]._range);
+            _pendingTargetPosition = GetMousePosition(range);
             _previewObject.transform.position = _pendingTargetPosition;
         }
 
@@ -119,7 +121,7 @@ public class SpellCaster : MonoBehaviour
         }
     }
 
-    private Vector3 GetMousePosition(float range)
+    private Vector3 GetMousePosition(int range)
     {
         Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
@@ -235,6 +237,6 @@ public class SpellCaster : MonoBehaviour
 
         spell.Initialiser(context);
 
-        _cooldownTimers[index] = spellData._cooldown;
+        _cooldownTimers[index] = _player.CalculateSpellCooldown(spellData._cooldown);
     }
 }

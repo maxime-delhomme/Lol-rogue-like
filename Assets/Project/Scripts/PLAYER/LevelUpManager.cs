@@ -6,6 +6,8 @@ public class LevelUpManager : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] private UIManager _uiManager;
+    [SerializeField] private RarityManager _rarityManager;
+    [SerializeField] private LevelUpBonusData[] _availableBonus;
     private Character _player;
     [Header("Input")]
     [SerializeField] private InputActionAsset _inputActions;
@@ -23,6 +25,11 @@ public class LevelUpManager : MonoBehaviour
     public void SetUIManager(UIManager uiManager)
     {
         _uiManager = uiManager;
+    }
+
+    public void SetRarityManager(RarityManager rarityManager)
+    {
+        _rarityManager = rarityManager;
     }
 
     public void StartLevelUp()
@@ -48,9 +55,13 @@ public class LevelUpManager : MonoBehaviour
             if (availableBonus.Count == 0)
                 break;
 
-            int randomIndex = Random.Range(0,availableBonus.Count);
-            _currentBonus.Add(availableBonus[randomIndex]);
-            availableBonus.RemoveAt(randomIndex);
+            LevelUpBonusData bonus = GetRandomBonus(availableBonus);
+
+            if (bonus == null)
+                break;
+
+            _currentBonus.Add(bonus);
+            availableBonus.Remove(bonus);
         }
     }
 
@@ -78,5 +89,21 @@ public class LevelUpManager : MonoBehaviour
         _inputActions.FindActionMap("UI").Disable();
 
         Time.timeScale = 1f;
+    }
+
+    private LevelUpBonusData GetRandomBonus(List<LevelUpBonusData> availableBonus)
+    {
+        BonusRarity rarity = _rarityManager.GetRandomRarity(_player.Luck);
+
+        List<LevelUpBonusData> matchingBonus = availableBonus.FindAll(bonus => bonus._rarity == rarity);
+
+        if (matchingBonus.Count == 0)
+        {
+            return null;
+        }
+
+        int index = Random.Range(0, matchingBonus.Count);
+
+        return matchingBonus[index];
     }
 }

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private QTEManager _qteManager;
     [SerializeField] private UIManager _uiManager;
     [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private RarityManager _rarityManager;
 
     private void Start()
     {
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
         _uiManager.SetLevelUpManager(levelUpManager);
 
         levelUpManager.SetUIManager(_uiManager);
+        levelUpManager.SetRarityManager(_rarityManager);
 
         _enemySpawner.SetPlayer(player);
 

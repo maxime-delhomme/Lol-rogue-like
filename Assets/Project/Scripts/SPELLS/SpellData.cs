@@ -11,7 +11,7 @@ public class SpellData : ScriptableObject
     public int _damage;
     public float _speed;
     public float _impactRadius;
-    public float _range;
+    public int _range;
     public float _cooldown;
     public float _projectileCount;
     public float _projectileDelay;

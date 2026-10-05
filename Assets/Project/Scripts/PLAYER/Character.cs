@@ -27,16 +27,33 @@ public class Character : MonoBehaviour
 
     [Header("BonusStats")]
     private int _bonusMaxHealth;
+    private float _bonusLifeSteal;
+    private int _bonusArmor;
     private int _bonusDamage;
-    private float _bonusMoveSpeed;
+    private float _bonusCriticalChance;
+    private float _bonusCriticalDamage;
     private float _damageAugments = 1f;
+    private int _bonusRange;
+    private float _bonusAbilityHaste;
+    private float _bonusMoveSpeed;
+    private float _bonusLuck;
 
+
+
+    [Header("ViewPublic")]
     public int CurrentHealth => _currentHealth;
     public int MaxHealth => _data._maxHealth + _bonusMaxHealth;
-    public float MoveSpeed => _data._moveSpeed + _bonusMoveSpeed;
+    public float LifeSteal => _data._lifeSteal + _bonusLifeSteal;
+    public int Armor => _data._armor + _bonusArmor;
     public int Damage => _data._damage;
     public float DamageAugments => _damageAugments;
     public int BonusDamage => _bonusDamage;
+    public float CriticalChance => _data._critChance + _bonusCriticalChance;
+    public float CriticalDamage => _data._critDamage + _bonusCriticalDamage;
+    public int Range => _data._range + _bonusRange;
+    public float AbilityHaste => _data._abilityHaste + _bonusAbilityHaste;
+    public float MoveSpeed => _data._moveSpeed + _bonusMoveSpeed;
+    public float Luck => _data._luck + _bonusLuck;
     public int CurrentRage => _currentRage;
     public int MaxRage => _data._maxRage;
     public int CurrentExperience => _currentExperience;
@@ -123,7 +140,9 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        _currentHealth -= damage;
+        int damageTaken = Mathf.Max(1, damage - Armor);
+
+        _currentHealth -= damageTaken;
 
         if(_currentHealth <= 0)
         {
@@ -179,14 +198,42 @@ public class Character : MonoBehaviour
                 _currentHealth += Mathf.RoundToInt(bonus._value);
                 break;
 
-            case LevelUpBonusType.MoveSpeed:
-                _bonusMoveSpeed += bonus._value;
-                _agent.speed = MoveSpeed;
+            case LevelUpBonusType.LifeSteal:
+                _bonusLifeSteal += bonus._value;
+                break;
+
+            case LevelUpBonusType.Armor:
+                int armorBonus = Mathf.RoundToInt(bonus._value);
+
+                _bonusArmor += armorBonus;
                 break;
 
             case LevelUpBonusType.Damage:
                 int damageBonus = Mathf.RoundToInt(bonus._value);
                 _bonusDamage += damageBonus;
+                break;
+
+            case LevelUpBonusType.CriticalChance:
+                _bonusCriticalChance += bonus._value;
+                break;
+
+            case LevelUpBonusType.Range:
+                int rangeBonus = Mathf.RoundToInt(bonus._value);
+
+                _bonusRange += rangeBonus;
+                break;
+
+            case LevelUpBonusType.AbilityHaste:
+                _bonusAbilityHaste += bonus._value;
+                break;
+
+            case LevelUpBonusType.MoveSpeed:
+                _bonusMoveSpeed += bonus._value;
+                _agent.speed = MoveSpeed;
+                break;
+
+            case LevelUpBonusType.Luck:
+                _bonusLuck += bonus._value;
                 break;
         }
     }
@@ -196,8 +243,40 @@ public class Character : MonoBehaviour
         float damage = (Damage + spellDamage + BonusDamage) * DamageAugments;
         Debug.Log(damage);
 
+        bool isCritical = UnityEngine.Random.Range(0f, 100f) < CriticalChance;
+
+        if (isCritical)
+        {
+            damage *= 1f + (CriticalDamage / 100f);
+        }
+
         return Mathf.RoundToInt(damage);
+    }
 
+    public int CalculateSpellRange(int spellRange)
+    {
+        return Range + spellRange;
+    }
 
+    public float CalculateSpellCooldown(float spellCooldown)
+    {
+        return spellCooldown / (1f + AbilityHaste / 100f);
+    }
+
+    public void ApplyLifeSteal(int damage)
+    {
+        int healAmount = Mathf.RoundToInt(damage * LifeSteal / 100f);
+
+        Heal(healAmount);
+    }
+
+    public void Heal(int amount)
+    {
+        _currentHealth += amount;
+
+        if (_currentHealth > MaxHealth)
+        {
+            _currentHealth = MaxHealth;
+        }
     }
 }

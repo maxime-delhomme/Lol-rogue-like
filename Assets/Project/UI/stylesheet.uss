@@ -150,8 +150,6 @@
 
     align-items: stretch;
     justify-content: center;
-
-    gap: 20px;
 }
 
 .bonus-button {
@@ -191,12 +189,25 @@
     justify-content: center;
 }
 
+.bonus-rarity {
+    font-size: 18px;
+
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+
+    color: rgb(190, 190, 190);
+
+    margin-bottom: 10px;
+}
+
 .bonus-name {
     font-size: 28px;
 
     -unity-font-style: bold;
 
     color: white;
+
+    -unity-text-align: middle-center;
 
     margin-bottom: 20px;
 }

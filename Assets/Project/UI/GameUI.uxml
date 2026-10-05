@@ -65,61 +65,37 @@
             name="bonus-container"
             class="bonus-container">
 
-            <ui:Button
-                name="bonus-button-1"
-                class="bonus-button">
+            <ui:Button name="bonus-button-1" class="bonus-button">
 
                 <ui:VisualElement class="bonus-content">
 
-                    <ui:Label
-                        name="bonus-name-1"
-                        text="Bonus"
-                        class="bonus-name" />
-
-                    <ui:Label
-                        name="bonus-description-1"
-                        text="Description du bonus"
-                        class="bonus-description" />
+                    <ui:Label name="bonus-rarity-1" class="bonus-rarity" />
+                    <ui:Label name="bonus-name-1" class="bonus-name" />
+                    <ui:Label name="bonus-description-1" class="bonus-description" />
 
                 </ui:VisualElement>
 
             </ui:Button>
 
-            <ui:Button
-                name="bonus-button-2"
-                class="bonus-button">
+            <ui:Button name="bonus-button-2" class="bonus-button">
 
                 <ui:VisualElement class="bonus-content">
 
-                    <ui:Label
-                        name="bonus-name-2"
-                        text="Bonus"
-                        class="bonus-name" />
-
-                    <ui:Label
-                        name="bonus-description-2"
-                        text="Description du bonus"
-                        class="bonus-description" />
+                    <ui:Label name="bonus-rarity-2" class="bonus-rarity" />
+                    <ui:Label name="bonus-name-2" class="bonus-name" />
+                    <ui:Label name="bonus-description-2" class="bonus-description" />
 
                 </ui:VisualElement>
 
             </ui:Button>
 
-            <ui:Button
-                name="bonus-button-3"
-                class="bonus-button">
+            <ui:Button name="bonus-button-3" class="bonus-button">
 
                 <ui:VisualElement class="bonus-content">
 
-                    <ui:Label
-                        name="bonus-name-3"
-                        text="Bonus"
-                        class="bonus-name" />
-
-                    <ui:Label
-                        name="bonus-description-3"
-                        text="Description du bonus"
-                        class="bonus-description" />
+                    <ui:Label name="bonus-rarity-3" class="bonus-rarity" />
+                    <ui:Label name="bonus-name-3" class="bonus-name" />
+                    <ui:Label name="bonus-description-3" class="bonus-description" />
 
                 </ui:VisualElement>
 

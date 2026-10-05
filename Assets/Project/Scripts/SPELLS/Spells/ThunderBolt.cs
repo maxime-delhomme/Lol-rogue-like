@@ -31,6 +31,8 @@ public class ThunderBolt : MonoBehaviour, ISpell
             int damage = _caster.CalculateSpellDamage(_data._damage);
 
             enemy.TakeDamage(damage);
+
+            _caster.ApplyLifeSteal(damage);
         }
 
         Destroy(gameObject);

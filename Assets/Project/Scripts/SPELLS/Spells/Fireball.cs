@@ -6,12 +6,14 @@ public class Fireball : MonoBehaviour, ISpell
     private Character _caster;
     private Vector3 _direction;
     private Vector3 _startPosition;
+    private int _range;
     public void Initialiser(SpellCastContext context)
     {
         _data = context._data;
         _caster = context._caster.GetComponent<Character>();
         _direction = context._direction;
         _startPosition = transform.position;
+        _range = _caster.CalculateSpellRange(_data._range);
     }
 
     private void Update()
@@ -20,7 +22,7 @@ public class Fireball : MonoBehaviour, ISpell
 
         float distance = Vector3.Distance(_startPosition, transform.position);
 
-        if (distance >= _data._range)
+        if (distance >= _range)
         {
             Destroy(gameObject);
         }
@@ -56,6 +58,8 @@ public class Fireball : MonoBehaviour, ISpell
             int damage = _caster.CalculateSpellDamage(_data._damage);
 
             enemy.TakeDamage(damage);
+
+            _caster.ApplyLifeSteal(damage);
         }
     }
 

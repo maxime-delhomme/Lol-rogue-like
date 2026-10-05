@@ -17,7 +17,7 @@ MonoBehaviour:
   _armor: 0
   _damage: 20
   _critChance: 0
-  _critDamage: 0
+  _critDamage: 50
   _range: 0
   _abilityHaste: 0
   _moveSpeed: 6

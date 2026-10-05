@@ -15,6 +15,15 @@ public enum LevelUpBonusType
     xpGain,
 }
 
+public enum BonusRarity
+{
+    Common,
+    Uncommon,
+    Rare,
+    Epic,
+    Legendaray
+}
+
 [CreateAssetMenu(menuName = "Level Up/Bonus Data")]
 public class LevelUpBonusData : ScriptableObject
 {
@@ -24,4 +33,6 @@ public class LevelUpBonusData : ScriptableObject
 
     public LevelUpBonusType _type;
     public float _value;
+
+    public BonusRarity _rarity;
 }

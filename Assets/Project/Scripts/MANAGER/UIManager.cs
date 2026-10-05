@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     private Button[] _bonusButtons;
     private Label[] _bonusNames;
     private Label[] _bonusDescriptions;
+    private Label[] _bonusRarities;
     private VisualElement _experienceBar;
     private Label _levelUpTitle;
 
@@ -111,6 +112,13 @@ public class UIManager : MonoBehaviour
             root.Q<Label>("bonus-description-1"),
             root.Q<Label>("bonus-description-2"),
             root.Q<Label>("bonus-description-3")
+        };
+
+        _bonusRarities = new Label[]
+        {
+            root.Q<Label>("bonus-rarity-1"),
+            root.Q<Label>("bonus-rarity-2"),
+            root.Q<Label>("bonus-rarity-3")
         };
 
         _experienceBar = root.Q<VisualElement>("experience-bar");
@@ -234,7 +242,8 @@ public class UIManager : MonoBehaviour
 
             _bonusButtons[i].style.display = DisplayStyle.Flex;
 
-            _bonusButtons[i].text = bonus[i]._bonusName;
+            _bonusRarities[i].text = bonus[i]._rarity.ToString();
+            _bonusNames[i].text = " + " + bonus[i]._value + " " + bonus[i]._bonusName;
             _bonusDescriptions[i].text = bonus[i]._description;
         }
 
