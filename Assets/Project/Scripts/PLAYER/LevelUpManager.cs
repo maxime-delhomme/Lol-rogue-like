@@ -8,6 +8,7 @@ public class LevelUpManager : MonoBehaviour
     [SerializeField] private UIManager _uiManager;
     [SerializeField] private RarityManager _rarityManager;
     [SerializeField] private LevelUpBonusData[] _availableBonus;
+    [SerializeField] private SpellCaster _spellCaster;
     private Character _player;
     [Header("Input")]
     [SerializeField] private InputActionAsset _inputActions;
@@ -20,6 +21,7 @@ public class LevelUpManager : MonoBehaviour
     private void Awake()
     {
         _player = GetComponent<Character>();
+        _spellCaster = GetComponent<SpellCaster>();
     }
 
     public void SetUIManager(UIManager uiManager)
@@ -34,6 +36,7 @@ public class LevelUpManager : MonoBehaviour
 
     public void StartLevelUp()
     {
+        _spellCaster.AnnulerPreview();
         Time.timeScale = 0f;
 
         GenerateBonus();

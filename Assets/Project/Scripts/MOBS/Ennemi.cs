@@ -15,6 +15,7 @@ public class Ennemi : MonoBehaviour
     [SerializeField] private EnemyData _data;
     private int _currentHealth;
     private float _attackCooldown = 0f;
+    private bool _isDead;
 
     public void Initialiser(EnemyData data)
     {
@@ -101,6 +102,11 @@ public class Ennemi : MonoBehaviour
 
     private void Death()
     {
+        if (_isDead)
+            return;
+
+        _isDead = true;
+
         if (_player != null)
         {
             _player.AjouterRage(_data._rage);

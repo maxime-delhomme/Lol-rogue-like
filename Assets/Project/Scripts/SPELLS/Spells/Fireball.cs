@@ -6,6 +6,7 @@ public class Fireball : MonoBehaviour, ISpell
     private Character _caster;
     private Vector3 _direction;
     private Vector3 _startPosition;
+    [SerializeField] private LayerMask _obstacleLayers;
     private int _range;
     public void Initialiser(SpellCastContext context)
     {
@@ -32,14 +33,17 @@ public class Fireball : MonoBehaviour, ISpell
     {
         Ennemi enemy = other.GetComponent<Ennemi>();
 
-        if (enemy == null)
+        if (enemy != null)
         {
+            Impact();
+            Destroy(gameObject);
             return;
         }
 
-        Impact();
-
-        Destroy(gameObject);
+        if ((_obstacleLayers.value & (1 << other.gameObject.layer)) != 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Impact()

@@ -80,13 +80,13 @@ public class EnemySpawner : MonoBehaviour
         return pointA + (pointB - pointA) * randomA + (pointC - pointA) * randomB;
     }
 
-    private void SpawnEnemy()
+    private bool SpawnEnemy()
     {
         if (_currentEnemyCount >= _enemyCounts)
-            return;
+            return false;
 
         if (!TryGetSpawnPosition(out Vector3 spawnPosition))
-            return;
+            return false;
 
         EnemyData data = _enemyDataList[Random.Range(0, _enemyDataList.Length)];
 
@@ -101,6 +101,8 @@ public class EnemySpawner : MonoBehaviour
         }
 
         _currentEnemyCount++;
+
+        return true;
     }
 
     public void EnemyDied()
@@ -114,6 +116,14 @@ public class EnemySpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(_respawnDelay);
 
-        SpawnEnemy();
+        while (_currentEnemyCount < _enemyCounts)
+        {
+            if (SpawnEnemy())
+            {
+                yield break;
+            }
+        }
+
+        yield return new WaitForSeconds(0.2f);
     }
 }

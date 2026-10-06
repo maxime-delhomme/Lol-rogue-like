@@ -109,7 +109,7 @@ public class SpellCaster : MonoBehaviour
 
     }
 
-    private void AnnulerPreview()
+    public void AnnulerPreview()
     {
         _isPreviewing = false;
         _pendingSpellIndex = -1;
@@ -201,6 +201,7 @@ public class SpellCaster : MonoBehaviour
 
     public void LancerSort(int index, bool improved)
     {
+
         SpellData spellData = _spells[index];
 
         if (improved && spellData._improvedSpell != null)
@@ -216,11 +217,11 @@ public class SpellCaster : MonoBehaviour
 
         GameObject spellObject = Instantiate(spellData._prefab, _launchPoint.position, Quaternion.identity);
 
+
         ISpell spell = spellObject.GetComponent<ISpell>();
 
         if (spell == null)
         {
-            Debug.LogError("Le prefab du sort ne possède pas de composant ISpell.");
             Destroy(spellObject);
             return;
         }

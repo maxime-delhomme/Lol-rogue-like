@@ -4,8 +4,6 @@ using UnityEngine;
 public class FireballImproved : MonoBehaviour, ISpell
 {
     private SpellData _data;
-    private Vector3 _direction;
-    private Vector3 _startPosition;
 
     public void Initialiser(SpellCastContext context)
     {
@@ -47,48 +45,5 @@ public class FireballImproved : MonoBehaviour, ISpell
         }
 
         Destroy(gameObject);
-    }
-
-    private void Update()
-    {
-        transform.position += _direction * _data._speed * Time.deltaTime;
-
-        if (Vector3.Distance(_startPosition, transform.position) >= _data._range)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Ennemi enemy = other.GetComponent<Ennemi>();
-
-        if (enemy == null)
-        {
-            return;
-        }
-
-        Impact();
-        Destroy(gameObject);
-    }
-
-    private void Impact()
-    {
-        Collider[] colliders = Physics.OverlapSphere(
-            transform.position,
-            _data._impactRadius
-        );
-
-        foreach (Collider collider in colliders)
-        {
-            Ennemi enemy = collider.GetComponent<Ennemi>();
-
-            if (enemy == null)
-            {
-                continue;
-            }
-
-            enemy.TakeDamage(_data._damage);
-        }
     }
 }

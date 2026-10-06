@@ -18,6 +18,7 @@ public class CharacterData : ScriptableObject
     public float _moveSpeed;
     public float _luck;
     public float _xpGain;
+    public int _attractionRange;
 
 
     [Header("OffStats")]

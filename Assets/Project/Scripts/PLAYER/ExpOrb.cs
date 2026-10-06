@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class ExpOrb : MonoBehaviour
 {
+    private Character _player;
+    private Rigidbody _rigibody;
     [SerializeField] private int _experience = 10;
-    [SerializeField] private float _attractionRange = 4f;
     [SerializeField] private float _attractionSpeed = 3f;
     [SerializeField] private float _maxAttractionSpeed = 12f;
     [SerializeField] private float _attractionAcceleration = 15f;
 
-    private Rigidbody _rigibody;
-    private Transform _player;
+
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class ExpOrb : MonoBehaviour
 
         if (playerObject != null )
         {
-            _player = playerObject.transform;
+            _player = playerObject.GetComponent<Character>();
         }
     }
 
@@ -28,12 +28,12 @@ public class ExpOrb : MonoBehaviour
         if (_player == null)
             return;
 
-        float distance = Vector3.Distance(transform.position, _player.position);
+        float distance = Vector3.Distance(transform.position, _player.transform.position);
 
-        if (distance > _attractionRange)
+        if (distance > _player.AttractionRange)
             return;
 
-        Vector3 direction = (_player.position - transform.position).normalized;
+        Vector3 direction = (_player.transform.position - transform.position).normalized;
 
         float currentSpeed = _rigibody.linearVelocity.magnitude;
 

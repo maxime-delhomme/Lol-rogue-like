@@ -1,4 +1,5 @@
 using System;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -37,6 +38,8 @@ public class Character : MonoBehaviour
     private float _bonusAbilityHaste;
     private float _bonusMoveSpeed;
     private float _bonusLuck;
+    private float _bonusXpGain;
+    private int _bonusAttractionRange;
 
 
 
@@ -54,6 +57,8 @@ public class Character : MonoBehaviour
     public float AbilityHaste => _data._abilityHaste + _bonusAbilityHaste;
     public float MoveSpeed => _data._moveSpeed + _bonusMoveSpeed;
     public float Luck => _data._luck + _bonusLuck;
+    public float XpGain => _data._xpGain + _bonusXpGain;
+    public int AttractionRange => _data._attractionRange + _bonusAttractionRange;
     public int CurrentRage => _currentRage;
     public int MaxRage => _data._maxRage;
     public int CurrentExperience => _currentExperience;
@@ -72,6 +77,7 @@ public class Character : MonoBehaviour
         m_moveAction = InputActions.FindActionMap("Player").FindAction("Move");
 
         _currentHealth = _data._maxHealth;
+        _experienceRequired = CalculateExperienceRequired(_level);
     }
 
     private void OnEnable()
@@ -163,6 +169,8 @@ public class Character : MonoBehaviour
 
     public void GainExperience(int amount)
     {
+        amount = CalculateExprienceGain(amount);
+
         _currentExperience += amount;
 
         _experienceRequired = CalculateExperienceRequired(_level);
@@ -235,13 +243,21 @@ public class Character : MonoBehaviour
             case LevelUpBonusType.Luck:
                 _bonusLuck += bonus._value;
                 break;
+
+            case LevelUpBonusType.xpGain:
+                _bonusXpGain += bonus._value;
+                break;
+
+            case LevelUpBonusType.AttractionRange:
+                int attractionRangeBonus = Mathf.RoundToInt(bonus._value);
+                _bonusAttractionRange += attractionRangeBonus;
+                break;
         }
     }
 
     public int CalculateSpellDamage(int spellDamage)
     {
         float damage = (Damage + spellDamage + BonusDamage) * DamageAugments;
-        Debug.Log(damage);
 
         bool isCritical = UnityEngine.Random.Range(0f, 100f) < CriticalChance;
 
@@ -261,6 +277,13 @@ public class Character : MonoBehaviour
     public float CalculateSpellCooldown(float spellCooldown)
     {
         return spellCooldown / (1f + AbilityHaste / 100f);
+    }
+
+    public int CalculateExprienceGain(int amount)
+    {
+        float experience = amount * (1f + XpGain / 100f);
+
+        return Mathf.RoundToInt(experience);
     }
 
     public void ApplyLifeSteal(int damage)

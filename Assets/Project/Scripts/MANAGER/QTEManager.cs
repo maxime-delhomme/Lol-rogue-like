@@ -209,6 +209,7 @@ public class QTEManager : MonoBehaviour
 
     private void ReussirQTE()
     {
+
         _qteActive = false;
 
         Time.timeScale = 1f;
@@ -219,6 +220,7 @@ public class QTEManager : MonoBehaviour
         _uiManager.CacherUI();
 
         _spellCaster.LancerSort(_spellIndex, true);
+
         _player.ConsommerRage();
     }
 

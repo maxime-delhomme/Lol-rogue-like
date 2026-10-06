@@ -122,6 +122,7 @@ public class UIManager : MonoBehaviour
         };
 
         _experienceBar = root.Q<VisualElement>("experience-bar");
+        _experienceBar.style.width = Length.Percent(0f);
 
         _levelUpTitle = root.Q<Label>("level-up-title");
 
@@ -133,6 +134,10 @@ public class UIManager : MonoBehaviour
     public void SetPlayer(Character player)
     {
         _player = player;
+
+        UpdateVie();
+        UpdateRage();
+        UpdateExperience();
     }
 
     public void SetLevelUpManager(LevelUpManager levelUpManager)

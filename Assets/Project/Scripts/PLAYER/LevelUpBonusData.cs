@@ -13,6 +13,7 @@ public enum LevelUpBonusType
     MoveSpeed,
     Luck,
     xpGain,
+    AttractionRange,
 }
 
 public enum BonusRarity
