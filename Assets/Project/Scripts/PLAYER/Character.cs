@@ -6,9 +6,6 @@ using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
-    [Header("Reference")]
-    private LevelUpManager _levelUpManager;
-
     [Header("Input")]
     [SerializeField] private InputActionAsset InputActions;
     private InputAction m_moveAction;
@@ -24,52 +21,33 @@ public class Character : MonoBehaviour
     private int _currentExperience = 0;
     private int _experienceRequired;
     private int _level = 1;
-    private int _pendingLevelUps;
-
-    [Header("BonusStats")]
-    private int _bonusMaxHealth;
-    private float _bonusLifeSteal;
-    private int _bonusArmor;
-    private int _bonusDamage;
-    private float _bonusCriticalChance;
-    private float _bonusCriticalDamage;
-    private float _damageAugments = 1f;
-    private int _bonusRange;
-    private float _bonusAbilityHaste;
-    private float _bonusMoveSpeed;
-    private float _bonusLuck;
-    private float _bonusXpGain;
-    private int _bonusAttractionRange;
 
 
 
     [Header("ViewPublic")]
     public int CurrentHealth => _currentHealth;
-    public int MaxHealth => _data._maxHealth + _bonusMaxHealth;
-    public float LifeSteal => _data._lifeSteal + _bonusLifeSteal;
-    public int Armor => _data._armor + _bonusArmor;
+    public int MaxHealth => _data._maxHealth;
+    public float LifeSteal => _data._lifeSteal;
+    public int Armor => _data._armor;
     public int Damage => _data._damage;
-    public float DamageAugments => _damageAugments;
-    public int BonusDamage => _bonusDamage;
-    public float CriticalChance => _data._critChance + _bonusCriticalChance;
-    public float CriticalDamage => _data._critDamage + _bonusCriticalDamage;
-    public int Range => _data._range + _bonusRange;
-    public float AbilityHaste => _data._abilityHaste + _bonusAbilityHaste;
-    public float MoveSpeed => _data._moveSpeed + _bonusMoveSpeed;
-    public float Luck => _data._luck + _bonusLuck;
-    public float XpGain => _data._xpGain + _bonusXpGain;
-    public int AttractionRange => _data._attractionRange + _bonusAttractionRange;
+    public float DamageAugments => 1f;
+    public float CriticalChance => _data._critChance;
+    public float CriticalDamage => _data._critDamage;
+    public int Range => _data._range;
+    public float AbilityHaste => _data._abilityHaste;
+    public float MoveSpeed => _data._moveSpeed;
+    public float Luck => _data._luck;
+    public float XpGain => _data._xpGain;
+    public int AttractionRange => _data._attractionRange;
     public int CurrentRage => _currentRage;
     public int MaxRage => _data._maxRage;
     public int CurrentExperience => _currentExperience;
     public int ExperienceRequired => _experienceRequired;
     public int CurrentLevel => _level;
-    public int PendingLevelUps => _pendingLevelUps;
 
 
     private void Awake()
     {
-        _levelUpManager = GetComponent<LevelUpManager>();
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = _data._moveSpeed;
@@ -180,84 +158,13 @@ public class Character : MonoBehaviour
             _currentExperience -= _experienceRequired;
             _level++;
 
-            _pendingLevelUps++;
-
             _experienceRequired = CalculateExperienceRequired(_level);
-        }
-
-        if (_pendingLevelUps > 0)
-        {
-            _levelUpManager.StartLevelUp();
-        }
-    }
-
-    public void ConsumePendingLevelUp()
-    {
-        _pendingLevelUps--;
-    }
-
-
-    public void ApplyBonus(LevelUpBonusData bonus)
-    {
-        switch (bonus._type)
-        {
-            case LevelUpBonusType.MaxHealth:
-                _bonusMaxHealth += Mathf.RoundToInt(bonus._value);
-                _currentHealth += Mathf.RoundToInt(bonus._value);
-                break;
-
-            case LevelUpBonusType.LifeSteal:
-                _bonusLifeSteal += bonus._value;
-                break;
-
-            case LevelUpBonusType.Armor:
-                int armorBonus = Mathf.RoundToInt(bonus._value);
-
-                _bonusArmor += armorBonus;
-                break;
-
-            case LevelUpBonusType.Damage:
-                int damageBonus = Mathf.RoundToInt(bonus._value);
-                _bonusDamage += damageBonus;
-                break;
-
-            case LevelUpBonusType.CriticalChance:
-                _bonusCriticalChance += bonus._value;
-                break;
-
-            case LevelUpBonusType.Range:
-                int rangeBonus = Mathf.RoundToInt(bonus._value);
-
-                _bonusRange += rangeBonus;
-                break;
-
-            case LevelUpBonusType.AbilityHaste:
-                _bonusAbilityHaste += bonus._value;
-                break;
-
-            case LevelUpBonusType.MoveSpeed:
-                _bonusMoveSpeed += bonus._value;
-                _agent.speed = MoveSpeed;
-                break;
-
-            case LevelUpBonusType.Luck:
-                _bonusLuck += bonus._value;
-                break;
-
-            case LevelUpBonusType.xpGain:
-                _bonusXpGain += bonus._value;
-                break;
-
-            case LevelUpBonusType.AttractionRange:
-                int attractionRangeBonus = Mathf.RoundToInt(bonus._value);
-                _bonusAttractionRange += attractionRangeBonus;
-                break;
         }
     }
 
     public int CalculateSpellDamage(int spellDamage)
     {
-        float damage = (Damage + spellDamage + BonusDamage) * DamageAugments;
+        float damage = (Damage + spellDamage) * DamageAugments;
 
         bool isCritical = UnityEngine.Random.Range(0f, 100f) < CriticalChance;
 

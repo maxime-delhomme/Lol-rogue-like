@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private QTEManager _qteManager;
     [SerializeField] private UIManager _uiManager;
     [SerializeField] private EnemySpawner _enemySpawner;
-    [SerializeField] private RarityManager _rarityManager;
 
     private void Start()
     {
@@ -22,7 +21,6 @@ public class GameManager : MonoBehaviour
 
         Character player = playerObject.GetComponent<Character>();
         SpellCaster spellCaster = playerObject.GetComponent<SpellCaster>();
-        LevelUpManager levelUpManager = playerObject.GetComponent<LevelUpManager>();
 
         _cameraController.SetTarget(playerObject.transform);
 
@@ -34,10 +32,6 @@ public class GameManager : MonoBehaviour
         spellCaster.SetCamera(Camera.main);
 
         _uiManager.SetPlayer(player);
-        _uiManager.SetLevelUpManager(levelUpManager);
-
-        levelUpManager.SetUIManager(_uiManager);
-        levelUpManager.SetRarityManager(_rarityManager);
 
         _enemySpawner.SetPlayer(player);
 

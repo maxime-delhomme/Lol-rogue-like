@@ -1,20 +1,21 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.AI;
 
 public class SpellCaster : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] private QTEManager _qteManager;
-    private Character _player;
     [SerializeField] private UIManager _uiManager;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private GameObject _previewPrefab;
+    private Character _player;
 
     [Header("Spells")]
     [SerializeField] private SpellData[] _spells;
     [SerializeField] private Transform _launchPoint;
-    [SerializeField] private Camera _camera;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private GameObject _previewPrefab;
     private GameObject _previewObject;
 
 
@@ -22,10 +23,17 @@ public class SpellCaster : MonoBehaviour
     [SerializeField] private InputActionAsset _inputActions;
     private InputAction[] _spellActions;
     private InputAction _cancelSpellAction;
+    private InputAction _qteAction;
+
+    [Header("manage")]
     private float[] _cooldownTimers;
+    private int[] _charges;
     private int _pendingSpellIndex = -1;
     private Vector3 _pendingTargetPosition;
     private bool _isPreviewing = false;
+    private bool _useQte = false;
+
+
     private void Awake()
     {
         _player = GetComponent<Character>();
@@ -38,8 +46,15 @@ public class SpellCaster : MonoBehaviour
             _inputActions.FindActionMap("Player").FindAction("FourthSpell")
         };
         _cancelSpellAction = _inputActions.FindActionMap("Player").FindAction("CancelSpell");
+        _qteAction = _inputActions.FindActionMap("Player").FindAction("QTE");
 
         _cooldownTimers = new float[_spells.Length];
+        _charges = new int[_spells.Length];
+
+        for (int i = 0; i < _spells.Length; i++)
+        {
+            _charges[i] = _spells[i]._maxCharges;
+        }
     }
 
     private void OnEnable()
@@ -71,13 +86,34 @@ public class SpellCaster : MonoBehaviour
     {
         for (int i = 0; i < _cooldownTimers.Length; i++)
         {
-            if (_cooldownTimers[i] > 0f)
+            if (_charges[i] < _spells[i]._maxCharges)
             {
                 _cooldownTimers[i] -= Time.deltaTime;
+
+                if (_cooldownTimers[i] <= 0f)
+                {
+                    _charges[i]++;
+
+                    if (_charges[i] < _spells[i]._maxCharges)
+                    {
+                        _cooldownTimers[i] = _player.CalculateSpellCooldown(_spells[i]._cooldown);
+                    }
+                    else
+                    {
+                        _cooldownTimers[i] = 0f;
+                    }
+                }
             }
 
             float cooldown = _player.CalculateSpellCooldown(_spells[i]._cooldown);
             _uiManager.UpdateCooldownSpell(i, _cooldownTimers[i], cooldown);
+            _uiManager.UpdateSpellCharges(i, _charges[i], _spells[i]._maxCharges);
+        }
+
+        if (_qteAction.WasPressedThisFrame() && _player.PeutFaireQTE())
+        {
+            _useQte = !_useQte;
+            Debug.Log(_useQte);
         }
 
         for (int i = 0; i < _spellActions.Length; i++)
@@ -109,18 +145,6 @@ public class SpellCaster : MonoBehaviour
 
     }
 
-    public void AnnulerPreview()
-    {
-        _isPreviewing = false;
-        _pendingSpellIndex = -1;
-
-        if (_previewObject != null)
-        {
-            Destroy(_previewObject);
-            _previewObject = null;
-        }
-    }
-
     private Vector3 GetMousePosition(int range)
     {
         Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -136,6 +160,7 @@ public class SpellCaster : MonoBehaviour
             {
                 offset = offset.normalized * range;
                 position = transform.position + offset;
+                position.y = hit.point.y;
             }
 
             return position;
@@ -151,7 +176,7 @@ public class SpellCaster : MonoBehaviour
             return;
         }
 
-        if (_cooldownTimers[index] > 0f)
+        if (_charges[index] <= 0f)
         {
             return;
         }
@@ -163,8 +188,17 @@ public class SpellCaster : MonoBehaviour
 
         _previewObject = Instantiate(_previewPrefab);
         _previewObject.transform.localScale = Vector3.one * spellData._impactRadius * 2f;
+    }
+    public void AnnulerPreview()
+    {
+        _isPreviewing = false;
+        _pendingSpellIndex = -1;
 
-
+        if (_previewObject != null)
+        {
+            Destroy(_previewObject);
+            _previewObject = null;
+        }
     }
 
     private void SelectionnerSort(int index)
@@ -187,7 +221,7 @@ public class SpellCaster : MonoBehaviour
             _previewObject = null;
         }
 
-        if (_player.PeutFaireQTE())
+        if (_useQte && _player.PeutFaireQTE())
         {
             _qteManager.DemarrerQTE(this, index);
         }
@@ -196,6 +230,7 @@ public class SpellCaster : MonoBehaviour
             LancerSort(index, false);
         }
 
+        _useQte = false;
         _pendingSpellIndex = -1;
     }
 
@@ -238,6 +273,11 @@ public class SpellCaster : MonoBehaviour
 
         spell.Initialiser(context);
 
-        _cooldownTimers[index] = _player.CalculateSpellCooldown(spellData._cooldown);
+        _charges[index]--;
+
+        if (_charges[index] < _spells[index]._maxCharges && _cooldownTimers[index] <= 0f)
+        {
+            _cooldownTimers[index] = _player.CalculateSpellCooldown(_spells[index]._cooldown);
+        }
     }
 }

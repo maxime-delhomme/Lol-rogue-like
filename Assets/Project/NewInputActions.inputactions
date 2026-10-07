@@ -65,6 +65,16 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "QTE",
+                    "type": "Button",
+                    "id": "c0ba68ce-a13b-4c9c-985b-96c7dcfd3686",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -131,6 +141,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "CancelSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b80901e-5f33-43cf-aa85-b3f65a20c91b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "QTE",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

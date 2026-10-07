@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: ThunderBoltData
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
   _prefab: {fileID: 4788716778352210118, guid: 5d83a05c5986379488894e9c0775b33f, type: 3}
-  _damage: 70
-  _speed: 0
-  _impactRadius: 5
+  _projectilePrefab: {fileID: 0}
   _range: 15
-  _cooldown: 5
+  _damage: 70
+  _impactRadius: 5
+  _speed: 0
+  _cooldown: 10
+  _maxCharges: 1
   _projectileCount: 0
+  _projectileDelay: 0
+  _improvedSpell: {fileID: 0}

@@ -6,7 +6,6 @@ public class UIManager : MonoBehaviour
 {
     [Header("Reference")]
     private Character _player;
-    private LevelUpManager _levelUpManager;
 
     [Header("QTE")]
     private VisualElement qteContainer;
@@ -21,17 +20,12 @@ public class UIManager : MonoBehaviour
     private VisualElement rageBar;
 
     [Header("LevelUp")]
-    private VisualElement _bonusContainer;
-    private Button[] _bonusButtons;
-    private Label[] _bonusNames;
-    private Label[] _bonusDescriptions;
-    private Label[] _bonusRarities;
     private VisualElement _experienceBar;
-    private Label _levelUpTitle;
 
     [Header("Spells")]
     private VisualElement[] _spellCooldownOverlays;
     private Label[] _spellCooldownTexts;
+    private Label[] _spellChargeLabels;
 
     private void Awake()
     {
@@ -81,54 +75,19 @@ public class UIManager : MonoBehaviour
             root.Q<Label>("spell-cooldown-text-4")
         };
 
-        _bonusContainer = root.Q<VisualElement>("level-up-container");
-
-        _bonusButtons = new Button[]
+        _spellChargeLabels = new Label[]
         {
-            root.Q<Button>("bonus-button-1"),
-            root.Q<Button>("bonus-button-2"),
-            root.Q<Button>("bonus-button-3")
-        };
-
-        for (int i = 0; i < _bonusButtons.Length; i++)
-        {
-            int index = i;
-
-            _bonusButtons[i].clicked += () =>
-            {
-                _levelUpManager.SelectBonus(index);
-            };
-        }
-
-        _bonusNames = new Label[]
-        {
-            root.Q<Label>("bonus-name-1"),
-            root.Q<Label>("bonus-name-2"),
-            root.Q<Label>("bonus-name-3")
-        };
-
-        _bonusDescriptions = new Label[]
-        {
-            root.Q<Label>("bonus-description-1"),
-            root.Q<Label>("bonus-description-2"),
-            root.Q<Label>("bonus-description-3")
-        };
-
-        _bonusRarities = new Label[]
-        {
-            root.Q<Label>("bonus-rarity-1"),
-            root.Q<Label>("bonus-rarity-2"),
-            root.Q<Label>("bonus-rarity-3")
+            root.Q<Label>("spell_charges-text-1"),
+            root.Q<Label>("spell_charges-text-2"),
+            root.Q<Label>("spell_charges-text-3"),
+            root.Q<Label>("spell_charges-text-4"),
         };
 
         _experienceBar = root.Q<VisualElement>("experience-bar");
         _experienceBar.style.width = Length.Percent(0f);
 
-        _levelUpTitle = root.Q<Label>("level-up-title");
-
 
         CacherUI();
-        HideLevelUp();
     }
 
     public void SetPlayer(Character player)
@@ -138,11 +97,6 @@ public class UIManager : MonoBehaviour
         UpdateVie();
         UpdateRage();
         UpdateExperience();
-    }
-
-    public void SetLevelUpManager(LevelUpManager levelUpManager)
-    {
-        _levelUpManager = levelUpManager;
     }
 
     private void Update()
@@ -233,30 +187,18 @@ public class UIManager : MonoBehaviour
         _timers[index].style.height = Length.Percent(pourcentage * 100f);
     }
 
-    public void ShowLevelUp(LevelUpBonusData[] bonus)
+    public void UpdateSpellCharges(int index, int charges, int maxCharges)
     {
-        _levelUpTitle.text = "Level UP ! Niveau " + _player.CurrentLevel;
+        if (index < 0 || index >= _spellChargeLabels.Length)
+            return;
 
-        for (int i = 0; i < _bonusButtons.Length; i++)
+        if (maxCharges <= 1)
         {
-            if (i >= bonus.Length)
-            {
-                _bonusButtons[i].style.display = DisplayStyle.None;
-                continue;
-            }
-
-            _bonusButtons[i].style.display = DisplayStyle.Flex;
-
-            _bonusRarities[i].text = bonus[i]._rarity.ToString();
-            _bonusNames[i].text = " + " + bonus[i]._value + " " + bonus[i]._bonusName;
-            _bonusDescriptions[i].text = bonus[i]._description;
+            _spellChargeLabels[index].style.display = DisplayStyle.None;
+            return;
         }
 
-        _bonusContainer.style.display = DisplayStyle.Flex;
-    }
-    
-    public void HideLevelUp()
-    {
-        _bonusContainer.style.display = DisplayStyle.None;
+        _spellChargeLabels[index].style.display = DisplayStyle.Flex;
+        _spellChargeLabels[index].text = charges + " / " + maxCharges;
     }
 }
