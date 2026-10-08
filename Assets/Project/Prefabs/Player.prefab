@@ -170,14 +170,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpellCaster
   _qteManager: {fileID: 0}
   _uiManager: {fileID: 0}
+  _camera: {fileID: 0}
+  _previewPrefab: {fileID: 104726411675345864, guid: 958280ea908c3414487629196bb5227a, type: 3}
   _spells:
   - {fileID: 11400000, guid: b412feec4b9ab8c4daa0c7b3a4b6e17e, type: 2}
   - {fileID: 11400000, guid: a02c8c2b9eeb2da4ebaa81760de20882, type: 2}
   - {fileID: 11400000, guid: 7b5c858c26f5db544a7d955305b61e03, type: 2}
+  - {fileID: 11400000, guid: bd16123790f555b41bebfb6c17e4e740, type: 2}
   _launchPoint: {fileID: 4726407656457960908}
-  _camera: {fileID: 0}
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 64
-  _previewPrefab: {fileID: 104726411675345864, guid: 958280ea908c3414487629196bb5227a, type: 3}
+    m_Bits: 320
   _inputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}

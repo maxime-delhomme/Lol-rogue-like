@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78879d0fdb1b40944b2c0e2f4ae93ad4, type: 3}
-  m_Name: ThunderBoltData
+  m_Name: DashImprovedData
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
-  _prefab: {fileID: 5857977827901796839, guid: 5d83a05c5986379488894e9c0775b33f, type: 3}
+  _prefab: {fileID: 4087507625082151471, guid: d035eb2d5eb1e464abd58635cd4d4943, type: 3}
   _projectilePrefab: {fileID: 0}
-  _range: 15
-  _damage: 70
-  _impactRadius: 2
-  _speed: 0
-  _cooldown: 10
-  _maxCharges: 1
+  _range: 8
+  _damage: 0
+  _impactRadius: 1
+  _speed: 20
+  _cooldown: 3
+  _maxCharges: 3
   _projectileCount: 0
   _projectileDelay: 0
-  _impactDelay: 1
+  _impactDelay: 0
   _duration: 0
   _normalSpell: {fileID: 0}
-  _improvedSpell: {fileID: 11400000, guid: abfd80f3d9895e144a185e9c19e2ba7a, type: 2}
+  _improvedSpell: {fileID: 0}
+  _improvedDuration: 0

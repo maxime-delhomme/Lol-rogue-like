@@ -12,7 +12,7 @@ public class ThunderBolt : MonoBehaviour, ISpell
 
         transform.position = context._targetPosition;
 
-        Impact();
+        Invoke(nameof(Impact), _data._impactDelay);
     }
 
     private void Impact()

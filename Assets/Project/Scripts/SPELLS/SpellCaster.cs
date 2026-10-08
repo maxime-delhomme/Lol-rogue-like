@@ -32,6 +32,8 @@ public class SpellCaster : MonoBehaviour
     private Vector3 _pendingTargetPosition;
     private bool _isPreviewing = false;
     private bool _useQte = false;
+    private bool[] _improvedActive;
+    private float[] _improvedTimers;
 
 
     private void Awake()
@@ -55,6 +57,9 @@ public class SpellCaster : MonoBehaviour
         {
             _charges[i] = _spells[i]._maxCharges;
         }
+
+        _improvedActive = new bool[_spells.Length];
+        _improvedTimers = new float[_spells.Length];
     }
 
     private void OnEnable()
@@ -137,11 +142,51 @@ public class SpellCaster : MonoBehaviour
 
         if (_isPreviewing && _previewObject != null)
         {
-            int range = _player.CalculateSpellRange(_spells[_pendingSpellIndex]._range);
+            SpellData spellData = _spells[_pendingSpellIndex];
+
+            if ((_useQte || _improvedActive[_pendingSpellIndex]) && spellData._improvedSpell != null)
+            {
+                spellData = spellData._improvedSpell;
+            }
+
+            int range = _player.CalculateSpellRange(spellData._range);
+
             _pendingTargetPosition = GetMousePosition(range);
-            _previewObject.transform.position = _pendingTargetPosition;
+
+            if (spellData._width > 0f)
+            {
+                Vector3 direction = _pendingTargetPosition - _launchPoint.position;
+                direction.y = 0f;
+
+                if (direction.sqrMagnitude > 0.01f)
+                {
+                    direction.Normalize();
+
+                    _previewObject.transform.position = _launchPoint.position + direction * (spellData._range * 0.5f);
+
+                    _previewObject.transform.rotation = Quaternion.LookRotation(direction);
+                }
+            }
+            else
+            {
+                _previewObject.transform.position = _pendingTargetPosition;
+            }
+
         }
 
+        for (int i = 0; i < _spells.Length; i++)
+        {
+            if (!_improvedActive[i])
+                continue;
+
+            _improvedTimers[i] -= Time.deltaTime;
+            
+            if (_improvedTimers[i] <= 0f)
+            {
+                _improvedActive[i] = false;
+                _improvedTimers[i] = 0f;
+            }
+        }
 
     }
 
@@ -186,9 +231,23 @@ public class SpellCaster : MonoBehaviour
 
         SpellData spellData = _spells[index];
 
+        if ((_useQte || _improvedActive[index]) && spellData._improvedSpell != null)
+        {
+            spellData = spellData._improvedSpell;
+        }
+
         _previewObject = Instantiate(_previewPrefab);
-        _previewObject.transform.localScale = Vector3.one * spellData._impactRadius * 2f;
+
+        if (spellData._width > 0f)
+        {
+            _previewObject.transform.localScale = new Vector3(spellData._width, 1f, spellData._range);
+        }
+        else
+        {
+            _previewObject.transform.localScale = Vector3.one * spellData._impactRadius * 2f;
+        }
     }
+
     public void AnnulerPreview()
     {
         _isPreviewing = false;
@@ -224,13 +283,14 @@ public class SpellCaster : MonoBehaviour
         if (_useQte && _player.PeutFaireQTE())
         {
             _qteManager.DemarrerQTE(this, index);
+            _useQte = false;
         }
         else
         {
             LancerSort(index, false);
+            _useQte = false;
         }
 
-        _useQte = false;
         _pendingSpellIndex = -1;
     }
 
@@ -239,7 +299,15 @@ public class SpellCaster : MonoBehaviour
 
         SpellData spellData = _spells[index];
 
+        bool useImproved = improved || _improvedActive[index];
+
         if (improved && spellData._improvedSpell != null)
+        {
+            _improvedActive[index] = true;
+            _improvedTimers[index] = spellData._improvedDuration;
+        }
+
+        if (useImproved && spellData._improvedSpell != null)
         {
             spellData = spellData._improvedSpell;
         }
@@ -267,7 +335,7 @@ public class SpellCaster : MonoBehaviour
             _caster = transform,
             _direction = direction,
             _targetPosition = targetPosition,
-            _improved = improved,
+            _improved = useImproved,
             _data = spellData
         };
 

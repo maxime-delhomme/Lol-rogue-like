@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
   _prefab: {fileID: 797428398837288437, guid: 1a3f3c250e902de40b82654f2d65e30a, type: 3}
   _projectilePrefab: {fileID: 797428398837288437, guid: 5258175de32ac514da082da1ea71ea2f, type: 3}
-  _range: 10
+  _range: 100
   _damage: 100
   _impactRadius: 2
   _speed: 20
@@ -22,4 +22,7 @@ MonoBehaviour:
   _maxCharges: 1
   _projectileCount: 50
   _projectileDelay: 0.05
+  _impactDelay: 0
+  _spawnInterval: 0
+  _duration: 0
   _improvedSpell: {fileID: 0}

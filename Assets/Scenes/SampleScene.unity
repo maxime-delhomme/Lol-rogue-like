@@ -741,7 +741,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4694715, y: 0, z: 0, w: 0.8829476}
-  m_LocalPosition: {x: 0, y: 19.5, z: -13.5}
+  m_LocalPosition: {x: 0, y: 15.6, z: -10.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -805,7 +805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   target: {fileID: 0}
   smoothSpeed: 8
-  offset: {x: 0, y: 19.5, z: -13.5}
+  offset: {x: 0, y: 15.6, z: -10.8}
 --- !u!1 &375706393
 GameObject:
   m_ObjectHideFlags: 0
@@ -2391,8 +2391,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 52758c09fae0e8446bd10460fc14aabd, type: 2}
   _minSpawnDistance: 20
   _maxSpawnAttemps: 20
-  _enemyCounts: 10
-  _respawnDelay: 2
+  _enemyCounts: 20
+  _respawnDelay: 1
 --- !u!114 &1265367913
 MonoBehaviour:
   m_ObjectHideFlags: 0

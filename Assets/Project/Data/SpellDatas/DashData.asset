@@ -22,4 +22,8 @@ MonoBehaviour:
   _maxCharges: 3
   _projectileCount: 0
   _projectileDelay: 0
-  _improvedSpell: {fileID: 0}
+  _impactDelay: 0
+  _duration: 0
+  _normalSpell: {fileID: 0}
+  _improvedSpell: {fileID: 11400000, guid: 247654be6c2cf824bbaab500d701cb89, type: 2}
+  _improvedDuration: 5
