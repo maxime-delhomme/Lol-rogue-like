@@ -36,7 +36,6 @@ public class Character : MonoBehaviour
     public int Range => _data._range;
     public float AbilityHaste => _data._abilityHaste;
     public float MoveSpeed => _data._moveSpeed;
-    public float Luck => _data._luck;
     public float XpGain => _data._xpGain;
     public int AttractionRange => _data._attractionRange;
     public int CurrentRage => _currentRage;

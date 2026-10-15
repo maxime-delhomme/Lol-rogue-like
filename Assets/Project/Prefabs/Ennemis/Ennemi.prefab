@@ -1168,6 +1168,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ennemi
   _playerTransform: {fileID: 0}
   _data: {fileID: 11400000, guid: 52758c09fae0e8446bd10460fc14aabd, type: 2}
+  _damageTextPrefab: {fileID: 8408779810491437583, guid: 26343904dede6de4e8f5291741a003b7, type: 3}
+  _damageTextHeight: 2
 --- !u!195 &-2362462139391669675
 NavMeshAgent:
   m_ObjectHideFlags: 0

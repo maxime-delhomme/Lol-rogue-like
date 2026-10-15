@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78879d0fdb1b40944b2c0e2f4ae93ad4, type: 3}
   m_Name: Laser
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
-  _prefab: {fileID: 239341814487071209, guid: 875309efd609ec0488ae2d3b1833bbda, type: 3}
+  _prefab: {fileID: 6153779928434686832, guid: 875309efd609ec0488ae2d3b1833bbda, type: 3}
   _projectilePrefab: {fileID: 0}
   _range: 20
   _damage: 5

@@ -1,4 +1,6 @@
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -16,6 +18,10 @@ public class Ennemi : MonoBehaviour
     private int _currentHealth;
     private float _attackCooldown = 0f;
     private bool _isDead;
+
+    [Header("Effects")]
+    [SerializeField] private GameObject _damageTextPrefab;
+    [SerializeField] private float _damageTextHeight = 2f;
 
     public void Initialiser(EnemyData data)
     {
@@ -93,6 +99,20 @@ public class Ennemi : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _currentHealth -= damage;
+
+        if (_damageTextPrefab != null)
+        {
+            Vector3 spawnPosition = transform.position + Vector3.up * _damageTextHeight;
+
+            GameObject damageTextObject = Instantiate(_damageTextPrefab, spawnPosition, Quaternion.identity);
+
+            DamageText damageText = damageTextObject.GetComponent<DamageText>();
+
+            if (damageText != null )
+            {
+                damageText.Initialiser(damage);
+            }
+        }
 
         if(_currentHealth <= 0 )
         {

@@ -6,6 +6,7 @@ public class Laser : MonoBehaviour, ISpell
 {
     private SpellData _data;
     private Character _caster;
+    [SerializeField] private Transform _laserVisual;
 
     private float _durationTimer;
     private float _damageTimer;
@@ -54,9 +55,9 @@ public class Laser : MonoBehaviour, ISpell
 
     private void ConfigurerVisuel()
     {
-        transform.localScale = new Vector3(_data._width, 1f, _data._range);
+        _laserVisual.localScale = new Vector3(_data._width, 1f, _data._range);
 
-        transform.localPosition += transform.forward * (_data._range * 0.5f);
+        _laserVisual.localPosition = new Vector3(0f, 0f, _data._range * 0.5f);
     }
 
     private void InfligerDegats()
