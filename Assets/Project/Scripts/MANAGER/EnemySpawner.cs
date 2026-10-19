@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using static EnemyData;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Ennemi")]
     [SerializeField] private EnemyData[] _enemyDataList;
+    [SerializeField] private float _commonWeight = 45f;
+    [SerializeField] private float _uncommonWeight = 35f;
+    [SerializeField] private float _rareWeight = 14f;
+    [SerializeField] private float _epicWeight = 5f;
+    [SerializeField] private float _legendaryWeight = 1f;
 
     [Header("Spawn")]
     [SerializeField] private float _minSpawnDistance;
@@ -80,6 +86,55 @@ public class EnemySpawner : MonoBehaviour
         return pointA + (pointB - pointA) * randomA + (pointC - pointA) * randomB;
     }
 
+    private EnemyData GetRandomEnemyData()
+    {
+        float totalWeight = 0f;
+
+        foreach (EnemyData data in _enemyDataList)
+        {
+            totalWeight += GetRarityWeight(data);
+        }
+
+        if (totalWeight <= 0f)
+            return null;
+
+        float randomValue = Random.Range(0f, totalWeight);
+
+        foreach (EnemyData data in _enemyDataList)
+        {
+            randomValue -= GetRarityWeight(data);
+
+            if (randomValue <= 0f)
+                return data;
+        }
+
+        return _enemyDataList[_enemyDataList.Length - 1];
+    }
+
+    private float GetRarityWeight(EnemyData data)
+    {
+        switch (data._rarity)
+        {
+            case EnemyRarity.Common:
+                return _commonWeight;
+
+            case EnemyRarity.Uncommon:
+                return _uncommonWeight;
+
+            case EnemyRarity.Rare:
+                return _rareWeight;
+
+            case EnemyRarity.Epic:
+                return _epicWeight;
+
+            case EnemyRarity.Legendary:
+                return _legendaryWeight;
+
+            default:
+                return 0f;
+        }
+    }
+
     private bool SpawnEnemy()
     {
         if (_currentEnemyCount >= _enemyCounts)
@@ -88,7 +143,10 @@ public class EnemySpawner : MonoBehaviour
         if (!TryGetSpawnPosition(out Vector3 spawnPosition))
             return false;
 
-        EnemyData data = _enemyDataList[Random.Range(0, _enemyDataList.Length)];
+        EnemyData data = GetRandomEnemyData();
+
+        if (data == null)
+            return false;
 
         GameObject enemyObject = Instantiate(data._prefab, spawnPosition, Quaternion.identity);
 

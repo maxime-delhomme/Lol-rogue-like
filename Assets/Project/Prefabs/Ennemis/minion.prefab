@@ -1025,7 +1025,7 @@ GameObject:
   - component: {fileID: 7294162691743423061}
   - component: {fileID: -2362462139391669675}
   m_Layer: 7
-  m_Name: Ennemi
+  m_Name: minion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

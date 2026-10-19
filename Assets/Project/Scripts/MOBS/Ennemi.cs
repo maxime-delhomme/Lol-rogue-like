@@ -1,9 +1,5 @@
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 public class Ennemi : MonoBehaviour
 {
@@ -16,12 +12,16 @@ public class Ennemi : MonoBehaviour
     [Header("Data")]
     [SerializeField] private EnemyData _data;
     private int _currentHealth;
-    private float _attackCooldown = 0f;
+
     private bool _isDead;
 
     [Header("Effects")]
     [SerializeField] private GameObject _damageTextPrefab;
     [SerializeField] private float _damageTextHeight = 2f;
+
+    [Header("Animation")]
+    [SerializeField] private Animator _animator;
+    private bool _isAttacking;
 
     public void Initialiser(EnemyData data)
     {
@@ -48,14 +48,23 @@ public class Ennemi : MonoBehaviour
         if (_playerTransform == null)
             return;
 
+        if (_isAttacking)
+        {
+            TournerVersJoueur();
+            return;
+        }
+            
+
         float distance = Vector3.Distance(transform.position, _playerTransform.position);
 
         if (distance > _data._attackRange)
         {
+            _agent.isStopped = false;
             _agent.SetDestination(_playerTransform.position);
         }
         else
         {
+            _agent.isStopped = true;
             _agent.ResetPath();
             Attaquer();
         }
@@ -65,19 +74,49 @@ public class Ennemi : MonoBehaviour
 
     private void Attaquer()
     {
-        _attackCooldown -= Time.deltaTime;
-
-        if (_attackCooldown > 0f)
-        {
+        if (_isAttacking)
             return;
-        }
 
-        if(_player != null)
+
+
+        _isAttacking = true;
+        _agent.isStopped = true;
+        _agent.ResetPath();
+
+        if (_animator != null)
+            _animator.SetTrigger("Anticipation");
+
+        Invoke(nameof(ExecuterAttaque), _data._attackDelay);
+    }
+
+    private void ExecuterAttaque()
+    {
+        if (_isDead)
+            return;
+
+        if (_animator != null)
+            _animator.SetTrigger("Attack");
+    }
+
+    public void AppliqueAttaque()
+    {
+        if (_isDead)
+            return;
+
+        if (_player != null && _playerTransform != null)
         {
-            _player.TakeDamage(_data._damage);
+            float distance = Vector3.Distance(transform.position,_playerTransform.position);
+
+            if (distance <= _data._attackRange)
+            {
+                _player.TakeDamage(_data._damage);
+            }
         }
 
-        _attackCooldown = _data._attackDelay;
+
+        _isAttacking = false;
+
+        _agent.isStopped = false;
     }
 
     private void TournerVersJoueur()
