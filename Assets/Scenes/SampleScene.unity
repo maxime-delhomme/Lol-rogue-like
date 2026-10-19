@@ -1854,15 +1854,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   _enemyDataList:
+  - {fileID: 11400000, guid: 52758c09fae0e8446bd10460fc14aabd, type: 2}
+  - {fileID: 11400000, guid: c706d38fb2800d54b8be4d274a7042f9, type: 2}
   - {fileID: 11400000, guid: ed562a224e9cf1f4283d776f49f358d7, type: 2}
   _commonWeight: 45
   _uncommonWeight: 35
   _rareWeight: 14
-  _epicWeight: 5
+  _epicWeight: 10
   _legendaryWeight: 1
   _minSpawnDistance: 20
   _maxSpawnAttemps: 20
-  _enemyCounts: 1
+  _enemyCounts: 5
   _respawnDelay: 5
 --- !u!114 &1265367913
 MonoBehaviour:
