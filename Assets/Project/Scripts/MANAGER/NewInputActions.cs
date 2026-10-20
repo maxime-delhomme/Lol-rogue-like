@@ -161,6 +161,16 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""3966980e-9ab8-493e-9cf9-10fc181a8902"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -238,6 +248,17 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""QTE"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b5f7f10-2317-4447-9ed4-4017be396712"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -347,6 +368,7 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         m_Player_FourthSpell = m_Player.FindAction("FourthSpell", throwIfNotFound: true);
         m_Player_CancelSpell = m_Player.FindAction("CancelSpell", throwIfNotFound: true);
         m_Player_QTE = m_Player.FindAction("QTE", throwIfNotFound: true);
+        m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_qte_Z = m_UI.FindAction("qte_Z", throwIfNotFound: true);
@@ -441,6 +463,7 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_FourthSpell;
     private readonly InputAction m_Player_CancelSpell;
     private readonly InputAction m_Player_QTE;
+    private readonly InputAction m_Player_Interaction;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -480,6 +503,10 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/QTE".
         /// </summary>
         public InputAction @QTE => m_Wrapper.m_Player_QTE;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Interaction".
+        /// </summary>
+        public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -527,6 +554,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @QTE.started += instance.OnQTE;
             @QTE.performed += instance.OnQTE;
             @QTE.canceled += instance.OnQTE;
+            @Interaction.started += instance.OnInteraction;
+            @Interaction.performed += instance.OnInteraction;
+            @Interaction.canceled += instance.OnInteraction;
         }
 
         /// <summary>
@@ -559,6 +589,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @QTE.started -= instance.OnQTE;
             @QTE.performed -= instance.OnQTE;
             @QTE.canceled -= instance.OnQTE;
+            @Interaction.started -= instance.OnInteraction;
+            @Interaction.performed -= instance.OnInteraction;
+            @Interaction.canceled -= instance.OnInteraction;
         }
 
         /// <summary>
@@ -777,6 +810,13 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnQTE(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interaction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteraction(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

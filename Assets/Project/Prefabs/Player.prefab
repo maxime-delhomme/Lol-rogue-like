@@ -151,10 +151,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db886c75747a7b40be760b10d047037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
+  _camera: {fileID: 0}
   InputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
   _clickableLayers:
     serializedVersion: 2
     m_Bits: 64
+  _interactionRange: 3
+  _interactionLayer:
+    serializedVersion: 2
+    m_Bits: 512
   _data: {fileID: 11400000, guid: c3cf48a4d85dd754eaa2655f8e7b7bd5, type: 2}
 --- !u!114 &357657529980107206
 MonoBehaviour:

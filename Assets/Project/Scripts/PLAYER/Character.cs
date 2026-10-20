@@ -1,18 +1,31 @@
 using System;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
+    [Header("Reference")]
+    [SerializeField] private Camera _camera;
+
+
     [Header("Input")]
     [SerializeField] private InputActionAsset InputActions;
     private InputAction m_moveAction;
+    private InputAction m_InteractionAction;
+
 
     [Header("Move")]
     NavMeshAgent _agent;
     [SerializeField] LayerMask _clickableLayers;
+
+
+    [Header("Interaction")]
+    [SerializeField] private float _interactionRange = 3f;
+    [SerializeField] private LayerMask _interactionLayer;
+
 
     [Header("Data")]
     [SerializeField] private CharacterData _data;
@@ -22,8 +35,7 @@ public class Character : MonoBehaviour
     private int _experienceRequired;
     private int _level = 1;
 
-
-
+    #region pointers
     [Header("ViewPublic")]
     public int CurrentHealth => _currentHealth;
     public int MaxHealth => _data._maxHealth;
@@ -43,15 +55,19 @@ public class Character : MonoBehaviour
     public int CurrentExperience => _currentExperience;
     public int ExperienceRequired => _experienceRequired;
     public int CurrentLevel => _level;
-
+    #endregion
+    public static event Action<Vector3> OnPointerClick;
 
     private void Awake()
     {
+        if (_camera == null)
+            _camera = Camera.main;
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = _data._moveSpeed;
 
         m_moveAction = InputActions.FindActionMap("Player").FindAction("Move");
+        m_InteractionAction = InputActions.FindActionMap("Player").FindAction("Interaction");
 
         _currentHealth = _data._maxHealth;
         _experienceRequired = CalculateExperienceRequired(_level);
@@ -75,6 +91,26 @@ public class Character : MonoBehaviour
         }
 
         FaceTarget();
+
+        if (m_InteractionAction.WasPressedThisFrame())
+        {
+            Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+            if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _interactionLayer))
+                return;
+
+            IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
+
+            if (interactable == null)
+                return;
+
+            float distance = Vector3.Distance(transform.position, hit.collider.transform.position);
+
+            if (distance > _interactionRange)
+                return;
+
+            interactable.Interact();
+        }
     }
 
     void ClickToMove()
@@ -83,6 +119,7 @@ public class Character : MonoBehaviour
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, 100, _clickableLayers))
         {
             _agent.destination = hit.point;
+            OnPointerClick?.Invoke(hit.point);
         }
     }
 

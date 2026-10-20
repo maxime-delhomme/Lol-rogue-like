@@ -30,6 +30,11 @@ public class Ennemi : MonoBehaviour
         _agent.speed = _data._moveSpeed;
     }
 
+    public void SetSpawner(EnemySpawner spawner)
+    {
+        _spawner = spawner;
+    }
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -98,7 +103,7 @@ public class Ennemi : MonoBehaviour
             _animator.SetTrigger("Attack");
     }
 
-    public void AppliqueAttaque()
+    public void AppliquerAttaque()
     {
         if (_isDead)
             return;
@@ -181,11 +186,13 @@ public class Ennemi : MonoBehaviour
             _spawner.EnemyDied();
         }
 
-        Destroy(gameObject);
-    }
+        Autel altar = FindFirstObjectByType<Autel>();
 
-    public void SetSpawner(EnemySpawner spawner)
-    {
-        _spawner = spawner;
+        if (altar != null)
+        {
+            altar.EnemyKilled(transform.position);
+        }
+
+        Destroy(gameObject);
     }
 }

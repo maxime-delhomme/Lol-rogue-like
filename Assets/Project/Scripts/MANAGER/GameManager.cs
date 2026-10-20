@@ -34,6 +34,5 @@ public class GameManager : MonoBehaviour
         _uiManager.SetPlayer(player);
 
         _enemySpawner.SetPlayer(player);
-
     }
 }
