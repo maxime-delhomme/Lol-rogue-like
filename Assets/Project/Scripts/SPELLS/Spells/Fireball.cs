@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Fireball : MonoBehaviour, ISpell
 {
@@ -16,6 +17,11 @@ public class Fireball : MonoBehaviour, ISpell
         _startPosition = transform.position;
         _range = _caster.CalculateSpellRange(_data._range);
     }
+    private void OnEnable()
+    {
+        //if()
+    }
+
 
     private void Update()
     {

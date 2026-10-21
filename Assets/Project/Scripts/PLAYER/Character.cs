@@ -1,15 +1,17 @@
 using System;
-using Unity.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
+
+
     [Header("Reference")]
     [SerializeField] private Camera _camera;
 
+    public static Camera CharacterCamera;
+    public static Character CurrentCharacter;
 
     [Header("Input")]
     [SerializeField] private InputActionAsset InputActions;
@@ -60,8 +62,15 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
+        if (!CurrentCharacter)
+            CurrentCharacter = this;
+
         if (_camera == null)
+        {
             _camera = Camera.main;
+            CharacterCamera = _camera;
+
+        }
 
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = _data._moveSpeed;
@@ -90,8 +99,6 @@ public class Character : MonoBehaviour
             ClickToMove();
         }
 
-        FaceTarget();
-
         if (m_InteractionAction.WasPressedThisFrame())
         {
             Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -111,6 +118,9 @@ public class Character : MonoBehaviour
 
             interactable.Interact();
         }
+
+        FaceTarget();
+
     }
 
     void ClickToMove()

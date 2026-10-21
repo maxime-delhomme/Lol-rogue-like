@@ -60,6 +60,8 @@ public class SpellCaster : MonoBehaviour
 
         _improvedActive = new bool[_spells.Length];
         _improvedTimers = new float[_spells.Length];
+
+
     }
 
     private void OnEnable()
