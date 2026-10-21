@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class Ennemi : MonoBehaviour
 {
+    private Autel _autelOrigine;
+
     [Header("Move")]
     [SerializeField] private Transform _playerTransform;
     private NavMeshAgent _agent;
@@ -12,7 +14,6 @@ public class Ennemi : MonoBehaviour
     [Header("Data")]
     [SerializeField] private EnemyData _data;
     private int _currentHealth;
-
     private bool _isDead;
 
     [Header("Effects")]
@@ -81,8 +82,6 @@ public class Ennemi : MonoBehaviour
     {
         if (_isAttacking)
             return;
-
-
 
         _isAttacking = true;
         _agent.isStopped = true;
@@ -164,6 +163,11 @@ public class Ennemi : MonoBehaviour
         }
     }
 
+    public void DefinirAutel(Autel altar)
+    {
+        _autelOrigine = altar;
+    }
+
     private void Death()
     {
         if (_isDead)
@@ -186,11 +190,9 @@ public class Ennemi : MonoBehaviour
             _spawner.EnemyDied();
         }
 
-        Autel altar = FindFirstObjectByType<Autel>();
-
-        if (altar != null)
+        if (_autelOrigine != null)
         {
-            altar.EnemyKilled(transform.position);
+            _autelOrigine.EnemyKilled();
         }
 
         Destroy(gameObject);

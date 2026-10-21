@@ -156,7 +156,7 @@ MonoBehaviour:
   _clickableLayers:
     serializedVersion: 2
     m_Bits: 64
-  _interactionRange: 3
+  _interactionRange: 5
   _interactionLayer:
     serializedVersion: 2
     m_Bits: 512

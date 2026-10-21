@@ -25,6 +25,7 @@ public class Character : MonoBehaviour
     [Header("Interaction")]
     [SerializeField] private float _interactionRange = 3f;
     [SerializeField] private LayerMask _interactionLayer;
+    private Outline _currentOutline;
 
 
     [Header("Data")]
