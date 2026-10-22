@@ -45,7 +45,6 @@ public class Autel : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        Debug.Log($"Il reste {_aliveEnemies.Count} ennemi(s) dans l'arène.");
 
         if(_isCompleted == false)
         {

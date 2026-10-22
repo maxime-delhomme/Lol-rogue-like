@@ -15,7 +15,7 @@ MonoBehaviour:
   _rarity: 0
   _prefab: {fileID: 5723852875356443870, guid: fbe1181d0e214e64c9b3dde3726390e1, type: 3}
   _health: 10
-  _attackRange: 1
+  _attackRange: 1.5
   _damage: 5
   _attackDelay: 1
   _speedRotation: 5
