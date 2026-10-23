@@ -1196,6 +1196,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 52758c09fae0e8446bd10460fc14aabd, type: 2}
   - {fileID: 11400000, guid: c706d38fb2800d54b8be4d274a7042f9, type: 2}
   - {fileID: 11400000, guid: ed562a224e9cf1f4283d776f49f358d7, type: 2}
+  - {fileID: 11400000, guid: 956f467f783c3574c96bca8cdfb22ccd, type: 2}
   _waveInterval: 10
   _spawnInterval: 0.5
   _spawnHeight: 2

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afea91d54811a494a9e1ec2963461751, type: 3}
+  m_Name: Wizard
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  _rarity: 2
+  _prefab: {fileID: 6996570722047182101, guid: edeff50e05c858746b12259f04ce0b47, type: 3}
+  _health: 30
+  _attackRange: 10
+  _damage: 25
+  _attackDelay: 2
+  _speedRotation: 5
+  _moveSpeed: 3
+  _rage: 15
+  _expOrbPrefab: {fileID: 4572596115547054076, guid: 5386c85745aa3724da2e336c841d08fb, type: 3}
+  _expOrbCount: 5

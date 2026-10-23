@@ -35108,6 +35108,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &4228592906928282518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 950086087735176822}
+  m_Layer: 0
+  m_Name: spellspawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &950086087735176822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4228592906928282518}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.70710653, y: -0, z: -0, w: 0.70710707}
+  m_LocalPosition: {x: -0.022, y: -0.887, z: 0.045}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3543746212060521347}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &5774201853329919039
 GameObject:
   m_ObjectHideFlags: 0
@@ -35139,6 +35170,7 @@ Transform:
   m_Children:
   - {fileID: 5295225492074400419}
   - {fileID: 6582275457790857730}
+  - {fileID: 950086087735176822}
   m_Father: {fileID: 4906289792325260068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6996570722047182101
@@ -35158,6 +35190,7 @@ GameObject:
   - component: {fileID: -8211565934916927223}
   - component: {fileID: -8300454418429496726}
   - component: {fileID: 4599381905585017291}
+  - component: {fileID: 6473753492920854763}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -36226,6 +36259,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6473753492920854763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6996570722047182101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a855eeb95aa45b84caf6dc20e93a665c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ennemi
+  _playerTransform: {fileID: 0}
+  _data: {fileID: 11400000, guid: 956f467f783c3574c96bca8cdfb22ccd, type: 2}
+  _damageTextPrefab: {fileID: 8408779810491437583, guid: 26343904dede6de4e8f5291741a003b7, type: 3}
+  _damageTextHeight: 2
+  _animator: {fileID: 4599381905585017291}
+  _isWizard: 1
+  _spellPrefab: {fileID: 8704183558915643761, guid: bef2746b4ea17a7498e05980a34fd6fa, type: 3}
+  _spellSpawnPoint: {fileID: 950086087735176822}
 --- !u!1 &8850905304139413219
 GameObject:
   m_ObjectHideFlags: 0

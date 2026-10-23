@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
-
-
     [Header("Reference")]
     [SerializeField] private Camera _camera;
 
@@ -37,6 +35,7 @@ public class Character : MonoBehaviour
     private int _currentExperience = 0;
     private int _experienceRequired;
     private int _level = 1;
+    private int _skillPoints = 0;
 
     #region pointers
     [Header("ViewPublic")]
@@ -58,6 +57,7 @@ public class Character : MonoBehaviour
     public int CurrentExperience => _currentExperience;
     public int ExperienceRequired => _experienceRequired;
     public int CurrentLevel => _level;
+    public int SkillPoints => _skillPoints;
     #endregion
     public static event Action<Vector3> OnPointerClick;
 
@@ -205,8 +205,23 @@ public class Character : MonoBehaviour
             _currentExperience -= _experienceRequired;
             _level++;
 
+            _skillPoints++;
+
             _experienceRequired = CalculateExperienceRequired(_level);
+
+            Debug.Log($"Niveau {_level} atteint ! Points de compétence : {_skillPoints}");
         }
+    }
+
+    public bool SpendSkillPoints(int amount)
+    {
+        if (amount > 0 && _skillPoints >= amount)
+        {
+            _skillPoints -= amount;
+            return true;
+        }
+
+        return false;
     }
 
     public int CalculateSpellDamage(int spellDamage)

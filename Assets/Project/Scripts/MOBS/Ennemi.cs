@@ -24,6 +24,12 @@ public class Ennemi : MonoBehaviour
     [SerializeField] private Animator _animator;
     private bool _isAttacking;
 
+
+    [Header("Wizard")]
+    [SerializeField] private bool _isWizard;
+    [SerializeField] private GameObject _spellPrefab;
+    [SerializeField] private Transform _spellSpawnPoint;
+
     public void Initialiser(EnemyData data)
     {
         _data = data;
@@ -107,7 +113,17 @@ public class Ennemi : MonoBehaviour
         if (_isDead)
             return;
 
-        if (_player != null && _playerTransform != null)
+
+        if (_isWizard)
+        {
+            GameObject spellObject = Instantiate(_spellPrefab, _spellSpawnPoint.position, _spellSpawnPoint.rotation);
+
+            WizardSpell spell = spellObject.GetComponent<WizardSpell>();
+
+            spell.Initialiser(_data._damage);
+        }
+
+        else if (_player != null && _playerTransform != null)
         {
             float distance = Vector3.Distance(transform.position,_playerTransform.position);
 
