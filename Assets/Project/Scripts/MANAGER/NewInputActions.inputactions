@@ -85,6 +85,16 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "shop",
+                    "type": "Button",
+                    "id": "c64ed4cc-27b4-4d35-a314-5f43bae6e950",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -175,6 +185,17 @@
                     "action": "Interaction",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31cfcf02-5b6c-474a-ba60-c5358bbd3cda",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "shop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -216,6 +237,16 @@
                     "name": "qte_D",
                     "type": "Button",
                     "id": "d84b3ca1-8b9c-4de5-bc55-0133bde5f6b5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "shop",
+                    "type": "Button",
+                    "id": "482d2d55-2b39-4f58-9cf7-caf8b7057377",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -265,6 +296,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "qte_D",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fd848490-221d-417e-9bd8-80de462004a0",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "shop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

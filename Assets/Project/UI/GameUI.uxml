@@ -55,4 +55,41 @@
     <ui:VisualElement name="experience-bar-background" class="experience-bar-background">
         <ui:VisualElement name="experience-bar" class="experience-bar"/>
     </ui:VisualElement>
+    <ui:VisualElement name="augment-shop" class="augment-shop">
+
+        <ui:VisualElement class="shop-header">
+            <ui:Button name="reroll-button"
+                       text="REROLL (1 SKILL POINT)"
+                       class="reroll-button" />
+
+            <ui:Label name="skill-points-label"
+                      text="SKILL POINTS : 0"
+                      class="skill-points-label" />
+        </ui:VisualElement>
+
+        <ui:VisualElement class="augment-cards">
+
+            <ui:VisualElement name="augment-card-1" class="augment-card">
+                <ui:Label name="augment-rarity-1" text="RARE" class="augment-rarity" />
+                <ui:Label name="augment-name-1" text="Nom de l'augment" class="augment-name" />
+                <ui:Label name="augment-description-1" text="Description de l'effet de cet augment." class="augment-description" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="augment-card-2" class="augment-card">
+                <ui:Label name="augment-rarity-2" text="RARE" class="augment-rarity" />
+                <ui:Label name="augment-name-2" text="Nom de l'augment" class="augment-name" />
+                <ui:Label name="augment-description-2" text="Description de l'effet de cet augment." class="augment-description" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="augment-card-3" class="augment-card">
+                <ui:Label name="augment-rarity-3" text="RARE" class="augment-rarity" />
+                <ui:Label name="augment-name-3" text="Nom de l'augment" class="augment-name" />
+                <ui:Label name="augment-description-3" text="Description de l'effet de cet augment." class="augment-description" />
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <ui:Label text="P POUR FERMER" class="shop-instructions" />
+
+    </ui:VisualElement>
 </ui:UXML>

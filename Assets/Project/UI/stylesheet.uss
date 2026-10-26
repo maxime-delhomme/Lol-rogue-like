@@ -113,28 +113,6 @@
     background-color: rgba(255, 255, 255, 0.25);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .experience-bar-background {
     position: absolute;
     left: 0;
@@ -148,4 +126,137 @@
     width: 0%;
     height: 100%;
     background-color: rgb(40, 140, 255);
+}
+
+/* Fenêtre principale */
+.augment-shop {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 6%;
+    bottom: 6%;
+
+    padding: 24px;
+
+    background-color: rgba(15, 17, 24, 0.97);
+
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+
+    border-top-color: rgb(174, 130, 55);
+    border-bottom-color: rgb(174, 130, 55);
+    border-left-color: rgb(174, 130, 55);
+    border-right-color: rgb(174, 130, 55);
+}
+
+/* Ligne supérieure */
+.shop-header {
+    height: 58px;
+    flex-shrink: 0;
+
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+/* Bouton Reroll */
+.reroll-button {
+    width: 170px;
+    height: 48px;
+
+    background-color: rgb(66, 51, 32);
+
+    color: rgb(255, 210, 115);
+    font-size: 20px;
+    -unity-font-style: bold;
+
+    border-top-color: rgb(190, 145, 65);
+    border-bottom-color: rgb(190, 145, 65);
+    border-left-color: rgb(190, 145, 65);
+    border-right-color: rgb(190, 145, 65);
+}
+
+/* Compteur de points */
+.skill-points-label {
+    color: rgb(255, 210, 115);
+    font-size: 22px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-right;
+}
+
+/* Ligne des trois cartes */
+.augment-cards {
+    flex-grow: 1;
+    min-height: 0;
+
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+/* Cartes */
+.augment-card {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 0;
+
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 20px;
+
+    background-color: rgb(29, 32, 43);
+
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+
+    border-top-color: rgb(95, 83, 60);
+    border-bottom-color: rgb(95, 83, 60);
+    border-left-color: rgb(95, 83, 60);
+    border-right-color: rgb(95, 83, 60);
+}
+
+/* Rareté */
+.augment-rarity {
+    color: rgb(255, 194, 75);
+    font-size: 17px;
+    -unity-font-style: bold;
+
+    margin-bottom: 22px;
+}
+
+/* Nom */
+.augment-name {
+    color: rgb(245, 245, 250);
+    font-size: 25px;
+    -unity-font-style: bold;
+
+    white-space: normal;
+    margin-bottom: 18px;
+}
+
+/* Description */
+.augment-description {
+    color: rgb(195, 199, 211);
+    font-size: 18px;
+
+    white-space: normal;
+}
+
+/* Instruction en bas */
+.shop-instructions {
+    height: 35px;
+    flex-shrink: 0;
+
+    margin-top: 16px;
+
+    color: rgb(180, 183, 194);
+    font-size: 16px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
 }

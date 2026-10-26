@@ -35,6 +35,8 @@ public class SpellCaster : MonoBehaviour
     private bool[] _improvedActive;
     private float[] _improvedTimers;
 
+    public event Action<SpellCastContext, Vector3> OnSpellCast;
+
 
     private void Awake()
     {
@@ -349,5 +351,7 @@ public class SpellCaster : MonoBehaviour
         {
             _cooldownTimers[index] = _player.CalculateSpellCooldown(_spells[index]._cooldown);
         }
+
+        OnSpellCast?.Invoke(context, _launchPoint.position);
     }
 }

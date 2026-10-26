@@ -1,11 +1,22 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
     [Header("Reference")]
     private Character _player;
+    private AugmentManager _augmentManager;
+
+    [Header("Input")]
+    [SerializeField] private InputActionAsset InputActions;
+
+    private InputActionMap _playerMap;
+    private InputActionMap _uiMap;
+    private InputAction m_shopAction;
+    private InputAction m_shopUIAction;
 
     [Header("QTE")]
     private VisualElement qteContainer;
@@ -22,6 +33,17 @@ public class UIManager : MonoBehaviour
     [Header("LevelUp")]
     private VisualElement _experienceBar;
 
+    [Header("AugmentShop")]
+    [SerializeField] private AugmentData[] _availableAugments;
+    private VisualElement _shopContainer;
+    private Label[] _augmentNames = new Label[3];
+    private Label[] _augmentDescriptions = new Label[3];
+    private Label[] _augmentRarities = new Label[3];
+    private Button _rerollButton;
+    private Label _skillPointsLabel;
+    private AugmentData[] _currentAugments = new AugmentData[3];
+    [SerializeField] private int _rerollCost = 1;
+
     [Header("Spells")]
     private VisualElement[] _spellCooldownOverlays;
     private Label[] _spellCooldownTexts;
@@ -29,6 +51,12 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        _playerMap = InputActions.FindActionMap("Player");
+        _uiMap = InputActions.FindActionMap("UI");
+
+        m_shopAction = _playerMap.FindAction("shop");
+        m_shopUIAction = _uiMap.FindAction("shop");
+
         UIDocument uiDocument = GetComponent<UIDocument>();
         VisualElement root = uiDocument.rootVisualElement;
 
@@ -86,6 +114,41 @@ public class UIManager : MonoBehaviour
         _experienceBar = root.Q<VisualElement>("experience-bar");
         _experienceBar.style.width = Length.Percent(0f);
 
+        _shopContainer = root.Q<VisualElement>("augment-shop");
+        _shopContainer.style.display = DisplayStyle.None;
+
+        for (int i = 0; i < 3; i++)
+        {
+            int number = i + 1;
+
+            _augmentNames[i] =
+                root.Q<Label>($"augment-name-{number}");
+
+            _augmentDescriptions[i] =
+                root.Q<Label>($"augment-description-{number}");
+
+            _augmentRarities[i] =
+                root.Q<Label>($"augment-rarity-{number}");
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            int index = i;
+            var card = root.Q<VisualElement>($"augment-card-{index + 1}");
+
+            if (card == null)
+            {
+                Debug.LogError($"Carte augment-card-{index + 1} introuvable.");
+                continue;
+            }
+
+            card.RegisterCallback<ClickEvent>(_ => AcheterAugment(index));
+        }
+
+        _rerollButton = root.Q<Button>("reroll-button");
+        _skillPointsLabel = root.Q<Label>("skill-points-label");
+
+        _rerollButton.clicked += AcheterReroll;
 
         CacherUI();
     }
@@ -93,10 +156,21 @@ public class UIManager : MonoBehaviour
     public void SetPlayer(Character player)
     {
         _player = player;
+        _augmentManager = player.GetComponent<AugmentManager>();
+
+        if (_augmentManager == null)
+            Debug.LogError("AugmentManager introuvable sur le player");
 
         UpdateVie();
         UpdateRage();
         UpdateExperience();
+        ActualiserSkillPoints();
+    }
+
+    private void Start()
+    {
+        RerollAugments();
+        ActualiserSkillPoints();
     }
 
     private void Update()
@@ -107,6 +181,27 @@ public class UIManager : MonoBehaviour
         UpdateVie();
         UpdateRage();
         UpdateExperience();
+        ActualiserSkillPoints();
+
+        if (m_shopAction.WasPressedThisFrame())
+        {
+            _shopContainer.style.display = DisplayStyle.Flex;
+
+            _playerMap.Disable();
+            _uiMap.Enable();
+
+            Time.timeScale = 0f;
+        }
+
+        if (m_shopUIAction.WasPressedThisFrame())
+        {
+            _shopContainer.style.display = DisplayStyle.None;
+
+            _playerMap.Enable();
+            _uiMap.Disable();
+
+            Time.timeScale = 1f;
+        }
     }
 
     private void UpdateVie()
@@ -200,5 +295,101 @@ public class UIManager : MonoBehaviour
 
         _spellChargeLabels[index].style.display = DisplayStyle.Flex;
         _spellChargeLabels[index].text = charges + " / " + maxCharges;
+    }
+
+    private void RerollAugments()
+    {
+        var groupes = new Dictionary<AugmentRarity, List<AugmentData>>();
+
+        foreach (AugmentData augment in _availableAugments)
+        {
+            if (!groupes.ContainsKey(augment._rarity))
+            {
+                groupes[augment._rarity] = new List<AugmentData>();
+            }
+
+            groupes[augment._rarity].Add(augment);
+        }
+
+        var raretesPossibles = new List<AugmentRarity>();
+
+        foreach (var groupe in groupes)
+        {
+            if (groupe.Value.Count >= 3)
+                raretesPossibles.Add(groupe.Key);
+        }
+
+        AugmentRarity rareteChoisie = raretesPossibles[UnityEngine.Random.Range(0, raretesPossibles.Count)];
+
+        var disponibles = new List<AugmentData>(groupes[rareteChoisie]);
+
+        for (int i = 0; i < 3;  i++)
+        {
+            int index = UnityEngine.Random.Range(0, disponibles.Count);
+            AugmentData augment = disponibles[index];
+            disponibles.RemoveAt(index);
+
+            _currentAugments[i] = augment;
+
+            _augmentNames[i].text = augment._augmentName;
+            _augmentDescriptions[i].text = augment._description;
+            _augmentRarities[i].text = augment._rarity.ToString();
+        }
+    }
+
+    private void AcheterAugment(int index)
+    {
+        Debug.Log($"Clic détecté sur la carte {index}");
+
+        if (index < 0 || index >= _currentAugments.Length)
+            return;
+
+        if (_player == null || _augmentManager == null)
+            return;
+
+        AugmentData augment = _currentAugments[index];
+
+        if (augment == null || augment._effect == null)
+        {
+            Debug.LogWarning("Cet augment n'a pas encore d'effet assigné.");
+            return;
+        }
+
+        if (_player.SkillPoints < augment.SkillPointCost)
+        {
+            Debug.Log("Pas assez de Skill Points.");
+            return;
+        }
+
+        if (_augmentManager.AddAugment(augment))
+        {
+            _player.SpendSkillPoints(augment.SkillPointCost);
+            ActualiserSkillPoints();
+            RerollAugments();
+        }
+    }
+
+    private void AcheterReroll()
+    {
+        if (_player == null)
+            return;
+
+        if (_player.SpendSkillPoints(_rerollCost))
+        {
+            ActualiserSkillPoints();
+            RerollAugments();
+        }
+        else
+        {
+            Debug.Log("Pas assez de Skill Points pour le Reroll.");
+        }
+    }
+
+    private void ActualiserSkillPoints()
+    {
+        if (_player == null || _skillPointsLabel == null)
+            return;
+
+        _skillPointsLabel.text = $"SKILL POINTS : {_player.SkillPoints}";
     }
 }

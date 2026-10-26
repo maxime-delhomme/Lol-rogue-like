@@ -31,16 +31,17 @@ public class Character : MonoBehaviour
     [Header("Data")]
     [SerializeField] private CharacterData _data;
     private int _currentHealth;
+    private int _bonusMaxHealth = 0;
     private int _currentRage;
     private int _currentExperience = 0;
     private int _experienceRequired;
     private int _level = 1;
-    private int _skillPoints = 0;
+    private int _skillPoints = 10;
 
     #region pointers
     [Header("ViewPublic")]
     public int CurrentHealth => _currentHealth;
-    public int MaxHealth => _data._maxHealth;
+    public int MaxHealth => _data._maxHealth + _bonusMaxHealth;
     public float LifeSteal => _data._lifeSteal;
     public int Armor => _data._armor;
     public int Damage => _data._damage;
@@ -270,5 +271,14 @@ public class Character : MonoBehaviour
         {
             _currentHealth = MaxHealth;
         }
+    }
+
+    public void AddMaxHealth(int amount)
+    {
+        if (amount <= 0)
+            return;
+
+        _bonusMaxHealth += amount;
+        _currentHealth += amount;
     }
 }

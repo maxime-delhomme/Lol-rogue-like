@@ -171,6 +171,16 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""shop"",
+                    ""type"": ""Button"",
+                    ""id"": ""c64ed4cc-27b4-4d35-a314-5f43bae6e950"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -261,6 +271,17 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31cfcf02-5b6c-474a-ba60-c5358bbd3cda"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""shop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -302,6 +323,16 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""qte_D"",
                     ""type"": ""Button"",
                     ""id"": ""d84b3ca1-8b9c-4de5-bc55-0133bde5f6b5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""shop"",
+                    ""type"": ""Button"",
+                    ""id"": ""482d2d55-2b39-4f58-9cf7-caf8b7057377"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -353,6 +384,17 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""qte_D"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fd848490-221d-417e-9bd8-80de462004a0"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""shop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -369,12 +411,14 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         m_Player_CancelSpell = m_Player.FindAction("CancelSpell", throwIfNotFound: true);
         m_Player_QTE = m_Player.FindAction("QTE", throwIfNotFound: true);
         m_Player_Interaction = m_Player.FindAction("Interaction", throwIfNotFound: true);
+        m_Player_shop = m_Player.FindAction("shop", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_qte_Z = m_UI.FindAction("qte_Z", throwIfNotFound: true);
         m_UI_qte_Q = m_UI.FindAction("qte_Q", throwIfNotFound: true);
         m_UI_qte_S = m_UI.FindAction("qte_S", throwIfNotFound: true);
         m_UI_qte_D = m_UI.FindAction("qte_D", throwIfNotFound: true);
+        m_UI_shop = m_UI.FindAction("shop", throwIfNotFound: true);
     }
 
     ~@NewInputActions()
@@ -464,6 +508,7 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CancelSpell;
     private readonly InputAction m_Player_QTE;
     private readonly InputAction m_Player_Interaction;
+    private readonly InputAction m_Player_shop;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -507,6 +552,10 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Interaction".
         /// </summary>
         public InputAction @Interaction => m_Wrapper.m_Player_Interaction;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/shop".
+        /// </summary>
+        public InputAction @shop => m_Wrapper.m_Player_shop;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -557,6 +606,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
+            @shop.started += instance.OnShop;
+            @shop.performed += instance.OnShop;
+            @shop.canceled += instance.OnShop;
         }
 
         /// <summary>
@@ -592,6 +644,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
+            @shop.started -= instance.OnShop;
+            @shop.performed -= instance.OnShop;
+            @shop.canceled -= instance.OnShop;
         }
 
         /// <summary>
@@ -633,6 +688,7 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_qte_Q;
     private readonly InputAction m_UI_qte_S;
     private readonly InputAction m_UI_qte_D;
+    private readonly InputAction m_UI_shop;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -660,6 +716,10 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/qte_D".
         /// </summary>
         public InputAction @qte_D => m_Wrapper.m_UI_qte_D;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/shop".
+        /// </summary>
+        public InputAction @shop => m_Wrapper.m_UI_shop;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -698,6 +758,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @qte_D.started += instance.OnQte_D;
             @qte_D.performed += instance.OnQte_D;
             @qte_D.canceled += instance.OnQte_D;
+            @shop.started += instance.OnShop;
+            @shop.performed += instance.OnShop;
+            @shop.canceled += instance.OnShop;
         }
 
         /// <summary>
@@ -721,6 +784,9 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
             @qte_D.started -= instance.OnQte_D;
             @qte_D.performed -= instance.OnQte_D;
             @qte_D.canceled -= instance.OnQte_D;
+            @shop.started -= instance.OnShop;
+            @shop.performed -= instance.OnShop;
+            @shop.canceled -= instance.OnShop;
         }
 
         /// <summary>
@@ -817,6 +883,13 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteraction(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "shop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShop(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
@@ -853,5 +926,12 @@ public partial class @NewInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnQte_D(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "shop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShop(InputAction.CallbackContext context);
     }
 }

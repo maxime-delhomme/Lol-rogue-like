@@ -4200,6 +4200,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745edaf4df938454eb7b6541ec21342a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  InputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
+  _availableAugments:
+  - {fileID: 11400000, guid: 412c3a169bf610248a4c552f37c26b35, type: 2}
+  - {fileID: 11400000, guid: 4683b58b752af6741b7c9dff7aceb659, type: 2}
+  - {fileID: 11400000, guid: e9f9f72f0768f0741b81a71122f2efd5, type: 2}
 --- !u!114 &1826714206
 MonoBehaviour:
   m_ObjectHideFlags: 0
