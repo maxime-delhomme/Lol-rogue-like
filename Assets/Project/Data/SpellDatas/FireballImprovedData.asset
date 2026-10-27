@@ -12,17 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78879d0fdb1b40944b2c0e2f4ae93ad4, type: 3}
   m_Name: FireballImprovedData
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
+  _category: 0
+  _spellType: 1
   _prefab: {fileID: 797428398837288437, guid: 1a3f3c250e902de40b82654f2d65e30a, type: 3}
   _projectilePrefab: {fileID: 797428398837288437, guid: 5258175de32ac514da082da1ea71ea2f, type: 3}
   _range: 100
   _damage: 100
   _impactRadius: 2
+  _width: 0
   _speed: 20
   _cooldown: 0
   _maxCharges: 1
   _projectileCount: 50
   _projectileDelay: 0.05
   _impactDelay: 0
-  _spawnInterval: 0
+  _damageInterval: 0
   _duration: 0
+  _penetration: 0
+  _BounceOnWalls: 0
+  _normalSpell: {fileID: 0}
   _improvedSpell: {fileID: 0}
+  _improvedDuration: 0
+  spellTypes: 0
+  numberOfClickNecessary: 1
+  ClicksPositions:
+  - {x: 0, y: 0, z: 0}

@@ -12,18 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78879d0fdb1b40944b2c0e2f4ae93ad4, type: 3}
   m_Name: DashData
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
+  _category: 2
   _prefab: {fileID: 4087507625082151471, guid: 4f1cd195b46381d45b0a71c65a181873, type: 3}
   _projectilePrefab: {fileID: 0}
   _range: 8
   _damage: 0
   _impactRadius: 1
+  _width: 0
   _speed: 20
   _cooldown: 3
   _maxCharges: 3
   _projectileCount: 0
   _projectileDelay: 0
   _impactDelay: 0
+  _damageInterval: 0
   _duration: 0
+  _penetration: 0
+  _BounceOnWalls: 0
   _normalSpell: {fileID: 0}
   _improvedSpell: {fileID: 11400000, guid: 247654be6c2cf824bbaab500d701cb89, type: 2}
   _improvedDuration: 5
+  spellTypes: 0
+  numberOfClickNecessary: 1
+  ClicksPositions:
+  - {x: 0, y: 0, z: 0}

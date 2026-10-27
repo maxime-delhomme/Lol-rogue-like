@@ -3,30 +3,32 @@ using UnityEngine;
 
 public class AugmentManager : MonoBehaviour
 {
+    private readonly List<AugmentData> _activeAugments = new();
 
-    private readonly List<AugmentEffect> _activeAugments = new();
+    private Character _player;
+    private SpellCaster _spellCaster;
 
+    private void Awake()
+    {
+        _player = GetComponent<Character>();
+        _spellCaster = GetComponent<SpellCaster>();
+    }
     public bool AddAugment(AugmentData augment)
     {
-        if (augment == null || augment._effect == null)
+        if (augment == null)
         {
             Debug.LogWarning("Impossible d'activer cet augment : donnée ou effet manquant.");
             return false;
         }
 
-        Character player = GetComponent<Character>();
-
-        if (player == null)
+        switch (augment._effectType)
         {
-            Debug.LogError("Character introuvable sur le Player.");
-            return false;
+            case AugmentEffectType.DoubleSort:
+                _spellCaster.ActiverDoubleSort();
+                break;
         }
 
-        AugmentEffect effect = Instantiate(augment._effect);
-        effect.Apply(player);
-
-        _activeAugments.Add(effect);
-
+        _activeAugments.Add(augment);
         return true;
     }
 }

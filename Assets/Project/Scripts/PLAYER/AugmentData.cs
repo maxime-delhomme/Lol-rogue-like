@@ -18,7 +18,6 @@ public class AugmentData : ScriptableObject
     [Header("Effect")]
     public AugmentEffectType _effectType;
     public float _effectValue;
-    public AugmentEffect _effect;
 
 
     public int SkillPointCost
@@ -45,9 +44,5 @@ public class AugmentData : ScriptableObject
 
 public enum AugmentEffectType
 {
-    Damage,
-    MaxHealth,
-    Armor,
-    CriticalChance,
-    MoveSpeed
+    DoubleSort
 }

@@ -4,10 +4,51 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(menuName = "Spells/Spell Data")]
 public class SpellData : ScriptableObject
 {
+    public SpellCategory _category;
+    public SpellType _spellType;
     public GameObject _prefab;
     public GameObject _projectilePrefab;
 
-    [Header("Properties")]
+    [Header("Stats")]
+    public int _range;
+    public int _damage;
+    public float _impactRadius;
+    public float _width;
+    public float _speed;
+    public float _cooldown;
+    public int _maxCharges;
+    public float _projectileCount;
+    public float _projectileDelay;
+    public float _impactDelay;
+    public float _damageInterval;
+    public float _duration;
+    public int _penetration;
+    public bool _BounceOnWalls;
+
+    [Header("Normal")]
+    public SpellData _normalSpell;
+    [Header("Improved")]
+    public SpellData _improvedSpell;
+    public float _improvedDuration;
+
+
+
+    public enum SpellCategory
+    {
+        Projectile,
+        Area,
+        Dash,
+        DamageOverTime
+    }
+
+    public enum SpellType
+    {
+        Normal,
+        Improved
+    }
+
+
+
 
     public SpellTypes spellTypes;
 
@@ -26,38 +67,14 @@ public class SpellData : ScriptableObject
 
     public Vector3[] ClicksPositions;
 
-
-    [Header("Stats")]
-    public int _range;
-    public int _damage;
-    public float _impactRadius;
-    public float _width;
-    public float _speed;
-    public float _cooldown;
-    public int _maxCharges;
-    public float _projectileCount;
-    public float _projectileDelay;
-    public float _impactDelay;
-    public float _damageInterval;
-    public float _duration;
-    public int _penetration;
-    public bool _BounceOnWalls;
-
-
-    [Header("Normal")]
-    public SpellData _normalSpell;
-    [Header("Improved")]
-    public SpellData _improvedSpell;
-    public float _improvedDuration;
-
     private void Awake()
     {
         ClicksPositions = new Vector3[numberOfClickNecessary];
     }
 
-    public bool  OnSpellCast(bool isCast)
+    public bool OnSpellCast(bool isCast)
     {
-        numberOfClickNecessary ++;
+        numberOfClickNecessary++;
         if (numberOfClick > numberOfClickNecessary)
         {
 

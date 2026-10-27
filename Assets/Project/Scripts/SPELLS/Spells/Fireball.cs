@@ -11,8 +11,6 @@ public class Fireball : MonoBehaviour, ISpell
     private int _range;
     public void Initialiser(SpellCastContext context)
     {
-        Debug.Log("Fireball initialisée");
-
         _data = context._data;
         _caster = context._caster.GetComponent<Character>();
         _direction = context._direction;

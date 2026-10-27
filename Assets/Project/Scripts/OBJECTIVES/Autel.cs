@@ -1,7 +1,8 @@
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static EnemyData;
 
 public class Autel : MonoBehaviour, IInteractable
 {
@@ -22,12 +23,16 @@ public class Autel : MonoBehaviour, IInteractable
     [SerializeField] private float _spawnInterval = 0.5f;
     [SerializeField] private float _spawnHeight = 2f;
     [SerializeField] private float _navMeshSampleDistance = 3f;
+    [SerializeField] private float _commonWeight = 45f;
+    [SerializeField] private float _uncommonWeight = 35f;
+    [SerializeField] private float _rareWeight = 14f;
+    [SerializeField] private float _epicWeight = 5f;
+    [SerializeField] private float _legendaryWeight = 1f;
 
     private bool _isInteractive = true;
     private bool _isActivated;
     private bool _isCompleted;
     private int _enemiesKilled;
-    private int _enemiesSpawned;
     public bool IsActivated => _isActivated;
     public bool IsCompleted => _isCompleted;
     public int EnemiesKilled => _enemiesKilled;
@@ -113,7 +118,7 @@ public class Autel : MonoBehaviour, IInteractable
     {
         if (_enemyDataList.Length > 0)
         {
-            EnemyData data = _enemyDataList[Random.Range(0, _enemyDataList.Length)];
+            EnemyData data = GetRandomEnemyData();
 
             if (data != null && data._prefab != null)
             {
@@ -132,6 +137,55 @@ public class Autel : MonoBehaviour, IInteractable
                     }
                 }
             }
+        }
+    }
+
+    private EnemyData GetRandomEnemyData()
+    {
+        float totalWeight = 0f;
+
+        foreach (EnemyData data in _enemyDataList)
+        {
+            totalWeight += GetRarityWeight(data);
+        }
+
+        if (totalWeight <= 0f)
+            return null;
+
+        float randomValue = Random.Range(0f, totalWeight);
+
+        foreach (EnemyData data in _enemyDataList)
+        {
+            randomValue -= GetRarityWeight(data);
+
+            if (randomValue <= 0f)
+                return data;
+        }
+
+        return _enemyDataList[_enemyDataList.Length - 1];
+    }
+
+    private float GetRarityWeight(EnemyData data)
+    {
+        switch (data._rarity)
+        {
+            case EnemyRarity.Common:
+                return _commonWeight;
+
+            case EnemyRarity.Uncommon:
+                return _uncommonWeight;
+
+            case EnemyRarity.Rare:
+                return _rareWeight;
+
+            case EnemyRarity.Epic:
+                return _epicWeight;
+
+            case EnemyRarity.Legendary:
+                return _legendaryWeight;
+
+            default:
+                return 0f;
         }
     }
 

@@ -7,6 +7,7 @@ public class FireballImproved : MonoBehaviour, ISpell
 
     public void Initialiser(SpellCastContext context)
     {
+        Debug.Log("sort lancé");
         _data = context._data;
 
         StartCoroutine(LancerProjectiles(context));

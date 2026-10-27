@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
+using static SpellData;
 
 public class SpellCaster : MonoBehaviour
 {
@@ -35,7 +37,9 @@ public class SpellCaster : MonoBehaviour
     private bool[] _improvedActive;
     private float[] _improvedTimers;
 
-    public event Action<SpellCastContext, Vector3> OnSpellCast;
+    [Header("Augments")]
+    private bool _doubleSortActif;
+    private float _doubleSortDelay = .5f;
 
 
     private void Awake()
@@ -345,13 +349,38 @@ public class SpellCaster : MonoBehaviour
 
         spell.Initialiser(context);
 
+        if (_doubleSortActif && spellData._category == SpellData.SpellCategory.Projectile)
+        {
+            StartCoroutine(LancerDeuxiemeProjectileCoroutine(context));
+        }
+
         _charges[index]--;
 
         if (_charges[index] < _spells[index]._maxCharges && _cooldownTimers[index] <= 0f)
         {
             _cooldownTimers[index] = _player.CalculateSpellCooldown(_spells[index]._cooldown);
         }
+    }
 
-        OnSpellCast?.Invoke(context, _launchPoint.position);
+    public void ActiverDoubleSort()
+    {
+        _doubleSortActif = true;
+    }
+
+    private IEnumerator LancerDeuxiemeProjectileCoroutine(SpellCastContext context)
+    {
+        yield return new WaitForSeconds(_doubleSortDelay);
+        LancerDeuxiemeProjectile(context);
+    }
+
+    private void LancerDeuxiemeProjectile(SpellCastContext context)
+    {
+
+        GameObject spellObject = Instantiate(context._data._prefab, _launchPoint.position, Quaternion.identity);
+
+        ISpell spell = spellObject.GetComponent<ISpell>();
+
+        spell.Initialiser(context);
+
     }
 }

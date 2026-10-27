@@ -36,7 +36,7 @@ public class Character : MonoBehaviour
     private int _currentExperience = 0;
     private int _experienceRequired;
     private int _level = 1;
-    private int _skillPoints = 10;
+    private int _skillPoints = 0;
 
     #region pointers
     [Header("ViewPublic")]

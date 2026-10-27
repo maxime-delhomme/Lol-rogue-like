@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78879d0fdb1b40944b2c0e2f4ae93ad4, type: 3}
   m_Name: Laser
   m_EditorClassIdentifier: Assembly-CSharp::SpellData
+  _category: 3
   _prefab: {fileID: 6153779928434686832, guid: 875309efd609ec0488ae2d3b1833bbda, type: 3}
   _projectilePrefab: {fileID: 0}
   _range: 20
@@ -26,6 +27,12 @@ MonoBehaviour:
   _impactDelay: 0
   _damageInterval: 0.5
   _duration: 2
+  _penetration: 0
+  _BounceOnWalls: 0
   _normalSpell: {fileID: 0}
   _improvedSpell: {fileID: 0}
   _improvedDuration: 0
+  spellTypes: 0
+  numberOfClickNecessary: 1
+  ClicksPositions:
+  - {x: 0, y: 0, z: 0}

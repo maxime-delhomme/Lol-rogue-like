@@ -339,8 +339,6 @@ public class UIManager : MonoBehaviour
 
     private void AcheterAugment(int index)
     {
-        Debug.Log($"Clic détecté sur la carte {index}");
-
         if (index < 0 || index >= _currentAugments.Length)
             return;
 
@@ -349,7 +347,7 @@ public class UIManager : MonoBehaviour
 
         AugmentData augment = _currentAugments[index];
 
-        if (augment == null || augment._effect == null)
+        if (augment == null)
         {
             Debug.LogWarning("Cet augment n'a pas encore d'effet assigné.");
             return;
