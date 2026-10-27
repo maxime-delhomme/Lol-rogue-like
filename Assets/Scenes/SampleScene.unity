@@ -2219,9 +2219,12 @@ MonoBehaviour:
   _rareWeight: 14
   _epicWeight: 10
   _legendaryWeight: 1
+  _spawnBudgetIncreasePerMinute: 1
+  _maxSpawnBudget: 20
+  _budgetRechargeDelay: 60
   _minSpawnDistance: 20
   _maxSpawnAttemps: 20
-  _enemyCounts: 10
+  _enemyCounts: 100
   _respawnDelay: 5
 --- !u!114 &1265367913
 MonoBehaviour:

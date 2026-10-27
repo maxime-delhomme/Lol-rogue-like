@@ -16,6 +16,15 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _epicWeight = 5f;
     [SerializeField] private float _legendaryWeight = 1f;
 
+    [Header("Spawn Budget")]
+    [SerializeField] private int _spawnBudgetIncreasePerMinute = 1;
+    [SerializeField] private int _maxSpawnBudget = 20;
+    [SerializeField] private int _budgetRechargeDelay = 10;
+    private int _currentSpawnBudget;
+    private int _elapsedMinutes;
+    private float _elapsedTime;
+    private float _budgetRechargeTimer;
+
     [Header("Spawn")]
     [SerializeField] private float _minSpawnDistance;
     [SerializeField] private int _maxSpawnAttemps;
@@ -27,15 +36,67 @@ public class EnemySpawner : MonoBehaviour
     public void SetPlayer(Character player)
     {
         _player = player;
+    }
+
+    private void Start()
+    {
+        _currentSpawnBudget = _maxSpawnBudget;
+        _elapsedMinutes = 0;
+        _elapsedTime = 0;
+        _budgetRechargeTimer = 0f;
 
         StartCoroutine(SpawnEnemiesCoroutine());
     }
 
+    private void Update()
+    {
+        if (_player == null)
+            return;
+
+        _elapsedTime += Time.deltaTime;
+
+        UpdateSpawnBudget();
+        UpdateBudgetRecharge();
+    }
+
+    private void UpdateSpawnBudget()
+    {
+        int elapsedMinutes = Mathf.FloorToInt(_elapsedTime / 60f);
+
+        if (elapsedMinutes > _elapsedMinutes)
+        {
+            int minutesPassed = elapsedMinutes - _elapsedMinutes;
+
+            _maxSpawnBudget += minutesPassed * _spawnBudgetIncreasePerMinute;
+            _elapsedMinutes = elapsedMinutes;
+        }
+    }
+
+    private void UpdateBudgetRecharge()
+    {
+        if (_currentSpawnBudget > 0)
+        {
+            _budgetRechargeTimer = 0f;
+            return;
+        }
+
+        _budgetRechargeTimer += Time.deltaTime;
+
+        if (_budgetRechargeTimer >= _budgetRechargeDelay)
+        {
+            _currentSpawnBudget = _maxSpawnBudget;
+            _budgetRechargeTimer = 0f;
+        }
+    }
+
     private IEnumerator SpawnEnemiesCoroutine()
     {
-        for (int i = 0; i < _enemyCounts; i++)
+        while (true)
         {
-            SpawnEnemy();
+            if (_currentSpawnBudget > 0 && _currentEnemyCount < _enemyCounts)
+            {
+                SpawnEnemy();
+            }
 
             yield return new WaitForSeconds(.2f);
         }
@@ -92,6 +153,12 @@ public class EnemySpawner : MonoBehaviour
 
         foreach (EnemyData data in _enemyDataList)
         {
+            if (data == null || data._prefab == null)
+                continue;
+
+            if (GetSpawnCost(data) > _currentSpawnBudget)
+                continue;
+
             totalWeight += GetRarityWeight(data);
         }
 
@@ -102,6 +169,12 @@ public class EnemySpawner : MonoBehaviour
 
         foreach (EnemyData data in _enemyDataList)
         {
+            if (data == null || data._prefab == null)
+                continue;
+
+            if (GetSpawnCost(data) > _currentSpawnBudget)
+                continue;
+
             randomValue -= GetRarityWeight(data);
 
             if (randomValue <= 0f)
@@ -135,17 +208,48 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    private int GetSpawnCost(EnemyData data)
+    {
+        switch (data._rarity)
+        {
+            case EnemyRarity.Common:
+                return 1;
+
+            case EnemyRarity.Uncommon:
+                return 2;
+
+            case EnemyRarity.Rare:
+                return 4;
+
+            case EnemyRarity.Epic:
+                return 7;
+
+            case EnemyRarity.Legendary:
+                return 12;
+
+            default:
+                return 0;
+        }
+    }
+
     private bool SpawnEnemy()
     {
         if (_currentEnemyCount >= _enemyCounts)
             return false;
 
-        if (!TryGetSpawnPosition(out Vector3 spawnPosition))
-            return false;
 
         EnemyData data = GetRandomEnemyData();
 
         if (data == null)
+            return false;
+
+        int spawnCost = GetSpawnCost(data);
+
+        if (_currentSpawnBudget < spawnCost)
+            return false;
+
+
+        if (!TryGetSpawnPosition(out Vector3 spawnPosition))
             return false;
 
         GameObject enemyObject = Instantiate(data._prefab, spawnPosition, Quaternion.identity);
@@ -158,7 +262,11 @@ public class EnemySpawner : MonoBehaviour
             enemy.SetSpawner(this);
         }
 
+        
+        _currentSpawnBudget -= spawnCost;
         _currentEnemyCount++;
+
+        Debug.Log(_currentSpawnBudget);
 
         return true;
     }
@@ -180,8 +288,8 @@ public class EnemySpawner : MonoBehaviour
             {
                 yield break;
             }
-        }
 
-        yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }
