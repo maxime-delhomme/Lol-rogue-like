@@ -2209,6 +2209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30884b095ea3b3e4c9865d30a3e8a9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  _gameManager: {fileID: 1265367914}
   _enemyDataList:
   - {fileID: 11400000, guid: 52758c09fae0e8446bd10460fc14aabd, type: 2}
   - {fileID: 11400000, guid: c706d38fb2800d54b8be4d274a7042f9, type: 2}
@@ -2217,14 +2218,16 @@ MonoBehaviour:
   _commonWeight: 45
   _uncommonWeight: 35
   _rareWeight: 14
-  _epicWeight: 10
+  _epicWeight: 5
   _legendaryWeight: 1
+  _rarityWeightIncreasePerMinute: 1
+  _maxEpicEnemies: 1
   _spawnBudgetIncreasePerMinute: 1
   _maxSpawnBudget: 20
-  _budgetRechargeDelay: 60
+  _budgetRechargeDelay: 30
   _minSpawnDistance: 20
   _maxSpawnAttemps: 20
-  _enemyCounts: 100
+  _enemyCounts: 200
   _respawnDelay: 5
 --- !u!114 &1265367913
 MonoBehaviour:
@@ -2257,6 +2260,10 @@ MonoBehaviour:
   _qteManager: {fileID: 1265367910}
   _uiManager: {fileID: 1826714205}
   _enemySpawner: {fileID: 1265367912}
+  _currentDifficulty: 0
+  _increaseDifficulty: 0
+  _difficultyThreshold: 1000
+  _difficultyIncreasePerSecond: 1
 --- !u!43 &1320150281
 Mesh:
   m_ObjectHideFlags: 0
@@ -2484,7 +2491,7 @@ PrefabInstance:
       objectReference: {fileID: 1799462367}
     - target: {fileID: 802039643386694311, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1375
+      value: 1390
       objectReference: {fileID: 0}
     - target: {fileID: 2527131535390419333, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_Mesh
@@ -2492,7 +2499,7 @@ PrefabInstance:
       objectReference: {fileID: 1320150281}
     - target: {fileID: 2527131535390419333, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1318
+      value: 1333
       objectReference: {fileID: 0}
     - target: {fileID: 4313381158343096277, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4102,7 +4109,7 @@ PrefabInstance:
       objectReference: {fileID: 157081633}
     - target: {fileID: 802039643386694311, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1375
+      value: 1390
       objectReference: {fileID: 0}
     - target: {fileID: 2527131535390419333, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_Mesh
@@ -4110,7 +4117,7 @@ PrefabInstance:
       objectReference: {fileID: 1631218371}
     - target: {fileID: 2527131535390419333, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1318
+      value: 1333
       objectReference: {fileID: 0}
     - target: {fileID: 4313381158343096277, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4893,7 +4900,7 @@ PrefabInstance:
       objectReference: {fileID: 1800119994}
     - target: {fileID: 802039643386694311, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1378
+      value: 1393
       objectReference: {fileID: 0}
     - target: {fileID: 2527131535390419333, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_Mesh
@@ -4901,7 +4908,7 @@ PrefabInstance:
       objectReference: {fileID: 475447079}
     - target: {fileID: 2527131535390419333, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1321
+      value: 1336
       objectReference: {fileID: 0}
     - target: {fileID: 4313381158343096277, guid: 97b9ffddeab777c4a81ba1a02d8ecf69, type: 3}
       propertyPath: m_LocalPosition.x

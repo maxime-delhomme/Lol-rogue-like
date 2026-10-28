@@ -17,7 +17,7 @@ MonoBehaviour:
   _prefab: {fileID: 797428398837288437, guid: 1a3f3c250e902de40b82654f2d65e30a, type: 3}
   _projectilePrefab: {fileID: 797428398837288437, guid: 5258175de32ac514da082da1ea71ea2f, type: 3}
   _range: 100
-  _damage: 100
+  _damage: 10
   _impactRadius: 2
   _width: 0
   _speed: 20

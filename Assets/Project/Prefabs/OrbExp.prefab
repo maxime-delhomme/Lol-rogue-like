@@ -34084,8 +34084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExpOrb
   _experience: 10
-  _attractionRange: 4
-  _attractionSpeed: 3
+  _attractionSpeed: 10
   _maxAttractionSpeed: 12
   _attractionAcceleration: 15
 --- !u!135 &1086475067569351812

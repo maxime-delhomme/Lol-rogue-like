@@ -2,20 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 using static EnemyData;
 
 public class Autel : MonoBehaviour, IInteractable
 {
     [Header("Reference")]
     [SerializeField] private Outline _outline;
+    [SerializeField] private GameManager _gameManager;
 
     [Header("Objective")]
-    [SerializeField] private int _enemiesToKill = 10;
-    [SerializeField] private int _enemiesPerWave = 3;
+    [SerializeField] private int _baseEnemiesToKill = 10;
+    [SerializeField] private int _baseEnemiesPerWave = 3;
+    private int _enemiesToKill;
+    private int _enemiesPerWave;
     [SerializeField] private float _killRadius = 15f;
     [SerializeField] private GameObject _radiusVisual;
     private readonly List<Ennemi> _aliveEnemies = new List<Ennemi>();
     private bool _canCompleteObjective;
+    [SerializeField] private float _difficultyAmount;
 
     [Header("Spawn")]
     [SerializeField] private EnemyData[] _enemyDataList;
@@ -46,6 +51,8 @@ public class Autel : MonoBehaviour, IInteractable
         {
             _radiusVisual.SetActive(false);
         }
+
+        _gameManager = FindAnyObjectByType<GameManager>();
     }
 
     private void Update()
@@ -64,10 +71,22 @@ public class Autel : MonoBehaviour, IInteractable
         }
     }
 
+    private void ConfigureObjectiveDifficulty()
+    {
+        int difficultyMultiplier = _gameManager.GetDifficultyMultiplier();
+
+        _enemiesToKill = _baseEnemiesToKill * difficultyMultiplier;
+        _enemiesPerWave = _baseEnemiesPerWave * difficultyMultiplier;
+
+        Debug.Log($"Objectif : {_enemiesToKill} ennemis à tuer, {_enemiesPerWave} par vague.");
+    }
+
     public void Interact()
     {
         if (_isActivated == false && _isCompleted == false)
         {
+            ConfigureObjectiveDifficulty();
+
             _isActivated = true;
             _isInteractive = false;
 
@@ -87,8 +106,7 @@ public class Autel : MonoBehaviour, IInteractable
 
                 ObjectivCompleted();
             }
-        }
-            
+        }   
     }
 
     private IEnumerator SpawnWavesCoroutine()
@@ -247,6 +265,8 @@ public class Autel : MonoBehaviour, IInteractable
             {
                 _radiusVisual.SetActive(false);
             }
+
+            _gameManager.AddDifficultyProgress(_difficultyAmount);
 
             Debug.Log("Objectif terminé");
         }

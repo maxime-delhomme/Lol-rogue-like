@@ -1188,10 +1188,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Autel
   _outline: {fileID: 4656000496957274347}
-  _enemiesToKill: 20
-  _enemiesPerWave: 6
+  _gameManager: {fileID: 0}
+  _baseEnemiesToKill: 20
+  _baseEnemiesPerWave: 6
   _killRadius: 15
   _radiusVisual: {fileID: 8685516073827597497}
+  _difficultyAmount: 333
   _enemyDataList:
   - {fileID: 11400000, guid: 52758c09fae0e8446bd10460fc14aabd, type: 2}
   - {fileID: 11400000, guid: c706d38fb2800d54b8be4d274a7042f9, type: 2}
@@ -1201,6 +1203,11 @@ MonoBehaviour:
   _spawnInterval: 0.5
   _spawnHeight: 2
   _navMeshSampleDistance: 3
+  _commonWeight: 45
+  _uncommonWeight: 35
+  _rareWeight: 14
+  _epicWeight: 5
+  _legendaryWeight: 1
 --- !u!114 &4656000496957274347
 MonoBehaviour:
   m_ObjectHideFlags: 0

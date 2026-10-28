@@ -7,14 +7,19 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("Reference")]
     private Character _player;
+    [SerializeField] private GameManager _gameManager;
 
     [Header("Ennemi")]
     [SerializeField] private EnemyData[] _enemyDataList;
-    [SerializeField] private float _commonWeight = 45f;
-    [SerializeField] private float _uncommonWeight = 35f;
-    [SerializeField] private float _rareWeight = 14f;
-    [SerializeField] private float _epicWeight = 5f;
-    [SerializeField] private float _legendaryWeight = 1f;
+    [SerializeField] private int _commonWeight = 45;
+    [SerializeField] private int _uncommonWeight = 35;
+    [SerializeField] private int _rareWeight = 14;
+    [SerializeField] private int _epicWeight = 5;
+    [SerializeField] private int _legendaryWeight = 1;
+    [SerializeField] private int _rarityWeightIncreasePerMinute = 1;
+
+    [SerializeField] private int _maxEpicEnemies = 1;
+    private int _currentEpicEnemyCount;
 
     [Header("Spawn Budget")]
     [SerializeField] private int _spawnBudgetIncreasePerMinute = 1;
@@ -29,7 +34,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _minSpawnDistance;
     [SerializeField] private int _maxSpawnAttemps;
     [SerializeField] private int _enemyCounts;
-
     [SerializeField] private float _respawnDelay;
     private int _currentEnemyCount;
 
@@ -149,11 +153,14 @@ public class EnemySpawner : MonoBehaviour
 
     private EnemyData GetRandomEnemyData()
     {
-        float totalWeight = 0f;
+        int totalWeight = 0;
 
         foreach (EnemyData data in _enemyDataList)
         {
             if (data == null || data._prefab == null)
+                continue;
+
+            if (_gameManager.CurrentDifficulty == GameManager.GameDifficulty.VeryEasy && data._rarity == EnemyRarity.Epic && _currentEpicEnemyCount >= _maxEpicEnemies)
                 continue;
 
             if (GetSpawnCost(data) > _currentSpawnBudget)
@@ -165,7 +172,7 @@ public class EnemySpawner : MonoBehaviour
         if (totalWeight <= 0f)
             return null;
 
-        float randomValue = Random.Range(0f, totalWeight);
+        int randomValue = Random.Range(0, totalWeight);
 
         foreach (EnemyData data in _enemyDataList)
         {
@@ -184,27 +191,28 @@ public class EnemySpawner : MonoBehaviour
         return _enemyDataList[_enemyDataList.Length - 1];
     }
 
-    private float GetRarityWeight(EnemyData data)
+    private int GetRarityWeight(EnemyData data)
     {
+        int rarityBonus = _elapsedMinutes * _rarityWeightIncreasePerMinute;
         switch (data._rarity)
         {
             case EnemyRarity.Common:
-                return _commonWeight;
+                return _commonWeight + rarityBonus;
 
             case EnemyRarity.Uncommon:
-                return _uncommonWeight;
+                return _uncommonWeight + rarityBonus;
 
             case EnemyRarity.Rare:
-                return _rareWeight;
+                return _rareWeight + rarityBonus;
 
             case EnemyRarity.Epic:
-                return _epicWeight;
+                return _epicWeight + rarityBonus;
 
             case EnemyRarity.Legendary:
-                return _legendaryWeight;
+                return _legendaryWeight + rarityBonus;
 
             default:
-                return 0f;
+                return 0;
         }
     }
 
@@ -237,7 +245,6 @@ public class EnemySpawner : MonoBehaviour
         if (_currentEnemyCount >= _enemyCounts)
             return false;
 
-
         EnemyData data = GetRandomEnemyData();
 
         if (data == null)
@@ -260,20 +267,27 @@ public class EnemySpawner : MonoBehaviour
         {
             enemy.Initialiser(data);
             enemy.SetSpawner(this);
+
+            if (data._rarity == EnemyRarity.Epic)
+            {
+                _currentEpicEnemyCount++;
+            }
         }
 
-        
         _currentSpawnBudget -= spawnCost;
         _currentEnemyCount++;
-
-        Debug.Log(_currentSpawnBudget);
 
         return true;
     }
 
-    public void EnemyDied()
+    public void EnemyDied(EnemyRarity rarity)
     {
         _currentEnemyCount--;
+
+        if (rarity == EnemyRarity.Epic)
+        {
+            _currentEpicEnemyCount--;
+        }
 
         StartCoroutine(RespawnEnemyCoroutine());
     }

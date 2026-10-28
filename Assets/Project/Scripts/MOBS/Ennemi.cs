@@ -203,7 +203,7 @@ public class Ennemi : MonoBehaviour
 
         if(_spawner != null)
         {
-            _spawner.EnemyDied();
+            _spawner.EnemyDied(_data._rarity);
         }
 
         if (_autelOrigine != null)

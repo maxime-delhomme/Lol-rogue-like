@@ -17,7 +17,7 @@ MonoBehaviour:
   _health: 10
   _attackRange: 1.5
   _damage: 5
-  _attackDelay: 1
+  _attackDelay: 0.4
   _speedRotation: 5
   _moveSpeed: 4
   _rage: 1
