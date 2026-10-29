@@ -10,6 +10,7 @@ public class Autel : MonoBehaviour, IInteractable
     [Header("Reference")]
     [SerializeField] private Outline _outline;
     [SerializeField] private GameManager _gameManager;
+    [SerializeField] private EnemySpawner _enemySpawner;
 
     [Header("Objective")]
     [SerializeField] private int _baseEnemiesToKill = 10;
@@ -53,6 +54,7 @@ public class Autel : MonoBehaviour, IInteractable
         }
 
         _gameManager = FindAnyObjectByType<GameManager>();
+        _enemySpawner = FindAnyObjectByType<EnemySpawner>();
     }
 
     private void Update()
@@ -86,6 +88,7 @@ public class Autel : MonoBehaviour, IInteractable
         if (_isActivated == false && _isCompleted == false)
         {
             ConfigureObjectiveDifficulty();
+            _enemySpawner.SetSpawnPaused(true);
 
             _isActivated = true;
             _isInteractive = false;
@@ -103,8 +106,8 @@ public class Autel : MonoBehaviour, IInteractable
 
             if (_aliveEnemies.Count == 0)
             {
-
                 ObjectivCompleted();
+                _enemySpawner.SetSpawnPaused(false);
             }
         }   
     }

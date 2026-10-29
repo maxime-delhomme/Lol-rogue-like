@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
     private int _currentSpawnBudget;
     private int _elapsedMinutes;
     private float _elapsedTime;
-    private float _budgetRechargeTimer;
+    [SerializeField] private float _budgetRechargeTimer;
 
     [Header("Spawn")]
     [SerializeField] private float _minSpawnDistance;
@@ -36,6 +36,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int _enemyCounts;
     [SerializeField] private float _respawnDelay;
     private int _currentEnemyCount;
+    private bool _isSpawnPaused;
 
     public void SetPlayer(Character player)
     {
@@ -84,20 +85,29 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        _budgetRechargeTimer += Time.deltaTime;
+        if (!_isSpawnPaused)
+        {
+            _budgetRechargeTimer += Time.deltaTime;
+        }
 
-        if (_budgetRechargeTimer >= _budgetRechargeDelay)
+        if (_budgetRechargeTimer >= _budgetRechargeDelay && !_isSpawnPaused)
         {
             _currentSpawnBudget = _maxSpawnBudget;
             _budgetRechargeTimer = 0f;
         }
     }
 
+    public void SetSpawnPaused(bool isPaused)
+    {
+        _isSpawnPaused = isPaused;
+        Debug.Log(isPaused);
+    }
+
     private IEnumerator SpawnEnemiesCoroutine()
     {
         while (true)
         {
-            if (_currentSpawnBudget > 0 && _currentEnemyCount < _enemyCounts)
+            if (!_isSpawnPaused && _currentSpawnBudget > 0 && _currentEnemyCount < _enemyCounts)
             {
                 SpawnEnemy();
             }
