@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4726407656457960908}
   - component: {fileID: 7838002754963417751}
   - component: {fileID: 1972566437018491523}
-  - component: {fileID: 8299020649687118767}
   - component: {fileID: 1808360613791223323}
+  - component: {fileID: 407689970961804292}
   - component: {fileID: 8373798298189133160}
   - component: {fileID: 357657529980107206}
   - component: {fileID: 5015151263362826077}
@@ -95,28 +95,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!195 &8299020649687118767
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4148086301139987971}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 10
-  m_Acceleration: 999
-  avoidancePriority: 50
-  m_AngularSpeed: 10
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!136 &1808360613791223323
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -140,6 +118,33 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &407689970961804292
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4148086301139987971}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!114 &8373798298189133160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,9 +159,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   _camera: {fileID: 0}
   InputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
-  _clickableLayers:
-    serializedVersion: 2
-    m_Bits: 64
   _interactionRange: 5
   _interactionLayer:
     serializedVersion: 2
@@ -200,4 +202,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39515ae39da6484e80d953ce0a44d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AugmentManager
-  _player: {fileID: 8373798298189133160}

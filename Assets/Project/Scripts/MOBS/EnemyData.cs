@@ -17,6 +17,7 @@ public class EnemyData : ScriptableObject
 
     [Header("Drop")]
     public int _rage;
+    public int _gold;
     public GameObject _expOrbPrefab;
     public int _expOrbCount;
 

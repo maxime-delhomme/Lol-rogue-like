@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
@@ -18,7 +17,10 @@ public class Character : MonoBehaviour
 
 
     [Header("Move")]
-    private NavMeshAgent _agent;
+    private Rigidbody _rigidbody;
+    private Vector3 _moveDirection;
+    private bool _isDashing;
+    private Quaternion _targetRotation;
 
 
     [Header("Interaction")]
@@ -32,6 +34,7 @@ public class Character : MonoBehaviour
     private int _currentHealth;
     private int _bonusMaxHealth = 0;
     private int _currentRage;
+    private int _currentGold;
     private int _currentExperience = 0;
     private int _experienceRequired;
     private int _level = 1;
@@ -54,10 +57,12 @@ public class Character : MonoBehaviour
     public int AttractionRange => _data._attractionRange;
     public int CurrentRage => _currentRage;
     public int MaxRage => _data._maxRage;
+    public int CurrentGold => _currentGold;
     public int CurrentExperience => _currentExperience;
     public int ExperienceRequired => _experienceRequired;
     public int CurrentLevel => _level;
     public int SkillPoints => _skillPoints;
+    public bool IsDashing => _isDashing;
     #endregion
     public static event Action<Vector3> OnPointerClick;
 
@@ -73,8 +78,8 @@ public class Character : MonoBehaviour
 
         }
 
-        _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = _data._moveSpeed;
+        _rigidbody = GetComponent<Rigidbody>();
+        _targetRotation = _rigidbody.rotation;
 
         m_moveAction = InputActions.FindActionMap("Player").FindAction("Move");
         m_InteractionAction = InputActions.FindActionMap("Player").FindAction("Interaction");
@@ -97,15 +102,11 @@ public class Character : MonoBehaviour
     {
         Vector2 moveInput = m_moveAction.ReadValue<Vector2>();
 
-        Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
+        _moveDirection = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
 
-        _agent.Move(moveDirection.normalized * _data._moveSpeed * Time.deltaTime);
-
-        if (moveDirection.sqrMagnitude > 0.01f)
+        if (_moveDirection.sqrMagnitude > 0.01f && !_isDashing)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _data._lookRotationSpeed);
+            _targetRotation = Quaternion.LookRotation(_moveDirection);
         }
 
         if (m_InteractionAction.WasPressedThisFrame())
@@ -129,6 +130,22 @@ public class Character : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (_isDashing)
+            return;
+
+        _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation, Time.fixedDeltaTime * _data._lookRotationSpeed));
+
+        Vector3 movement = _moveDirection * _data._moveSpeed;
+
+        Vector3 velocity = _rigidbody.linearVelocity;
+        velocity.x = movement.x;
+        velocity.z = movement.z;
+
+        _rigidbody.linearVelocity = velocity;
+    }
+
     public bool PeutFaireQTE()
     {
         return _currentRage >= _data._maxRage;
@@ -147,6 +164,15 @@ public class Character : MonoBehaviour
     public void ConsommerRage()
     {
         _currentRage -= _data._maxRage;
+    }
+
+    public void AddGold(int amount)
+    {
+        if (amount <= 0)
+            return;
+
+        _currentGold += amount;
+        Debug.Log($"Or : {_currentGold}");
     }
 
     public void TakeDamage(int damage)
@@ -259,5 +285,15 @@ public class Character : MonoBehaviour
 
         _bonusMaxHealth += amount;
         _currentHealth += amount;
+    }
+
+    public void StartDash()
+    {
+        _isDashing = true;
+    }
+
+    public void EndDash()
+    {
+        _isDashing = false;
     }
 }

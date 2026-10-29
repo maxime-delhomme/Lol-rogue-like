@@ -79,8 +79,6 @@ public class Autel : MonoBehaviour, IInteractable
 
         _enemiesToKill = _baseEnemiesToKill * difficultyMultiplier;
         _enemiesPerWave = _baseEnemiesPerWave * difficultyMultiplier;
-
-        Debug.Log($"Objectif : {_enemiesToKill} ennemis à tuer, {_enemiesPerWave} par vague.");
     }
 
     public void Interact()

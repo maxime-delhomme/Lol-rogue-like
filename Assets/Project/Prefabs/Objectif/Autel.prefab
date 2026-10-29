@@ -831,6 +831,7 @@ GameObject:
   - component: {fileID: 8859834061285232106}
   - component: {fileID: 7297564140407929619}
   - component: {fileID: 3686371154197511130}
+  - component: {fileID: 2495774933243341015}
   - component: {fileID: 4656000496957274347}
   m_Layer: 9
   m_Name: Autel
@@ -848,7 +849,7 @@ Transform:
   m_GameObject: {fileID: 5341361241487175987}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.9, y: 1, z: 0.9}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1067,7 +1068,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1306
+  m_VersionIndex: 1309
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1189,6 +1190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Autel
   _outline: {fileID: 4656000496957274347}
   _gameManager: {fileID: 0}
+  _enemySpawner: {fileID: 0}
   _baseEnemiesToKill: 20
   _baseEnemiesPerWave: 6
   _killRadius: 15
@@ -1208,6 +1210,18 @@ MonoBehaviour:
   _rareWeight: 14
   _epicWeight: 5
   _legendaryWeight: 1
+--- !u!114 &2495774933243341015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5341361241487175987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafaaccd62892fd4293e8dc7a3cbb5be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveMarker
 --- !u!114 &4656000496957274347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1418,6 +1432,54 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &8085569944639828105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1817578329697002678}
+  - component: {fileID: 4060455306783251884}
+  m_Layer: 9
+  m_Name: barrierSegment (25)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1817578329697002678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8085569944639828105}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4915869967824399548}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &4060455306783251884
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8085569944639828105}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.35, y: 0.5, z: 0.35}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &8107437249357445103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,6 +1587,7 @@ Transform:
   - {fileID: 9172386549310425556}
   - {fileID: 4284016279944928421}
   - {fileID: 9066854234152749261}
+  - {fileID: 1817578329697002678}
   m_Father: {fileID: 4313381158343096277}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &802039643386694311
@@ -5157,7 +5220,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1363
+  m_VersionIndex: 1366
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

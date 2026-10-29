@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
         }
 
         _currentDifficulty++;
+        _enemySpawner.AddSpawnBudget(30);
 
         Debug.Log($"Difficulté actuelle : {_currentDifficulty}");
     }

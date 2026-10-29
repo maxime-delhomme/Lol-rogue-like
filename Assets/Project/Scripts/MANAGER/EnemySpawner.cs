@@ -97,6 +97,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    public void AddSpawnBudget(int budget)
+    {
+        _maxSpawnBudget += budget;
+    }
+
     public void SetSpawnPaused(bool isPaused)
     {
         _isSpawnPaused = isPaused;

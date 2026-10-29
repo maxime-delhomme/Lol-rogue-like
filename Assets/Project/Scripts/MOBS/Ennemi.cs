@@ -194,6 +194,7 @@ public class Ennemi : MonoBehaviour
         if (_player != null)
         {
             _player.AjouterRage(_data._rage);
+            _player.AddGold(_data._gold);
         }
 
         if (LootSpawner.Instance != null)
