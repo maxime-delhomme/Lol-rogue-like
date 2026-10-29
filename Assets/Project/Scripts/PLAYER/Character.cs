@@ -18,8 +18,7 @@ public class Character : MonoBehaviour
 
 
     [Header("Move")]
-    NavMeshAgent _agent;
-    [SerializeField] LayerMask _clickableLayers;
+    private NavMeshAgent _agent;
 
 
     [Header("Interaction")]
@@ -96,9 +95,17 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
-        if(m_moveAction.WasPressedThisFrame())
+        Vector2 moveInput = m_moveAction.ReadValue<Vector2>();
+
+        Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
+
+        _agent.Move(moveDirection.normalized * _data._moveSpeed * Time.deltaTime);
+
+        if (moveDirection.sqrMagnitude > 0.01f)
         {
-            ClickToMove();
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _data._lookRotationSpeed);
         }
 
         if (m_InteractionAction.WasPressedThisFrame())
@@ -119,34 +126,6 @@ public class Character : MonoBehaviour
                 return;
 
             interactable.Interact();
-        }
-
-        FaceTarget();
-
-    }
-
-    void ClickToMove()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, 100, _clickableLayers))
-        {
-            _agent.destination = hit.point;
-            OnPointerClick?.Invoke(hit.point);
-        }
-    }
-
-    private void FaceTarget()
-    {
-        Vector3 direction = _agent.destination - transform.position;
-        direction.y = 0;
-
-        if (direction.sqrMagnitude > 0.01f)
-        {
-            direction.Normalize();
-
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _data._lookRotationSpeed);
         }
     }
 
