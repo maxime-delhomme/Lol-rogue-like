@@ -23,7 +23,7 @@ MonoBehaviour:
   _moveSpeed: 6
   _xpGain: 0
   _attractionRange: 4
-  _maxRage: 100
+  _maxRage: 50
   _maxExperience: 100
   _lookRotationSpeed: 1
   _baseExperience: 100

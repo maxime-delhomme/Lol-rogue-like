@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,6 +41,12 @@ public class Character : MonoBehaviour
     private int _level = 1;
     private int _skillPoints = 0;
 
+    [Header("Augment")]
+    [SerializeField] private float _qteMoveSpeedMultiplier;
+    [SerializeField] private float _qteMoveSpeedDuration;
+    private float _currentMoveSpeedMultiplier = 1f;
+    private Coroutine _qteMoveSpeedCoroutine;
+
     #region pointers
     [Header("ViewPublic")]
     public int CurrentHealth => _currentHealth;
@@ -52,7 +59,7 @@ public class Character : MonoBehaviour
     public float CriticalDamage => _data._critDamage;
     public int Range => _data._range;
     public float AbilityHaste => _data._abilityHaste;
-    public float MoveSpeed => _data._moveSpeed;
+    public float MoveSpeed => _data._moveSpeed * _currentMoveSpeedMultiplier;
     public float XpGain => _data._xpGain;
     public int AttractionRange => _data._attractionRange;
     public int CurrentRage => _currentRage;
@@ -137,7 +144,7 @@ public class Character : MonoBehaviour
 
         _rigidbody.MoveRotation(Quaternion.Slerp(_rigidbody.rotation, _targetRotation, Time.fixedDeltaTime * _data._lookRotationSpeed));
 
-        Vector3 movement = _moveDirection * _data._moveSpeed;
+        Vector3 movement = _moveDirection * MoveSpeed;
 
         Vector3 velocity = _rigidbody.linearVelocity;
         velocity.x = movement.x;
@@ -295,5 +302,23 @@ public class Character : MonoBehaviour
     public void EndDash()
     {
         _isDashing = false;
+    }
+
+    public void ActivateQteMoveSpeedAugment()
+    {
+        if (_qteMoveSpeedCoroutine != null)
+            StopCoroutine(_qteMoveSpeedCoroutine );
+
+        _currentMoveSpeedMultiplier = _qteMoveSpeedMultiplier;
+
+        _qteMoveSpeedCoroutine = StartCoroutine(QteMoveSpeedCoroutine());
+    }
+
+    private IEnumerator  QteMoveSpeedCoroutine()
+    {
+        yield return new WaitForSeconds(_qteMoveSpeedDuration);
+
+        _currentMoveSpeedMultiplier = 1f;
+        _qteMoveSpeedCoroutine = null;
     }
 }

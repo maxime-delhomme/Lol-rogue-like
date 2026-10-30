@@ -164,6 +164,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _data: {fileID: 11400000, guid: c3cf48a4d85dd754eaa2655f8e7b7bd5, type: 2}
+  _qteMoveSpeedMultiplier: 1.5
+  _qteMoveSpeedDuration: 10
 --- !u!114 &357657529980107206
 MonoBehaviour:
   m_ObjectHideFlags: 0

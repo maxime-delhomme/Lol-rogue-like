@@ -222,6 +222,7 @@ public class QTEManager : MonoBehaviour
         _spellCaster.LancerSort(_spellIndex, true);
 
         _player.ConsommerRage();
+        _player.ActivateQteMoveSpeedAugment();
     }
 
     private void EchouerQTE()

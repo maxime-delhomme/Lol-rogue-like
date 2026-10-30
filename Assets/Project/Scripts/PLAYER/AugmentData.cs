@@ -2,9 +2,9 @@ using UnityEngine;
 
 public enum AugmentRarity
 {
-    Common,
-    Rare,
-    Legendary
+    Silver,
+    Gold,
+    Prismatic
 }
 
 [CreateAssetMenu(fileName = "NewAugment", menuName = "Game/Augment")]
@@ -26,13 +26,13 @@ public class AugmentData : ScriptableObject
         {
             switch (_rarity)
             {
-                case AugmentRarity.Common:
+                case AugmentRarity.Silver:
                     return 1;
 
-                case AugmentRarity.Rare:
+                case AugmentRarity.Gold:
                     return 2;
 
-                case AugmentRarity.Legendary:
+                case AugmentRarity.Prismatic:
                     return 3;
 
                 default:
@@ -44,5 +44,7 @@ public class AugmentData : ScriptableObject
 
 public enum AugmentEffectType
 {
-    DoubleSort
+    DoubleSort,
+    IamSpeed
+
 }
