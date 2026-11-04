@@ -260,3 +260,38 @@
     -unity-font-style: bold;
     -unity-text-align: middle-center;
 }
+
+/* Cartes selon leur rareté */
+.augment-card-silver {
+    background-color: rgb(65, 68, 75);
+    border-top-color: rgb(155, 155, 155);
+    border-bottom-color: rgb(155, 155, 155);
+    border-left-color: rgb(155, 155, 155);
+    border-right-color: rgb(155, 155, 155);
+}
+
+.augment-card-gold {
+    background-color: rgb(85, 67, 30);
+    border-top-color: rgb(220, 175, 65);
+    border-bottom-color: rgb(220, 175, 65);
+    border-left-color: rgb(220, 175, 65);
+    border-right-color: rgb(220, 175, 65);
+}
+
+.augment-card-prismatic {
+    background-color: rgb(65, 40, 90);
+    border-top-color: rgb(175, 100, 235);
+    border-bottom-color: rgb(175, 100, 235);
+    border-left-color: rgb(175, 100, 235);
+    border-right-color: rgb(175, 100, 235);
+}
+
+/* Coût de l'augment */
+.augment-cost {
+    margin-top: auto;
+    padding-top: 18px;
+    color: rgb(255, 210, 115);
+    font-size: 20px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}

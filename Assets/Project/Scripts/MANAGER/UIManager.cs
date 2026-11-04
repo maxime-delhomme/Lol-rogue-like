@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
-using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -34,14 +35,18 @@ public class UIManager : MonoBehaviour
     private VisualElement _experienceBar;
 
     [Header("AugmentShop")]
-    [SerializeField] private AugmentData[] _availableAugments;
+    [SerializeField] private AugmentData[] _silverAugments;
+    [SerializeField] private AugmentData[] _goldAugments;
+    [SerializeField] private AugmentData[] _prismaticAugments;
     private VisualElement _shopContainer;
+    private VisualElement[] _augmentCards = new VisualElement[3];
     private Label[] _augmentNames = new Label[3];
     private Label[] _augmentDescriptions = new Label[3];
     private Label[] _augmentRarities = new Label[3];
     private Button _rerollButton;
     private Label _skillPointsLabel;
     private AugmentData[] _currentAugments = new AugmentData[3];
+    private Label[] _augmentCosts = new Label[3];
     [SerializeField] private int _rerollCost = 1;
 
     [Header("Spells")]
@@ -117,6 +122,8 @@ public class UIManager : MonoBehaviour
         _shopContainer = root.Q<VisualElement>("augment-shop");
         _shopContainer.style.display = DisplayStyle.None;
 
+
+
         for (int i = 0; i < 3; i++)
         {
             int number = i + 1;
@@ -129,6 +136,9 @@ public class UIManager : MonoBehaviour
 
             _augmentRarities[i] =
                 root.Q<Label>($"augment-rarity-{number}");
+
+            _augmentCosts[i] = root.Q<Label>($"augment-cost-{number}");
+            _augmentCards[i] = root.Q<VisualElement>($"augment-card-{number}");
         }
 
         for (int i = 0; i < 3; i++)
@@ -147,6 +157,7 @@ public class UIManager : MonoBehaviour
 
         _rerollButton = root.Q<Button>("reroll-button");
         _skillPointsLabel = root.Q<Label>("skill-points-label");
+
 
         _rerollButton.clicked += AcheterReroll;
 
@@ -299,31 +310,36 @@ public class UIManager : MonoBehaviour
 
     private void RerollAugments()
     {
-        var groupes = new Dictionary<AugmentRarity, List<AugmentData>>();
+        List<AugmentRarity> raretesPossibles = new List<AugmentRarity>();
 
-        foreach (AugmentData augment in _availableAugments)
+        if (_silverAugments.Length >= 3)
+            raretesPossibles.Add(AugmentRarity.Silver);
+
+        if (_goldAugments.Length >= 3)
+            raretesPossibles.Add(AugmentRarity.Gold);
+
+        if (_prismaticAugments.Length >= 3)
+            raretesPossibles.Add(AugmentRarity.Prismatic);
+
+        if (raretesPossibles.Count == 0)
         {
-            if (!groupes.ContainsKey(augment._rarity))
-            {
-                groupes[augment._rarity] = new List<AugmentData>();
-            }
-
-            groupes[augment._rarity].Add(augment);
-        }
-
-        var raretesPossibles = new List<AugmentRarity>();
-
-        foreach (var groupe in groupes)
-        {
-            if (groupe.Value.Count >= 3)
-                raretesPossibles.Add(groupe.Key);
+            Debug.Log("Pas assez d'augments pour reroll");
+            return;
         }
 
         AugmentRarity rareteChoisie = raretesPossibles[UnityEngine.Random.Range(0, raretesPossibles.Count)];
 
-        var disponibles = new List<AugmentData>(groupes[rareteChoisie]);
+        AugmentData[] pool = rareteChoisie switch
+        {
+            AugmentRarity.Silver => _silverAugments,
+            AugmentRarity.Gold => _goldAugments,
+            AugmentRarity.Prismatic => _prismaticAugments,
+            _ => _silverAugments
+        };
 
-        for (int i = 0; i < 3;  i++)
+        List<AugmentData> disponibles = new List<AugmentData>(pool);
+
+        for (int i = 0; i < 3; i++)
         {
             int index = UnityEngine.Random.Range(0, disponibles.Count);
             AugmentData augment = disponibles[index];
@@ -333,7 +349,29 @@ public class UIManager : MonoBehaviour
 
             _augmentNames[i].text = augment._augmentName;
             _augmentDescriptions[i].text = augment._description;
-            _augmentRarities[i].text = augment._rarity.ToString();
+            _augmentRarities[i].text = augment._rarity.ToString().ToUpper();
+            _augmentCosts[i].text = $"{augment.SkillPointCost} SKILL POINT";
+
+            VisualElement card = _augmentCards[i];
+
+            card.RemoveFromClassList("augment-card-silver");
+            card.RemoveFromClassList("augment-card-gold");
+            card.RemoveFromClassList("augment-card-prismatic");
+
+            switch (augment._rarity)
+            {
+                case AugmentRarity.Silver:
+                    card.AddToClassList("augment-card-silver");
+                    break;
+
+                case AugmentRarity.Gold:
+                    card.AddToClassList("augment-card-gold");
+                    break;
+
+                case AugmentRarity.Prismatic:
+                    card.AddToClassList("augment-card-prismatic");
+                    break;
+            }
         }
     }
 

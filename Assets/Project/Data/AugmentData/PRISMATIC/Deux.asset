@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e62027f3610ba24c896721c8789c4c7, type: 3}
   m_Name: Deux
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  _augmentName: nuuuuuuuuuuuuuum
-  _description: a chieeeeeeeeer
-  _rarity: 0
-  _effect: 3
+  _augmentName: prisma1
+  _description: rzhgrhjt
+  _rarity: 2
+  _effectType: 0
   _effectValue: 14554

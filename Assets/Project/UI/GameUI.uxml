@@ -73,18 +73,21 @@
                 <ui:Label name="augment-rarity-1" text="RARE" class="augment-rarity" />
                 <ui:Label name="augment-name-1" text="Nom de l'augment" class="augment-name" />
                 <ui:Label name="augment-description-1" text="Description de l'effet de cet augment." class="augment-description" />
+                <ui:Label name="augment-cost-1" text="1 SKILL POINT" class="augment-cost" />
             </ui:VisualElement>
 
             <ui:VisualElement name="augment-card-2" class="augment-card">
                 <ui:Label name="augment-rarity-2" text="RARE" class="augment-rarity" />
                 <ui:Label name="augment-name-2" text="Nom de l'augment" class="augment-name" />
                 <ui:Label name="augment-description-2" text="Description de l'effet de cet augment." class="augment-description" />
+                <ui:Label name="augment-cost-2" text="2 SKILL POINT" class="augment-cost" />
             </ui:VisualElement>
 
             <ui:VisualElement name="augment-card-3" class="augment-card">
                 <ui:Label name="augment-rarity-3" text="RARE" class="augment-rarity" />
                 <ui:Label name="augment-name-3" text="Nom de l'augment" class="augment-name" />
                 <ui:Label name="augment-description-3" text="Description de l'effet de cet augment." class="augment-description" />
+                <ui:Label name="augment-cost-3" text="3 SKILL POINT" class="augment-cost" />
             </ui:VisualElement>
 
         </ui:VisualElement>

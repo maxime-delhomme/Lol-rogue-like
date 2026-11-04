@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
   _augmentName: DOUBLE SORT
   _description: RENVOIE LE SORT ENCOOOOOOOOOOOOOOOOOOORE
-  _rarity: 0
+  _rarity: 1
   _effectType: 0
   _effectValue: 20
-  _effect: {fileID: 11400000, guid: ac3ef28373c749d45bffee2a56f0b6fe, type: 2}

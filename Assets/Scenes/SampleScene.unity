@@ -3009,10 +3009,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   InputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
-  _availableAugments:
+  _silverAugments:
   - {fileID: 11400000, guid: 412c3a169bf610248a4c552f37c26b35, type: 2}
   - {fileID: 11400000, guid: 4683b58b752af6741b7c9dff7aceb659, type: 2}
   - {fileID: 11400000, guid: e9f9f72f0768f0741b81a71122f2efd5, type: 2}
+  _goldAugments:
+  - {fileID: 11400000, guid: 5de0c6da8e3e44949a4b63d3d0cefecd, type: 2}
+  - {fileID: 11400000, guid: b2966fdc7fe41fa4e8cfda2a53d967cd, type: 2}
+  - {fileID: 11400000, guid: ec1ae3c762ea7134885d490288016261, type: 2}
+  _prismaticAugments:
+  - {fileID: 11400000, guid: 6480fe5477adac74a87134e768ee3dcf, type: 2}
+  - {fileID: 11400000, guid: 8252e33cdf3704d409623e6494f179cc, type: 2}
+  - {fileID: 11400000, guid: 46acbfbd7258cae45a540d7f3da3c83e, type: 2}
   _rerollCost: 1
 --- !u!114 &1826714206
 MonoBehaviour:

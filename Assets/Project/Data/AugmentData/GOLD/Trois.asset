@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e62027f3610ba24c896721c8789c4c7, type: 3}
   m_Name: Trois
   m_EditorClassIdentifier: Assembly-CSharp::AugmentData
-  _augmentName: mmmmmmmmmh
-  _description: mouuuuuuuuuuuais
-  _rarity: 0
-  _effect: 4
+  _augmentName: gold 2
+  _description: zegfzghnjkeh
+  _rarity: 1
+  _effectType: 0
   _effectValue: 154441
