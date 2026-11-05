@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.Experimental.GraphView.GraphView;
@@ -38,6 +39,9 @@ public class QTEManager : MonoBehaviour
     {
         "Z","Q", "S", "D"
     };
+
+    [Header("Augment")]
+    private bool _iamSpeedActif = false;
 
     private void Awake()
     {
@@ -207,6 +211,15 @@ public class QTEManager : MonoBehaviour
         _qteSequence[2] = thirdKey;
     }
 
+    public void ActiverIamSpeed()
+    {
+        _iamSpeedActif = true;
+    }
+    public void DesactiverIamSpeed()
+    {
+        _iamSpeedActif = false;
+    }
+
     private void ReussirQTE()
     {
 
@@ -222,7 +235,11 @@ public class QTEManager : MonoBehaviour
         _spellCaster.LancerSort(_spellIndex, true);
 
         _player.ConsommerRage();
-        _player.ActivateQteMoveSpeedAugment();
+        
+        if (_iamSpeedActif)
+        {
+            _player.ActivateQteMoveSpeedAugment();
+        }
     }
 
     private void EchouerQTE()

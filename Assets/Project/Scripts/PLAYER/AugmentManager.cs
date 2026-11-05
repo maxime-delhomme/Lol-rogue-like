@@ -3,16 +3,29 @@ using UnityEngine;
 
 public class AugmentManager : MonoBehaviour
 {
-    private readonly List<AugmentData> _activeAugments = new();
+    [Header("Reference")]
+    [SerializeField] private QTEManager _qteManager;
+    [SerializeField] private SpellCaster _spellCaster;
 
-    private Character _player;
-    private SpellCaster _spellCaster;
+    [Header("Augment Inventory")]
+    [SerializeField] private int _baseAugmentCapacity = 6;
+    [SerializeField] private readonly List<AugmentData> _activeAugments = new();
+    private int _additionalAugmentCapacity = 0;
+    public IReadOnlyList<AugmentData> ActiveAugments => _activeAugments;
+    public int AugmentCapacity => _baseAugmentCapacity + _additionalAugmentCapacity;
+    public int AugmentCount => _activeAugments.Count;
+    public bool IsInventoryFull => AugmentCount >= AugmentCapacity;
+
+    public void SetQTEManager(QTEManager qteManager)
+    {
+        _qteManager = qteManager;
+    }
 
     private void Awake()
     {
-        _player = GetComponent<Character>();
         _spellCaster = GetComponent<SpellCaster>();
     }
+
     public bool AddAugment(AugmentData augment)
     {
         if (augment == null)
@@ -21,14 +34,44 @@ public class AugmentManager : MonoBehaviour
             return false;
         }
 
+        if (IsInventoryFull)
+        {
+            Debug.Log("Inventaire d'augments plein");
+            return false;
+        }
+
         switch (augment._effectType)
         {
             case AugmentEffectType.DoubleSort:
                 _spellCaster.ActiverDoubleSort();
                 break;
+
+            case AugmentEffectType.IamSpeed:
+                _qteManager.ActiverIamSpeed();
+                break;
         }
 
         _activeAugments.Add(augment);
+        return true;
+    }
+
+    public bool RemoveAugment(AugmentData augment)
+    {
+        if (augment == null || !_activeAugments.Contains(augment))
+            return false;
+
+        switch (augment._effectType)
+        {
+            case AugmentEffectType.DoubleSort:
+                _spellCaster.DesactiverDoubleSort();
+                break;
+
+            case AugmentEffectType.IamSpeed:
+                _qteManager.DesactiverIamSpeed();
+                break;
+        }
+
+        _activeAugments.Remove(augment);
         return true;
     }
 }

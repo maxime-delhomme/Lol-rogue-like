@@ -366,6 +366,10 @@ public class SpellCaster : MonoBehaviour
     {
         _doubleSortActif = true;
     }
+    public void DesactiverDoubleSort()
+    {
+        _doubleSortActif = false;
+    }
 
     private IEnumerator LancerDeuxiemeProjectileCoroutine(SpellCastContext context)
     {

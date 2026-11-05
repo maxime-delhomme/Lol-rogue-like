@@ -30,8 +30,6 @@ public class GameManager : MonoBehaviour
 
     public GameDifficulty CurrentDifficulty => _currentDifficulty;
 
-
-
     private void Start()
     {
         SpawnPlayer();
@@ -43,6 +41,7 @@ public class GameManager : MonoBehaviour
 
         Character player = playerObject.GetComponent<Character>();
         SpellCaster spellCaster = playerObject.GetComponent<SpellCaster>();
+        AugmentManager augmentManager = playerObject.GetComponent<AugmentManager>();
 
         _cameraController.SetTarget(playerObject.transform);
 
@@ -56,6 +55,8 @@ public class GameManager : MonoBehaviour
         _uiManager.SetPlayer(player);
 
         _enemySpawner.SetPlayer(player);
+
+        augmentManager.SetQTEManager(_qteManager);
     }
 
     private void Update()
