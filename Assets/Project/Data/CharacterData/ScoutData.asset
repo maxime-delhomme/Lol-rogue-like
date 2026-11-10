@@ -15,7 +15,7 @@ MonoBehaviour:
   _maxHealth: 100
   _lifeSteal: 0
   _armor: 0
-  _damage: 0
+  _damage: 10
   _critChance: 0
   _critDamage: 50
   _range: 0

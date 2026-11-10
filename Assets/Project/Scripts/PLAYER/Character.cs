@@ -40,6 +40,8 @@ public class Character : MonoBehaviour
     private int _experienceRequired;
     private int _level = 1;
     private int _skillPoints = 100;
+    private float _damageGrowth = 0.1f;
+    private float _healthGrowth = 0.02f;
 
     [Header("Augment")]
     [SerializeField] private float _qteMoveSpeedMultiplier;
@@ -50,10 +52,10 @@ public class Character : MonoBehaviour
     #region pointers
     [Header("ViewPublic")]
     public int CurrentHealth => _currentHealth;
-    public int MaxHealth => _data._maxHealth + _bonusMaxHealth;
+    public int MaxHealth => Mathf.RoundToInt(_data._maxHealth * (1f + _healthGrowth * (_level - 1) * (_level - 1)));
     public float LifeSteal => _data._lifeSteal;
     public int Armor => _data._armor;
-    public int Damage => _data._damage;
+    public int Damage => Mathf.RoundToInt(_data._damage * (1f + _damageGrowth * (_level - 1) * (_level - 1)));
     public float DamageAugments => 1f;
     public float CriticalChance => _data._critChance;
     public float CriticalDamage => _data._critDamage;
@@ -179,7 +181,7 @@ public class Character : MonoBehaviour
             return;
 
         _currentGold += amount;
-        Debug.Log($"Or : {_currentGold}");
+        //Debug.Log($"Or : {_currentGold}");
     }
 
     public void TakeDamage(int damage)
@@ -216,13 +218,18 @@ public class Character : MonoBehaviour
         while (_currentExperience >= _experienceRequired)
         {
             _currentExperience -= _experienceRequired;
+            int previousMaxHealth = MaxHealth;
+
             _level++;
+
+            int newMaxHealth = MaxHealth;
+            int healthIncrease = newMaxHealth - previousMaxHealth;
+
+            _currentHealth += healthIncrease;
 
             _skillPoints++;
 
             _experienceRequired = CalculateExperienceRequired(_level);
-
-            Debug.Log($"Niveau {_level} atteint ! Points de compétence : {_skillPoints}");
         }
     }
 
@@ -239,6 +246,14 @@ public class Character : MonoBehaviour
 
     public int CalculateSpellDamage(int spellDamage)
     {
+        Debug.Log(
+            $"Niveau : {_level} | " +
+            $"Dégâts de base : {_data._damage} | " +
+            $"Coefficient : {_damageGrowth} | " +
+            $"Dégâts du personnage : {Damage} | " +
+            $"Dégâts du sort : {spellDamage}"
+        );
+
         float damage = (Damage + spellDamage) * DamageAugments;
 
         bool isCritical = UnityEngine.Random.Range(0f, 100f) < CriticalChance;
@@ -249,6 +264,7 @@ public class Character : MonoBehaviour
         }
 
         return Mathf.RoundToInt(damage);
+
     }
 
     public int CalculateSpellRange(int spellRange)

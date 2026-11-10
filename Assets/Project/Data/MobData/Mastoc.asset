@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   _rarity: 2
   _prefab: {fileID: 5155316705443719023, guid: 47b2baab8ace9c041a883999668f8d70, type: 3}
-  _health: 120
+  _health: 200
   _attackRange: 4
   _damage: 50
   _attackDelay: 1
