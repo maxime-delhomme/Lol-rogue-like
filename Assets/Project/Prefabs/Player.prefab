@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
   _camera: {fileID: 0}
+  _dontTouchMeSpellData: {fileID: 11400000, guid: b412feec4b9ab8c4daa0c7b3a4b6e17e, type: 2}
   InputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
   _interactionRange: 5
   _interactionLayer:
@@ -204,3 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39515ae39da6484e80d953ce0a44d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AugmentManager
+  _qteManager: {fileID: 0}
+  _spellCaster: {fileID: 0}
+  _character: {fileID: 0}
+  _baseAugmentCapacity: 6

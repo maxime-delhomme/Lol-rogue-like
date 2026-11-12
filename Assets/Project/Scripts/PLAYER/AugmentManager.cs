@@ -6,6 +6,7 @@ public class AugmentManager : MonoBehaviour
     [Header("Reference")]
     [SerializeField] private QTEManager _qteManager;
     [SerializeField] private SpellCaster _spellCaster;
+    [SerializeField] private Character _character;
 
     [Header("Augment Inventory")]
     [SerializeField] private int _baseAugmentCapacity = 6;
@@ -24,6 +25,7 @@ public class AugmentManager : MonoBehaviour
     private void Awake()
     {
         _spellCaster = GetComponent<SpellCaster>();
+        _character = GetComponent<Character>();
     }
 
     public bool AddAugment(AugmentData augment)
@@ -49,6 +51,10 @@ public class AugmentManager : MonoBehaviour
             case AugmentEffectType.IamSpeed:
                 _qteManager.ActiverIamSpeed();
                 break;
+
+            case AugmentEffectType.DontTouchMe:
+                _character.ActiverDontTouchMe();
+                break;
         }
 
         _activeAugments.Add(augment);
@@ -68,6 +74,10 @@ public class AugmentManager : MonoBehaviour
 
             case AugmentEffectType.IamSpeed:
                 _qteManager.DesactiverIamSpeed();
+                break;
+
+            case AugmentEffectType.DontTouchMe:
+                _character.DesactiverDontTouchMe();
                 break;
         }
 

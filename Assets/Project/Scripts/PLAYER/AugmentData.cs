@@ -45,6 +45,6 @@ public class AugmentData : ScriptableObject
 public enum AugmentEffectType
 {
     DoubleSort,
-    IamSpeed
-
+    IamSpeed,
+    DontTouchMe
 }

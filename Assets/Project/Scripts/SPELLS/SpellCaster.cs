@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
-using static SpellData;
 
 public class SpellCaster : MonoBehaviour
 {
@@ -379,12 +378,20 @@ public class SpellCaster : MonoBehaviour
 
     private void LancerDeuxiemeProjectile(SpellCastContext context)
     {
-
         GameObject spellObject = Instantiate(context._data._prefab, _launchPoint.position, Quaternion.identity);
 
         ISpell spell = spellObject.GetComponent<ISpell>();
 
         spell.Initialiser(context);
+    }
 
+    public int GetSpellIndex(SpellData spellData)
+    {
+        return Array.IndexOf(_spells, spellData);
+    }
+
+    public void SetTargetPosition(Vector3 targetPosition)
+    {
+        _pendingTargetPosition = targetPosition;
     }
 }

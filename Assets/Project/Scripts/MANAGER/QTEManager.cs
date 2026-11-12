@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class QTEManager : MonoBehaviour
 {
@@ -27,6 +23,7 @@ public class QTEManager : MonoBehaviour
 
     private int _currentStep = 0;
     private bool _qteActive = false;
+    public bool QTEActive => _qteActive;
 
     private float[] _keyTimers = new float[3];
     private bool[] _keyVisible = new bool[3];

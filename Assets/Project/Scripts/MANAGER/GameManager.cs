@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
         spellCaster.SetUIManager(_uiManager);
         spellCaster.SetCamera(Camera.main);
 
+        player.SetQTEManager(_qteManager);
+
         _uiManager.SetPlayer(player);
 
         _enemySpawner.SetPlayer(player);

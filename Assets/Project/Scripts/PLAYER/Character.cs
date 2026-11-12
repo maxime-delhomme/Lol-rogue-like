@@ -7,9 +7,11 @@ public class Character : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] private Camera _camera;
-
     public static Camera CharacterCamera;
     public static Character CurrentCharacter;
+    [SerializeField] private SpellData _dontTouchMeSpellData;
+    private QTEManager _qteManager;
+    private SpellCaster _spellCaster;
 
     [Header("Input")]
     [SerializeField] private InputActionAsset InputActions;
@@ -42,6 +44,9 @@ public class Character : MonoBehaviour
     private int _skillPoints = 100;
     private float _damageGrowth = 0.1f;
     private float _healthGrowth = 0.02f;
+
+    [Header("AugmentBool")]
+    private bool _dontTouchMeActif = false;
 
     [Header("Augment")]
     [SerializeField] private float _qteMoveSpeedMultiplier;
@@ -95,6 +100,8 @@ public class Character : MonoBehaviour
 
         _currentHealth = _data._maxHealth;
         _experienceRequired = CalculateExperienceRequired(_level);
+
+        _spellCaster = GetComponent<SpellCaster>();
     }
 
     private void OnEnable()
@@ -105,6 +112,11 @@ public class Character : MonoBehaviour
     private void OnDisable()
     {
         InputActions.FindActionMap("Player").Disable();
+    }
+
+    public void SetQTEManager(QTEManager qteManager)
+    {
+        _qteManager = qteManager;
     }
 
     private void Update()
@@ -194,6 +206,18 @@ public class Character : MonoBehaviour
         {
             Death();
         }
+
+        if (_dontTouchMeActif)
+        {
+            Debug.Log("aie");
+            int spellIndex = _spellCaster.GetSpellIndex(_dontTouchMeSpellData);
+
+            if (spellIndex >= 0)
+            {
+                _spellCaster.SetTargetPosition(transform.position);
+                _qteManager.DemarrerQTE(_spellCaster, spellIndex);
+            }
+        }
     }
 
     private void Death()
@@ -246,14 +270,6 @@ public class Character : MonoBehaviour
 
     public int CalculateSpellDamage(int spellDamage)
     {
-        Debug.Log(
-            $"Niveau : {_level} | " +
-            $"Dégâts de base : {_data._damage} | " +
-            $"Coefficient : {_damageGrowth} | " +
-            $"Dégâts du personnage : {Damage} | " +
-            $"Dégâts du sort : {spellDamage}"
-        );
-
         float damage = (Damage + spellDamage) * DamageAugments;
 
         bool isCritical = UnityEngine.Random.Range(0f, 100f) < CriticalChance;
@@ -336,5 +352,15 @@ public class Character : MonoBehaviour
 
         _currentMoveSpeedMultiplier = 1f;
         _qteMoveSpeedCoroutine = null;
+    }
+
+    public void ActiverDontTouchMe()
+    {
+        _dontTouchMeActif = true;
+    }
+
+    public void DesactiverDontTouchMe()
+    {
+        _dontTouchMeActif = false;
     }
 }
