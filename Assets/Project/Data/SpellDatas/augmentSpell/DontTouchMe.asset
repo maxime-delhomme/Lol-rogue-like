@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78879d0fdb1b40944b2c0e2f4ae93ad4, type: 3}
+  m_Name: DontTouchMe
+  m_EditorClassIdentifier: Assembly-CSharp::SpellData
+  _category: 1
+  _spellType: 0
+  _prefab: {fileID: 6132264422213108337, guid: 2f76970df05930a4aa7a4caa69de09fa, type: 3}
+  _projectilePrefab: {fileID: 0}
+  _range: 0
+  _damage: 0
+  _impactRadius: 0
+  _width: 0
+  _speed: 0
+  _cooldown: 60
+  _maxCharges: 1
+  _projectileCount: 0
+  _projectileDelay: 0
+  _impactDelay: 0
+  _damageInterval: 0
+  _duration: 0
+  _penetration: 0
+  _BounceOnWalls: 0
+  _normalSpell: {fileID: 0}
+  _improvedSpell: {fileID: 0}
+  _improvedDuration: 0
+  spellTypes: 0
+  numberOfClickNecessary: 1
+  ClicksPositions:
+  - {x: 0, y: 0, z: 0}

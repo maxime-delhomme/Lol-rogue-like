@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -30,6 +31,10 @@ public class Ennemi : MonoBehaviour
     [SerializeField] private GameObject _spellPrefab;
     [SerializeField] private Transform _spellSpawnPoint;
 
+    [Header("Augment")]
+    private bool _isStunned;
+    private Coroutine _stunCoroutine;
+
     public void Initialiser(EnemyData data)
     {
         _data = data;
@@ -58,6 +63,9 @@ public class Ennemi : MonoBehaviour
     private void Update()
     {
         if (_playerTransform == null)
+            return;
+
+        if (_isStunned)
             return;
 
         if (_isAttacking)
@@ -110,7 +118,7 @@ public class Ennemi : MonoBehaviour
 
     public void AppliquerAttaque()
     {
-        if (_isDead)
+        if (_isDead || _isStunned)
             return;
 
 
@@ -213,5 +221,34 @@ public class Ennemi : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    public void Etourdir(float duration)
+    {
+        if (_isDead)
+            return;
+
+        if (_stunCoroutine != null)
+            StopCoroutine(_stunCoroutine);
+
+        _stunCoroutine = StartCoroutine(StunCoroutine(duration));
+    }
+
+    private IEnumerator StunCoroutine(float duration)
+    {
+        _isStunned = true;
+
+        CancelInvoke(nameof(ExecuterAttaque));
+        _isAttacking = false;
+
+        _agent.isStopped = true;
+        _agent.ResetPath();
+
+        yield return new WaitForSeconds(duration);
+
+        _isStunned = false;
+        _agent.isStopped = false;
+
+        _stunCoroutine = null;
     }
 }

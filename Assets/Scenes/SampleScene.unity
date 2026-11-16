@@ -3017,6 +3017,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5de0c6da8e3e44949a4b63d3d0cefecd, type: 2}
   - {fileID: 11400000, guid: b2966fdc7fe41fa4e8cfda2a53d967cd, type: 2}
   - {fileID: 11400000, guid: ec1ae3c762ea7134885d490288016261, type: 2}
+  - {fileID: 11400000, guid: 390d46a6133135f48af6a02c1ef1eb83, type: 2}
   _prismaticAugments:
   - {fileID: 11400000, guid: 6480fe5477adac74a87134e768ee3dcf, type: 2}
   - {fileID: 11400000, guid: 8252e33cdf3704d409623e6494f179cc, type: 2}
