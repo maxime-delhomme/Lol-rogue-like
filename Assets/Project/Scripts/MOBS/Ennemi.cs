@@ -225,6 +225,7 @@ public class Ennemi : MonoBehaviour
 
     public void Etourdir(float duration)
     {
+        Debug.Log("stun");
         if (_isDead)
             return;
 

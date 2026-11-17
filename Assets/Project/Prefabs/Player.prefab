@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
   _camera: {fileID: 0}
-  _dontTouchMeSpellData: {fileID: 11400000, guid: b412feec4b9ab8c4daa0c7b3a4b6e17e, type: 2}
+  _dontTouchMeSpellData: {fileID: 11400000, guid: 665d852a2be9b2348a3402be094225c1, type: 2}
   InputActions: {fileID: -944628639613478452, guid: a7d6baaf0f895084ea40d995bb563914, type: 3}
   _interactionRange: 5
   _interactionLayer:
@@ -167,6 +167,7 @@ MonoBehaviour:
   _data: {fileID: 11400000, guid: c3cf48a4d85dd754eaa2655f8e7b7bd5, type: 2}
   _qteMoveSpeedMultiplier: 1.5
   _qteMoveSpeedDuration: 10
+  _dontTouchMeCooldown: 60
 --- !u!114 &357657529980107206
 MonoBehaviour:
   m_ObjectHideFlags: 0

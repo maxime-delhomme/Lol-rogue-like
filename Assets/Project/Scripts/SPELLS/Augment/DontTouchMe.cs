@@ -12,6 +12,7 @@ public class DontTouchMe : MonoBehaviour, ISpell
 
     public void Initialiser(SpellCastContext context)
     {
+        Debug.Log("dontotuchemoue");
         Vector3 position = context._caster.position;
 
         Collider[] hits = Physics.OverlapSphere(

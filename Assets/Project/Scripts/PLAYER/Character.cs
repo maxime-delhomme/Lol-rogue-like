@@ -53,6 +53,8 @@ public class Character : MonoBehaviour
     [SerializeField] private float _qteMoveSpeedDuration;
     private float _currentMoveSpeedMultiplier = 1f;
     private Coroutine _qteMoveSpeedCoroutine;
+    [SerializeField] private float _dontTouchMeCooldown = 60f;
+    private float _dontTouchMeCooldownTimer;
 
     #region pointers
     [Header("ViewPublic")]
@@ -149,6 +151,12 @@ public class Character : MonoBehaviour
 
             interactable.Interact();
         }
+
+        if (_dontTouchMeCooldownTimer > 0f)
+        {
+            _dontTouchMeCooldownTimer -= Time.deltaTime;
+
+        }
     }
 
     private void FixedUpdate()
@@ -205,17 +213,20 @@ public class Character : MonoBehaviour
         if(_currentHealth <= 0)
         {
             Death();
+            return;
         }
 
-        if (_dontTouchMeActif)
+        if (_dontTouchMeActif && _dontTouchMeCooldownTimer <= 0f && !_qteManager.QTEActive)
         {
-            Debug.Log("aie");
+            
             int spellIndex = _spellCaster.GetSpellIndex(_dontTouchMeSpellData);
 
             if (spellIndex >= 0)
             {
+                Debug.Log("aie");
                 _spellCaster.SetTargetPosition(transform.position);
-                _qteManager.DemarrerQTE(_spellCaster, spellIndex);
+                _qteManager.DemarrerQTE(_spellCaster, spellIndex, false);
+                _dontTouchMeCooldownTimer = _dontTouchMeCooldown;
             }
         }
     }

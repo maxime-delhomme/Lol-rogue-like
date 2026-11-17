@@ -31,7 +31,7 @@ MonoBehaviour:
   _penetration: 0
   _BounceOnWalls: 0
   _normalSpell: {fileID: 0}
-  _improvedSpell: {fileID: 0}
+  _improvedSpell: {fileID: 11400000, guid: 8231162f683d8ee4183b99ccb38fd759, type: 2}
   _improvedDuration: 0
   spellTypes: 0
   numberOfClickNecessary: 1

@@ -28,8 +28,8 @@ public class QTEManager : MonoBehaviour
     private float[] _keyTimers = new float[3];
     private bool[] _keyVisible = new bool[3];
     private float[] _keyDisplayTimers = new float[3];
-
     private int[] _qteSequence = new int[3];
+    private bool _consumeRage = true;
 
     [Header("Touche")]
     private string[] _keyNames =
@@ -148,10 +148,11 @@ public class QTEManager : MonoBehaviour
         }
     }
 
-    public void DemarrerQTE(SpellCaster spellCaster, int spellIndex)
+    public void DemarrerQTE(SpellCaster spellCaster, int spellIndex, bool consumeRage = true)
     {
         _spellCaster = spellCaster;
         _spellIndex = spellIndex;
+        _consumeRage = consumeRage;
 
         _currentStep = 0;
         _qteActive = true;
@@ -229,9 +230,14 @@ public class QTEManager : MonoBehaviour
 
         _uiManager.CacherUI();
 
+
         _spellCaster.LancerSort(_spellIndex, true);
 
-        _player.ConsommerRage();
+
+        if (_consumeRage)
+        {
+            _player.ConsommerRage();
+        }
         
         if (_iamSpeedActif)
         {
@@ -250,8 +256,14 @@ public class QTEManager : MonoBehaviour
 
         _uiManager.CacherUI();
 
+
         _spellCaster.LancerSort(_spellIndex, false);
-        _player.ConsommerRage();
+
+
+        if (_consumeRage)
+        {
+            _player.ConsommerRage();
+        }
 
     }
 
